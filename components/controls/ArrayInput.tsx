@@ -28,13 +28,13 @@ export function ArrayInput() {
   }
 
   return (
-    <div className="flex flex-col gap-2">
-      <label className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+    <div className="flex flex-col gap-2 rounded-lg bg-[hsl(var(--surface-container-lowest))] p-4">
+      <label className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
         Array values
       </label>
       <div className="flex gap-2">
         <input
-          className="min-w-0 flex-1 rounded-md border border-border bg-white px-3 py-2 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+          className="min-w-0 flex-1 border-b-2 border-[hsl(var(--surface-container-highest))] bg-transparent px-0 py-2 text-sm outline-none transition focus:border-primary"
           onBlur={() => applyArray()}
           onChange={(event) => setValue(event.target.value)}
           onKeyDown={(event) => {

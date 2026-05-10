@@ -23,7 +23,7 @@ export function CodePanel({ highlightedCode }: { highlightedCode: string }) {
   }, [codeLine])
 
   return (
-    <div className="h-[360px] overflow-auto rounded-lg border border-border bg-white text-sm shadow-sm">
+    <div className="h-[560px] overflow-auto rounded-lg bg-[hsl(var(--surface-container-low))] text-sm">
       <div
         className="min-w-max p-4"
         dangerouslySetInnerHTML={{ __html: highlightedCode }}

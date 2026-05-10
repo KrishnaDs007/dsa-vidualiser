@@ -1,0 +1,199 @@
+'use client'
+
+import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
+import type React from 'react'
+import { useEffect } from 'react'
+import {
+  BarChart3,
+  BookOpen,
+  Boxes,
+  GitBranch,
+  Home,
+  Layers3,
+  LayoutDashboard,
+  LogOut,
+  Network,
+  Plus,
+  Search,
+  Sparkles,
+  TerminalSquare,
+  Trees
+} from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+import { useAuthStore } from '@/store/authStore'
+
+const primaryNav = [
+  { label: 'Explore', href: '/', icon: Home },
+  { label: 'Visualizer', href: '/sorting', icon: BarChart3 },
+  { label: 'Documentation', href: '/docs', icon: BookOpen }
+]
+
+const sideNav = [
+  { label: 'Sorting', href: '/sorting', icon: Layers3 },
+  { label: 'Searching', href: '/search', icon: Search },
+  { label: 'Graphs', href: '/graphs', icon: Network },
+  { label: 'Trees', href: '/trees', icon: Trees },
+  { label: 'Dynamic Programming', href: '/dynamic-programming', icon: Boxes },
+  { label: 'Custom Code Visualizer', href: '/custom-visualizer', icon: TerminalSquare, gated: true }
+]
+
+export function AppShell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname()
+  const router = useRouter()
+  const user = useAuthStore((state) => state.user)
+  const flash = useAuthStore((state) => state.flash)
+  const hydrate = useAuthStore((state) => state.hydrate)
+  const logout = useAuthStore((state) => state.logout)
+  const setFlash = useAuthStore((state) => state.setFlash)
+
+  useEffect(() => {
+    hydrate()
+  }, [hydrate])
+
+  useEffect(() => {
+    if (!flash) return
+
+    const id = window.setTimeout(() => setFlash(null), 4200)
+    return () => window.clearTimeout(id)
+  }, [flash, setFlash])
+
+  function handleGatedNav(event: React.MouseEvent<HTMLAnchorElement>, href: string) {
+    if (href !== '/custom-visualizer' || user) return
+
+    event.preventDefault()
+    setFlash('Please sign in before opening the custom code visualizer.')
+    router.push('/login?next=/custom-visualizer')
+  }
+
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      <header className="sticky top-0 z-40 flex h-20 items-center gap-6 bg-background/90 px-5 backdrop-blur-xl lg:px-8">
+        <Link className="mr-4 text-2xl font-bold tracking-tight text-foreground" href="/">
+          AlgoPrecision
+        </Link>
+
+        <nav className="hidden items-center gap-8 md:flex">
+          {primaryNav.map((item) => {
+            const active = pathname === item.href
+            return (
+              <Link
+                className={cn(
+                  'border-b-2 border-transparent pb-2 text-sm text-foreground/82 transition hover:text-primary',
+                  active && 'border-primary text-primary'
+                )}
+                href={item.href}
+                key={item.href}
+              >
+                {item.label}
+              </Link>
+            )
+          })}
+        </nav>
+
+        <div className="ml-auto hidden h-10 w-[320px] items-center gap-3 rounded-md bg-[hsl(var(--surface-container-highest))] px-4 text-muted-foreground lg:flex">
+          <Search className="h-4 w-4" />
+          <span className="text-sm">Search algorithms...</span>
+        </div>
+
+        {user ? (
+          <div className="flex items-center gap-2">
+            <Button asChild variant="ghost">
+              <Link href="/dashboard">{user.name}</Link>
+            </Button>
+            <Button aria-label="Sign out" onClick={logout} size="icon" variant="outline">
+              <LogOut className="h-4 w-4" />
+            </Button>
+          </div>
+        ) : (
+          <Button asChild>
+            <Link href="/login">Sign In</Link>
+          </Button>
+        )}
+      </header>
+
+      <div className="grid min-h-[calc(100vh-80px)] lg:grid-cols-[320px_minmax(0,1fr)]">
+        <aside className="bg-background px-5 py-10 lg:min-h-[calc(100vh-80px)] lg:px-8">
+          <div className="mb-7 flex items-center gap-4">
+            <div className="grid h-12 w-12 place-items-center rounded-lg bg-[hsl(var(--surface-container-highest))] text-primary">
+              <GitBranch className="h-6 w-6" />
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.22em]">Algorithm Library</p>
+              <p className="font-mono text-xs text-muted-foreground">Precision Blueprint v1.0</p>
+            </div>
+          </div>
+
+          <Button asChild className="mb-10 w-full justify-center uppercase tracking-[0.18em]" variant="secondary">
+            <Link href="/custom-visualizer" onClick={(event) => handleGatedNav(event, '/custom-visualizer')}>
+              <Plus className="h-4 w-4" /> New Visualization
+            </Link>
+          </Button>
+
+          <nav className="flex flex-col gap-2">
+            {user && (
+              <SideLink href="/dashboard" icon={LayoutDashboard} label="Dashboard" pathname={pathname} />
+            )}
+            {sideNav.map((item) => (
+              <SideLink
+                gated={item.gated}
+                href={item.href}
+                icon={item.icon}
+                key={item.href}
+                label={item.label}
+                onClick={handleGatedNav}
+                pathname={pathname}
+              />
+            ))}
+          </nav>
+        </aside>
+
+        <div className="min-w-0 px-5 pb-20 pt-8 lg:px-8">
+          {flash && (
+            <div className="fixed right-5 top-24 z-50 max-w-sm rounded-md bg-[hsl(var(--surface))]/90 px-4 py-3 text-sm shadow-[0_20px_40px_rgba(27,28,24,0.08)] backdrop-blur-xl">
+              <div className="flex items-start gap-3">
+                <Sparkles className="mt-0.5 h-4 w-4 text-primary" />
+                <p>{flash}</p>
+              </div>
+            </div>
+          )}
+          {children}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function SideLink({
+  href,
+  icon: Icon,
+  label,
+  pathname,
+  gated,
+  onClick
+}: {
+  href: string
+  icon: React.ComponentType<{ className?: string }>
+  label: string
+  pathname: string
+  gated?: boolean
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement>, href: string) => void
+}) {
+  const active = pathname === href
+
+  return (
+    <Link
+      className={cn(
+        'group flex min-h-14 items-center gap-5 rounded-md px-5 text-sm font-bold uppercase tracking-[0.18em] text-muted-foreground transition hover:bg-[hsl(var(--surface-container-low))] hover:text-primary',
+        active && 'bg-[hsl(var(--surface-container-highest))] text-primary'
+      )}
+      data-gated={gated ? 'true' : undefined}
+      href={href}
+      onClick={(event) => onClick?.(event, href)}
+    >
+      <Icon className="h-5 w-5 shrink-0" />
+      <span>{label}</span>
+    </Link>
+  )
+}
