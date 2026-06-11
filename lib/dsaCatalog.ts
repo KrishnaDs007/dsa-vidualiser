@@ -126,9 +126,9 @@ export const DSA_CATALOG: DsaCategory[] = [
     description:
       'State transitions, memoization, tabulation grids, and optimized recurrence views.',
     topics: [
-      { name: 'Fibonacci', status: 'planned', patterns: ['Memoization', 'Tabulation'] },
-      { name: 'Climbing Stairs', status: 'planned', patterns: ['1D DP'] },
-      { name: 'Coin Change', status: 'planned', patterns: ['Unbounded knapsack'] },
+      { name: 'Fibonacci', status: 'ready', patterns: ['Memoization', 'Tabulation'] },
+      { name: 'Climbing Stairs', status: 'ready', patterns: ['1D DP'] },
+      { name: 'Coin Change', status: 'ready', patterns: ['Unbounded knapsack'] },
       { name: '0/1 Knapsack', status: 'planned', patterns: ['2D DP'] },
       { name: 'Longest Common Subsequence', status: 'planned', patterns: ['2D DP'] },
       { name: 'Longest Increasing Subsequence', status: 'planned', patterns: ['DP with binary search'] }

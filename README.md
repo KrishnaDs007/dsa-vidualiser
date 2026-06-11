@@ -11,6 +11,8 @@ custom code visualization workspace.
 - Search visualizer with Linear Search and Binary Search.
 - Tree visualizer with BST Insert, BST Search, and Inorder Traversal.
 - Graph visualizer with BFS, DFS, and Dijkstra on a weighted directed graph.
+- Dynamic Programming visualizer with Fibonacci, Climbing Stairs, and Coin
+  Change state tables.
 - Step controls, speed control, custom array input, animated bars, and synced
   pseudocode highlighting.
 - Local profile/dashboard flow with a temporary cap of 10 saved custom code
@@ -29,9 +31,11 @@ custom code visualization workspace.
    preorder, postorder, level-order, LCA, and trie workflows are next.
 4. Graphs foundation: BFS, DFS, and Dijkstra are complete; topological sort,
    union find, and MST are next.
-5. Custom code visualization: language selector, persisted source code,
+5. Dynamic Programming foundation: Fibonacci, Climbing Stairs, and Coin Change
+   are complete; 0/1 Knapsack, LCS, and LIS are next.
+6. Custom code visualization: language selector, persisted source code,
    step-by-step tracing, and per-step time/space complexity updates.
-6. Backend sync: deferred until the local-first profile and visualizer flows are
+7. Backend sync: deferred until the local-first profile and visualizer flows are
    stable.
 
 ## Run locally

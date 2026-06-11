@@ -58,3 +58,21 @@ export interface GraphStep {
   codeLine: number
   note: string
 }
+
+export interface DpCell {
+  id: string
+  label: string
+  value: string
+}
+
+export interface DpStep {
+  cells: DpCell[]
+  activeCellId: string | null
+  dependencyCellIds: string[]
+  completedCellIds: string[]
+  result: string
+  timeComplexity: string
+  spaceComplexity: string
+  codeLine: number
+  note: string
+}
