@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { ArrowRight, Columns3, TerminalSquare } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { getLanguageLabel } from '@/lib/customCode'
 import { MAX_SAVED_ANALYSES, useAuthStore } from '@/store/authStore'
 
 const pinned = [
@@ -101,9 +102,15 @@ export default function DashboardPage() {
                 key={item.id}
               >
                 <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  {new Date(item.createdAt).toLocaleDateString()}
+                  {new Date(item.createdAt).toLocaleDateString()} /{' '}
+                  {item.language ? getLanguageLabel(item.language) : 'Legacy'}
                 </p>
                 <h3 className="mt-4 text-xl font-black">{item.title}</h3>
+                {item.code && (
+                  <pre className="mt-4 max-h-28 overflow-hidden rounded-md bg-white p-4 text-xs leading-5 text-foreground/70">
+                    {item.code}
+                  </pre>
+                )}
                 <div className="mt-5 flex flex-wrap gap-3 font-mono text-xs">
                   <span className="rounded-sm bg-emerald-200 px-3 py-1 text-emerald-900">
                     Time {item.timeComplexity}

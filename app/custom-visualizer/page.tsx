@@ -6,19 +6,13 @@ import type React from 'react'
 import { useEffect, useMemo, useState } from 'react'
 import { ArrowRight, Cpu, HardDrive, Save } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import {
+  CUSTOM_CODE_LANGUAGES,
+  analyzeComplexity,
+  getLanguageSample,
+  type CustomCodeLanguageId
+} from '@/lib/customCode'
 import { useAuthStore } from '@/store/authStore'
-
-const sampleCode = `function twoSum(nums, target) {
-  const seen = new Map()
-
-  for (let i = 0; i < nums.length; i++) {
-    const pair = target - nums[i]
-    if (seen.has(pair)) return [seen.get(pair), i]
-    seen.set(nums[i], i)
-  }
-
-  return []
-}`
 
 export default function CustomVisualizerPage() {
   const router = useRouter()
@@ -27,9 +21,10 @@ export default function CustomVisualizerPage() {
   const setFlash = useAuthStore((state) => state.setFlash)
   const saveAnalysis = useAuthStore((state) => state.saveAnalysis)
   const [title, setTitle] = useState('Custom Complexity Read')
-  const [code, setCode] = useState(sampleCode)
+  const [language, setLanguage] = useState<CustomCodeLanguageId>('javascript')
+  const [code, setCode] = useState(getLanguageSample('javascript'))
 
-  const result = useMemo(() => analyzeComplexity(code), [code])
+  const result = useMemo(() => analyzeComplexity(code, language), [code, language])
 
   useEffect(() => {
     if (!hydrated || user) return
@@ -51,15 +46,17 @@ export default function CustomVisualizerPage() {
             Complexity Blueprint
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-7 text-foreground/75">
-            Paste code to visualize only its estimated time and space complexity.
-            The analysis focuses on loops, nesting, recursion, and memory-shaped
-            declarations.
+            Paste code to estimate time and space complexity across the
+            supported language set. Step tracing comes next on top of this
+            saved source model.
           </p>
         </div>
         <Button
           onClick={() =>
             saveAnalysis({
               title,
+              language,
+              code,
               timeComplexity: result.time,
               spaceComplexity: result.space
             })
@@ -79,6 +76,34 @@ export default function CustomVisualizerPage() {
             onChange={(event) => setTitle(event.target.value)}
             value={title}
           />
+
+          <div className="mt-8 grid gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-[0.18em]">
+                Language
+              </label>
+              <select
+                className="mt-3 h-11 w-full rounded-md bg-[hsl(var(--surface-container-lowest))] px-3 text-sm outline-none transition focus:ring-2 focus:ring-primary/25"
+                onChange={(event) =>
+                  setLanguage(event.target.value as CustomCodeLanguageId)
+                }
+                value={language}
+              >
+                {CUSTOM_CODE_LANGUAGES.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <Button
+              onClick={() => setCode(getLanguageSample(language))}
+              type="button"
+              variant="secondary"
+            >
+              Load Sample
+            </Button>
+          </div>
 
           <label className="mt-8 block text-xs font-bold uppercase tracking-[0.18em]">
             Code
@@ -150,66 +175,4 @@ function Metric({
       <p className="mt-3 text-sm leading-6 text-foreground/72">{description}</p>
     </article>
   )
-}
-
-function analyzeComplexity(code: string) {
-  const normalized = code.toLowerCase()
-  const loopCount = (normalized.match(/\b(for|while|foreach|map|filter|reduce)\b/g) ?? [])
-    .length
-  const recursiveName = normalized.match(/function\s+([a-z0-9_]+)/)?.[1]
-  const recursiveCalls = recursiveName
-    ? (normalized.match(new RegExp(`\\b${recursiveName}\\s*\\(`, 'g')) ?? []).length - 1
-    : 0
-  const divideSignal = /\/\s*2|>>\s*1|mid|binary/.test(normalized)
-  const collectionSignal = /\b(new map|new set|\[\]|{}|push\(|set\(|object|array)\b/.test(
-    normalized
-  )
-  const matrixSignal = /\bmatrix|grid|rows|cols\b/.test(normalized)
-
-  let time = 'O(1)'
-  let timeReason = 'No clear loop or recursion signal was detected.'
-
-  if (recursiveCalls > 1 && divideSignal) {
-    time = 'O(n log n)'
-    timeReason = 'Recursive branching plus divide-style signals suggest logarithmic layers over linear work.'
-  } else if (recursiveCalls > 0 && divideSignal) {
-    time = 'O(log n)'
-    timeReason = 'A recursive divide signal suggests logarithmic progression.'
-  } else if (loopCount >= 2) {
-    time = 'O(n²)'
-    timeReason = 'Multiple iteration signals suggest nested or repeated linear scans.'
-  } else if (loopCount === 1) {
-    time = 'O(n)'
-    timeReason = 'One primary iteration signal suggests linear traversal.'
-  } else if (recursiveCalls > 0) {
-    time = 'O(n)'
-    timeReason = 'Recursion without a divide signal is treated as linear by default.'
-  }
-
-  let space = 'O(1)'
-  let spaceReason = 'No growing collection or recursion stack signal was detected.'
-
-  if (matrixSignal) {
-    space = 'O(n²)'
-    spaceReason = 'Matrix or grid-shaped terms suggest two-dimensional storage.'
-  } else if (collectionSignal) {
-    space = 'O(n)'
-    spaceReason = 'Growing collection signals suggest linear auxiliary storage.'
-  } else if (recursiveCalls > 0) {
-    space = divideSignal ? 'O(log n)' : 'O(n)'
-    spaceReason = 'Recursive calls add stack usage even without explicit collections.'
-  }
-
-  return {
-    time,
-    space,
-    timeReason,
-    spaceReason,
-    signals: [
-      `${loopCount} loop or iterator signal${loopCount === 1 ? '' : 's'}`,
-      `${Math.max(recursiveCalls, 0)} recursive call signal${recursiveCalls === 1 ? '' : 's'}`,
-      divideSignal ? 'Divide-and-conquer signal present' : 'No divide signal',
-      collectionSignal ? 'Auxiliary collection signal present' : 'No growing collection signal'
-    ]
-  }
 }

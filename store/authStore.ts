@@ -5,9 +5,12 @@ import { create } from 'zustand'
 export interface SavedAnalysis {
   id: string
   title: string
+  language?: string
+  code?: string
   timeComplexity: string
   spaceComplexity: string
   createdAt: string
+  updatedAt?: string
 }
 
 interface User {
@@ -30,7 +33,9 @@ interface AuthStore {
   signup: (name: string, email: string, password: string) => boolean
   logout: () => void
   setFlash: (message: string | null) => void
-  saveAnalysis: (analysis: Omit<SavedAnalysis, 'id' | 'createdAt'>) => void
+  saveAnalysis: (
+    analysis: Omit<SavedAnalysis, 'id' | 'createdAt' | 'updatedAt'>
+  ) => void
 }
 
 const USERS_KEY = 'algo-precision-users'
@@ -132,7 +137,8 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     const nextAnalysis: SavedAnalysis = {
       ...analysis,
       id: crypto.randomUUID(),
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     }
     const users = readUsers()
     const nextUsers = users.map((item) =>

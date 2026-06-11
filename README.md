@@ -20,7 +20,8 @@ custom code visualization workspace.
 - DSA roadmap catalog grouped by sorting, searching, hashing, stacks/queues,
   linked lists, trees, graphs, dynamic programming, arrays/strings,
   backtracking, and greedy methods.
-- Initial custom code complexity estimator for JavaScript-style snippets.
+- Custom code complexity estimator with language selection for JavaScript /
+  Node.js, TypeScript, Python, Java, C++, C, and C# snippets.
 
 ## Step-by-step roadmap
 
