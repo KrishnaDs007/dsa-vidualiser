@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import { ArrowRight, Columns3, TerminalSquare } from 'lucide-react'
+import { ArrowRight, Columns3, Copy, Pencil, TerminalSquare, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { getLanguageLabel } from '@/lib/customCode'
 import { MAX_SAVED_ANALYSES, useAuthStore } from '@/store/authStore'
@@ -26,6 +26,8 @@ export default function DashboardPage() {
   const user = useAuthStore((state) => state.user)
   const hydrated = useAuthStore((state) => state.hydrated)
   const analyses = useAuthStore((state) => state.analyses)
+  const deleteAnalysis = useAuthStore((state) => state.deleteAnalysis)
+  const duplicateAnalysis = useAuthStore((state) => state.duplicateAnalysis)
   const setFlash = useAuthStore((state) => state.setFlash)
 
   useEffect(() => {
@@ -118,6 +120,29 @@ export default function DashboardPage() {
                   <span className="rounded-sm bg-violet-100 px-3 py-1 text-primary">
                     Space {item.spaceComplexity}
                   </span>
+                </div>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  <Button asChild size="sm" variant="secondary">
+                    <Link href={`/custom-visualizer?id=${item.id}`}>
+                      <Pencil className="h-4 w-4" /> Open
+                    </Link>
+                  </Button>
+                  <Button
+                    onClick={() => duplicateAnalysis(item.id)}
+                    size="sm"
+                    type="button"
+                    variant="outline"
+                  >
+                    <Copy className="h-4 w-4" /> Duplicate
+                  </Button>
+                  <Button
+                    onClick={() => deleteAnalysis(item.id)}
+                    size="sm"
+                    type="button"
+                    variant="outline"
+                  >
+                    <Trash2 className="h-4 w-4" /> Delete
+                  </Button>
                 </div>
               </article>
             ))

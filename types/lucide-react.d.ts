@@ -8,6 +8,7 @@ declare module 'lucide-react' {
   export const BookOpen: LucideIcon
   export const Boxes: LucideIcon
   export const Columns3: LucideIcon
+  export const Copy: LucideIcon
   export const Cpu: LucideIcon
   export const GitBranch: LucideIcon
   export const GitMerge: LucideIcon
@@ -18,6 +19,7 @@ declare module 'lucide-react' {
   export const LogOut: LucideIcon
   export const Network: LucideIcon
   export const Pause: LucideIcon
+  export const Pencil: LucideIcon
   export const Play: LucideIcon
   export const Plus: LucideIcon
   export const RotateCcw: LucideIcon
@@ -29,6 +31,7 @@ declare module 'lucide-react' {
   export const StepBack: LucideIcon
   export const StepForward: LucideIcon
   export const TerminalSquare: LucideIcon
+  export const Trash2: LucideIcon
   export const Trees: LucideIcon
   export const Zap: LucideIcon
 }

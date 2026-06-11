@@ -1,30 +1,46 @@
 'use client'
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import type React from 'react'
-import { useEffect, useMemo, useState } from 'react'
+import { Suspense, useEffect, useMemo, useState } from 'react'
 import { ArrowRight, Cpu, HardDrive, Save } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   CUSTOM_CODE_LANGUAGES,
   analyzeComplexity,
   getLanguageSample,
+  isCustomCodeLanguageId,
   type CustomCodeLanguageId
 } from '@/lib/customCode'
 import { useAuthStore } from '@/store/authStore'
 
 export default function CustomVisualizerPage() {
+  return (
+    <Suspense>
+      <CustomVisualizerForm />
+    </Suspense>
+  )
+}
+
+function CustomVisualizerForm() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const editId = searchParams.get('id')
   const user = useAuthStore((state) => state.user)
   const hydrated = useAuthStore((state) => state.hydrated)
+  const analyses = useAuthStore((state) => state.analyses)
   const setFlash = useAuthStore((state) => state.setFlash)
   const saveAnalysis = useAuthStore((state) => state.saveAnalysis)
+  const updateAnalysis = useAuthStore((state) => state.updateAnalysis)
   const [title, setTitle] = useState('Custom Complexity Read')
   const [language, setLanguage] = useState<CustomCodeLanguageId>('javascript')
   const [code, setCode] = useState(getLanguageSample('javascript'))
 
   const result = useMemo(() => analyzeComplexity(code, language), [code, language])
+  const editingAnalysis = editId
+    ? analyses.find((analysis) => analysis.id === editId)
+    : undefined
 
   useEffect(() => {
     if (!hydrated || user) return
@@ -33,7 +49,40 @@ export default function CustomVisualizerPage() {
     router.push('/login?next=/custom-visualizer')
   }, [hydrated, router, setFlash, user])
 
+  useEffect(() => {
+    if (!editId || !hydrated || !user) return
+
+    if (!editingAnalysis) {
+      setFlash('That saved custom visualizer could not be found.')
+      router.push('/dashboard')
+      return
+    }
+
+    setTitle(editingAnalysis.title)
+    if (isCustomCodeLanguageId(editingAnalysis.language)) {
+      setLanguage(editingAnalysis.language)
+    }
+    setCode(editingAnalysis.code ?? getLanguageSample('javascript'))
+  }, [editId, editingAnalysis, hydrated, router, setFlash, user])
+
   if (!user) return null
+
+  function persistAnalysis() {
+    const payload = {
+      title,
+      language,
+      code,
+      timeComplexity: result.time,
+      spaceComplexity: result.space
+    }
+
+    if (editId && editingAnalysis) {
+      updateAnalysis(editId, payload)
+      return
+    }
+
+    saveAnalysis(payload)
+  }
 
   return (
     <main className="mx-auto max-w-7xl">
@@ -51,18 +100,8 @@ export default function CustomVisualizerPage() {
             saved source model.
           </p>
         </div>
-        <Button
-          onClick={() =>
-            saveAnalysis({
-              title,
-              language,
-              code,
-              timeComplexity: result.time,
-              spaceComplexity: result.space
-            })
-          }
-        >
-          Save <Save className="h-4 w-4" />
+        <Button onClick={persistAnalysis}>
+          {editId ? 'Update' : 'Save'} <Save className="h-4 w-4" />
         </Button>
       </div>
 

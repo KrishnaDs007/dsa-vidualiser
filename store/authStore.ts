@@ -36,6 +36,12 @@ interface AuthStore {
   saveAnalysis: (
     analysis: Omit<SavedAnalysis, 'id' | 'createdAt' | 'updatedAt'>
   ) => void
+  updateAnalysis: (
+    id: string,
+    analysis: Omit<SavedAnalysis, 'id' | 'createdAt' | 'updatedAt'>
+  ) => void
+  deleteAnalysis: (id: string) => void
+  duplicateAnalysis: (id: string) => void
 }
 
 const USERS_KEY = 'algo-precision-users'
@@ -61,6 +67,26 @@ function publicUser(user: StoredUser): User {
     name: user.name,
     email: user.email
   }
+}
+
+function updateStoredAnalyses(
+  email: string,
+  update: (analyses: SavedAnalysis[]) => SavedAnalysis[]
+) {
+  const users = readUsers()
+  let nextAnalyses: SavedAnalysis[] = []
+  const nextUsers = users.map((item) => {
+    if (item.email !== email) return item
+
+    nextAnalyses = update(item.analyses ?? []).slice(0, MAX_SAVED_ANALYSES)
+    return {
+      ...item,
+      analyses: nextAnalyses
+    }
+  })
+
+  writeUsers(nextUsers)
+  return nextAnalyses
 }
 
 export const useAuthStore = create<AuthStore>((set, get) => ({
@@ -158,5 +184,84 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       analyses: [nextAnalysis, ...state.analyses].slice(0, MAX_SAVED_ANALYSES),
       flash: 'Custom visualizer saved to your dashboard.'
     }))
+  },
+  updateAnalysis: (id, analysis) => {
+    const { user } = get()
+    if (!user) {
+      set({ flash: 'Please sign in before updating a custom visualizer.' })
+      return
+    }
+
+    const updatedAt = new Date().toISOString()
+    const nextAnalyses = updateStoredAnalyses(user.email, (analyses) =>
+      analyses.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              ...analysis,
+              updatedAt
+            }
+          : item
+      )
+    )
+
+    set({
+      analyses: nextAnalyses,
+      flash: 'Custom visualizer updated.'
+    })
+  },
+  deleteAnalysis: (id) => {
+    const { user } = get()
+    if (!user) {
+      set({ flash: 'Please sign in before deleting a custom visualizer.' })
+      return
+    }
+
+    const nextAnalyses = updateStoredAnalyses(user.email, (analyses) =>
+      analyses.filter((item) => item.id !== id)
+    )
+
+    set({
+      analyses: nextAnalyses,
+      flash: 'Custom visualizer deleted.'
+    })
+  },
+  duplicateAnalysis: (id) => {
+    const { user, analyses } = get()
+    if (!user) {
+      set({ flash: 'Please sign in before duplicating a custom visualizer.' })
+      return
+    }
+
+    if (analyses.length >= MAX_SAVED_ANALYSES) {
+      set({
+        flash: `You can save up to ${MAX_SAVED_ANALYSES} custom visualizers for now. Delete one before duplicating.`
+      })
+      return
+    }
+
+    const source = analyses.find((item) => item.id === id)
+    if (!source) {
+      set({ flash: 'That custom visualizer could not be found.' })
+      return
+    }
+
+    const now = new Date().toISOString()
+    const duplicate: SavedAnalysis = {
+      ...source,
+      id: crypto.randomUUID(),
+      title: `${source.title} Copy`,
+      createdAt: now,
+      updatedAt: now
+    }
+    const nextAnalyses = updateStoredAnalyses(user.email, (items) => [
+      duplicate,
+      ...items
+    ])
+
+    set({
+      analyses: nextAnalyses,
+      flash: 'Custom visualizer duplicated.'
+    })
   }
 }))

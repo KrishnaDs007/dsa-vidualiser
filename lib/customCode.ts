@@ -102,6 +102,12 @@ export const CUSTOM_CODE_LANGUAGES = [
 
 export type CustomCodeLanguageId = (typeof CUSTOM_CODE_LANGUAGES)[number]['id']
 
+export function isCustomCodeLanguageId(
+  value?: string
+): value is CustomCodeLanguageId {
+  return Boolean(CUSTOM_CODE_LANGUAGES.some((language) => language.id === value))
+}
+
 export function getLanguageLabel(id: string) {
   return (
     CUSTOM_CODE_LANGUAGES.find((language) => language.id === id)?.label ??
