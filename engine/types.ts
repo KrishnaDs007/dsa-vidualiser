@@ -10,6 +10,7 @@ export interface SortStep {
 export interface TreeNode {
   id: string
   value: number
+  parentId?: string
   x: number
   y: number
 }
@@ -19,6 +20,7 @@ export interface TreeStep {
   highlightedId: string | null
   visitedIds: string[]
   codeLine: number
+  note: string
 }
 
 export interface SearchStep {
@@ -28,6 +30,31 @@ export interface SearchStep {
   activeRange: number[]
   eliminated: number[]
   foundIndex: number | null
+  codeLine: number
+  note: string
+}
+
+export interface GraphNode {
+  id: string
+  label: string
+  x: number
+  y: number
+}
+
+export interface GraphEdge {
+  source: string
+  target: string
+  weight: number
+}
+
+export interface GraphStep {
+  nodes: GraphNode[]
+  edges: GraphEdge[]
+  activeNodeId: string | null
+  visitedNodeIds: string[]
+  frontierNodeIds: string[]
+  settledNodeIds: string[]
+  distances: Record<string, number>
   codeLine: number
   note: string
 }

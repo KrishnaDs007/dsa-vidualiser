@@ -97,8 +97,8 @@ export const DSA_CATALOG: DsaCategory[] = [
     description:
       'Hierarchical traversals, search trees, recursion, and level-order state.',
     topics: [
-      { name: 'BST Insert / Search', status: 'planned', patterns: ['Binary search tree'] },
-      { name: 'Inorder Traversal', status: 'planned', patterns: ['DFS'] },
+      { name: 'BST Insert / Search', status: 'ready', patterns: ['Binary search tree'] },
+      { name: 'Inorder Traversal', status: 'ready', patterns: ['DFS'] },
       { name: 'Preorder Traversal', status: 'planned', patterns: ['DFS'] },
       { name: 'Postorder Traversal', status: 'planned', patterns: ['DFS'] },
       { name: 'Level Order Traversal', status: 'planned', patterns: ['BFS', 'Queue'] },
@@ -112,9 +112,9 @@ export const DSA_CATALOG: DsaCategory[] = [
     description:
       'Node and edge exploration with visited sets, shortest paths, and ordering.',
     topics: [
-      { name: 'BFS', status: 'planned', patterns: ['Queue', 'Visited set'] },
-      { name: 'DFS', status: 'planned', patterns: ['Recursion', 'Stack'] },
-      { name: 'Dijkstra', status: 'planned', patterns: ['Priority queue'] },
+      { name: 'BFS', status: 'ready', patterns: ['Queue', 'Visited set'] },
+      { name: 'DFS', status: 'ready', patterns: ['Recursion', 'Stack'] },
+      { name: 'Dijkstra', status: 'ready', patterns: ['Priority queue'] },
       { name: 'Topological Sort', status: 'planned', patterns: ['DAG ordering'] },
       { name: 'Union Find', status: 'planned', patterns: ['Disjoint set'] },
       { name: 'Minimum Spanning Tree', status: 'planned', patterns: ['Kruskal', 'Prim'] }

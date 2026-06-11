@@ -1,14 +1,36 @@
-export default function GraphsPage() {
+import { codeToHtml } from 'shiki'
+import { GraphView } from '@/components/graphs/GraphView'
+import {
+  GRAPH_PSEUDOCODE,
+  isGraphAlgorithmId
+} from '@/engine/graphs'
+
+export default async function GraphsPage({
+  searchParams
+}: {
+  searchParams: { algo?: string; start?: string }
+}) {
+  const initialAlgo = isGraphAlgorithmId(searchParams.algo)
+    ? searchParams.algo
+    : 'bfs'
+  const initialStartId = searchParams.start ?? 'a'
+  const highlightedCodeByAlgo = Object.fromEntries(
+    await Promise.all(
+      Object.entries(GRAPH_PSEUDOCODE).map(async ([id, code]) => [
+        id,
+        await codeToHtml(code, {
+          lang: 'typescript',
+          theme: 'github-light'
+        })
+      ])
+    )
+  ) as Record<keyof typeof GRAPH_PSEUDOCODE, string>
+
   return (
-    <main className="mx-auto max-w-4xl">
-      <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-primary">
-        Planned Visualizer
-      </p>
-      <h1 className="mt-4 text-4xl font-black tracking-tight">Graphs</h1>
-      <p className="mt-5 text-base leading-7 text-foreground/75">
-        Planned for step 3: graph BFS, DFS, and Dijkstra with animated SVG
-        edges and visited-state snapshots.
-      </p>
-    </main>
+    <GraphView
+      highlightedCodeByAlgo={highlightedCodeByAlgo}
+      initialAlgo={initialAlgo}
+      initialStartId={initialStartId}
+    />
   )
 }

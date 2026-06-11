@@ -1,14 +1,39 @@
-export default function TreesPage() {
+import { codeToHtml } from 'shiki'
+import { TreeView } from '@/components/trees/TreeView'
+import { BST_PSEUDOCODE, isBstAlgorithmId } from '@/engine/trees'
+import { parseArrayParam } from '@/lib/array'
+
+export default async function TreesPage({
+  searchParams
+}: {
+  searchParams: { algo?: string; values?: string; target?: string }
+}) {
+  const initialAlgo = isBstAlgorithmId(searchParams.algo)
+    ? searchParams.algo
+    : 'insert'
+  const initialValues = parseArrayParam(searchParams.values)
+  const parsedTarget = Number.parseInt(searchParams.target ?? '', 10)
+  const initialTarget = Number.isFinite(parsedTarget)
+    ? parsedTarget
+    : initialValues[0]
+  const highlightedCodeByAlgo = Object.fromEntries(
+    await Promise.all(
+      Object.entries(BST_PSEUDOCODE).map(async ([id, code]) => [
+        id,
+        await codeToHtml(code, {
+          lang: 'typescript',
+          theme: 'github-light'
+        })
+      ])
+    )
+  ) as Record<keyof typeof BST_PSEUDOCODE, string>
+
   return (
-    <main className="mx-auto max-w-4xl">
-      <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-primary">
-        Planned Visualizer
-      </p>
-      <h1 className="mt-4 text-4xl font-black tracking-tight">Trees</h1>
-      <p className="mt-5 text-base leading-7 text-foreground/75">
-        Planned for step 2: binary search tree insert, search, and traversal
-        visualizations using the same generator-frame architecture.
-      </p>
-    </main>
+    <TreeView
+      highlightedCodeByAlgo={highlightedCodeByAlgo}
+      initialAlgo={initialAlgo}
+      initialTarget={initialTarget}
+      initialValues={initialValues}
+    />
   )
 }
