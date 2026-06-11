@@ -1,25 +1,30 @@
 import { describe, expect, it } from 'vitest'
-import { bubbleSort } from '@/engine/sorting/bubbleSort'
-import { insertionSort } from '@/engine/sorting/insertionSort'
+import { SORT_ALGORITHMS } from '@/engine/sorting'
 
 function finalArray(generator: Generator<{ array: number[] }>) {
   return Array.from(generator).at(-1)?.array
 }
 
 describe('sorting engine', () => {
-  it('bubble sort emits sorted final snapshot without mutating input', () => {
-    const input = [5, 2, 9, 1]
-    const result = finalArray(bubbleSort(input))
+  it.each(Object.values(SORT_ALGORITHMS))(
+    '$label emits sorted final snapshot without mutating input',
+    (algorithm) => {
+      const input = [8, 3, 7, 4, 2, 9, 1, 5]
+      const result = finalArray(algorithm.run(input))
 
-    expect(result).toEqual([1, 2, 5, 9])
-    expect(input).toEqual([5, 2, 9, 1])
-  })
+      expect(result).toEqual([1, 2, 3, 4, 5, 7, 8, 9])
+      expect(input).toEqual([8, 3, 7, 4, 2, 9, 1, 5])
+    }
+  )
 
-  it('insertion sort emits sorted final snapshot without mutating input', () => {
-    const input = [8, 3, 7, 4, 2]
-    const result = finalArray(insertionSort(input))
+  it.each(Object.values(SORT_ALGORITHMS))(
+    '$label handles duplicates and negative values',
+    (algorithm) => {
+      const input = [4, -1, 4, 0, -3, 2]
+      const result = finalArray(algorithm.run(input))
 
-    expect(result).toEqual([2, 3, 4, 7, 8])
-    expect(input).toEqual([8, 3, 7, 4, 2])
-  })
+      expect(result).toEqual([-3, -1, 0, 2, 4, 4])
+      expect(input).toEqual([4, -1, 4, 0, -3, 2])
+    }
+  )
 })

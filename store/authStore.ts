@@ -35,6 +35,7 @@ interface AuthStore {
 
 const USERS_KEY = 'algo-precision-users'
 const SESSION_KEY = 'algo-precision-session'
+export const MAX_SAVED_ANALYSES = 10
 
 function readUsers(): StoredUser[] {
   if (typeof window === 'undefined') return []
@@ -121,6 +122,13 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       return
     }
 
+    if (get().analyses.length >= MAX_SAVED_ANALYSES) {
+      set({
+        flash: `You can save up to ${MAX_SAVED_ANALYSES} custom visualizers for now. Delete one before saving another.`
+      })
+      return
+    }
+
     const nextAnalysis: SavedAnalysis = {
       ...analysis,
       id: crypto.randomUUID(),
@@ -129,13 +137,19 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     const users = readUsers()
     const nextUsers = users.map((item) =>
       item.email === user.email
-        ? { ...item, analyses: [nextAnalysis, ...(item.analyses ?? [])] }
+        ? {
+            ...item,
+            analyses: [nextAnalysis, ...(item.analyses ?? [])].slice(
+              0,
+              MAX_SAVED_ANALYSES
+            )
+          }
         : item
     )
 
     writeUsers(nextUsers)
     set((state) => ({
-      analyses: [nextAnalysis, ...state.analyses],
+      analyses: [nextAnalysis, ...state.analyses].slice(0, MAX_SAVED_ANALYSES),
       flash: 'Custom visualizer saved to your dashboard.'
     }))
   }

@@ -11,7 +11,7 @@ const algorithms = [
     time: 'O(n log n)',
     memory: 'O(log n)',
     icon: Zap,
-    href: '/sorting?algo=bubble'
+    href: '/sorting?algo=quick'
   },
   {
     title: 'Mergesort',
@@ -21,7 +21,7 @@ const algorithms = [
     time: 'O(n log n)',
     memory: 'O(n)',
     icon: GitMerge,
-    href: '/sorting?algo=insertion'
+    href: '/sorting?algo=merge'
   },
   {
     title: 'Heapsort',
@@ -31,14 +31,14 @@ const algorithms = [
     time: 'O(n log n)',
     memory: 'In-Place',
     icon: SquareStack,
-    href: '/sorting'
+    href: '/sorting?algo=heap'
   },
   {
     title: 'Insertion Sort',
     description:
       'Efficient for small data sets and nearly sorted arrays. Builds the final sorted array one item at a time.',
     label: 'Online Sort',
-    time: 'O(n²)',
+    time: 'O(n^2)',
     memory: 'O(n) Best Case',
     icon: Columns3,
     href: '/sorting?algo=insertion'
@@ -82,7 +82,7 @@ export default function HomePage() {
                   Legacy Favorite
                 </span>
                 <span className="rounded-sm bg-red-100 px-3 py-1 font-mono text-xs text-red-700">
-                  O(n²)
+                  O(n^2)
                 </span>
               </div>
               <h2 className="text-3xl font-black tracking-tight">Bubble Sort</h2>

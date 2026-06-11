@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { ArrowRight, Columns3, TerminalSquare } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useAuthStore } from '@/store/authStore'
+import { MAX_SAVED_ANALYSES, useAuthStore } from '@/store/authStore'
 
 const pinned = [
   {
@@ -72,14 +72,21 @@ export default function DashboardPage() {
               Custom Code Visualizers
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Saved time and space complexity reads from your custom snippets.
+              Saved custom snippets and complexity reads. {analyses.length}/
+              {MAX_SAVED_ANALYSES} slots used.
             </p>
           </div>
-          <Button asChild>
-            <Link href="/custom-visualizer">
-              New Analysis <TerminalSquare className="h-4 w-4" />
-            </Link>
-          </Button>
+          {analyses.length >= MAX_SAVED_ANALYSES ? (
+            <Button disabled>
+              Slots Full <TerminalSquare className="h-4 w-4" />
+            </Button>
+          ) : (
+            <Button asChild>
+              <Link href="/custom-visualizer">
+                New Analysis <TerminalSquare className="h-4 w-4" />
+              </Link>
+            </Button>
+          )}
         </div>
 
         <div className="mt-5 grid gap-5 md:grid-cols-2">
