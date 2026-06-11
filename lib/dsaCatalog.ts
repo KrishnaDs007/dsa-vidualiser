@@ -34,8 +34,9 @@ export const DSA_CATALOG: DsaCategory[] = [
       { name: 'Merge Sort', status: 'ready', patterns: ['Divide and conquer', 'Merging'] },
       { name: 'Quick Sort', status: 'ready', patterns: ['Partitioning', 'Recursion'] },
       { name: 'Heap Sort', status: 'ready', patterns: ['Heap', 'Selection'] },
-      { name: 'Counting Sort', status: 'planned', patterns: ['Frequency table'] },
-      { name: 'Radix Sort', status: 'planned', patterns: ['Digit buckets'] }
+      { name: 'Shell Sort', status: 'ready', patterns: ['Gap insertion'] },
+      { name: 'Counting Sort', status: 'ready', patterns: ['Frequency table'] },
+      { name: 'Radix Sort', status: 'ready', patterns: ['Digit buckets'] }
     ]
   },
   {

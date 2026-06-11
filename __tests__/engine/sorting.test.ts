@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { SORT_ALGORITHMS } from '@/engine/sorting'
+import { PSEUDOCODE, SORT_ALGORITHMS } from '@/engine/sorting'
 
 function finalArray(generator: Generator<{ array: number[] }>) {
   return Array.from(generator).at(-1)?.array
@@ -25,6 +25,35 @@ describe('sorting engine', () => {
 
       expect(result).toEqual([-3, -1, 0, 2, 4, 4])
       expect(input).toEqual([4, -1, 4, 0, -3, 2])
+    }
+  )
+
+  it.each(Object.values(SORT_ALGORITHMS))(
+    '$label emits valid visualizer frames',
+    (algorithm) => {
+      const input = [6, 2, 8, 1, 5]
+      const frames = Array.from(algorithm.run(input))
+      const codeLineCount = PSEUDOCODE[algorithm.id].split('\n').length
+
+      expect(frames.length).toBeGreaterThan(0)
+
+      for (const frame of frames) {
+        expect(frame.array).toHaveLength(input.length)
+        expect(frame.codeLine).toBeGreaterThanOrEqual(1)
+        expect(frame.codeLine).toBeLessThanOrEqual(codeLineCount)
+
+        const highlighted = [
+          ...frame.comparing,
+          ...frame.swapped,
+          ...frame.sorted,
+          ...(frame.pivot === undefined ? [] : [frame.pivot])
+        ]
+
+        for (const index of highlighted) {
+          expect(index).toBeGreaterThanOrEqual(0)
+          expect(index).toBeLessThan(input.length)
+        }
+      }
     }
   )
 })

@@ -36,7 +36,7 @@ export function* heapSort(input: number[]): Generator<SortStep> {
     comparing: [],
     swapped: [],
     sorted: arr.map((_, index) => index),
-    codeLine: 11
+    codeLine: 10
   }
 }
 

@@ -1,9 +1,12 @@
 import { bubbleSort } from '@/engine/sorting/bubbleSort'
+import { countingSort } from '@/engine/sorting/countingSort'
 import { heapSort } from '@/engine/sorting/heapSort'
 import { insertionSort } from '@/engine/sorting/insertionSort'
 import { mergeSort } from '@/engine/sorting/mergeSort'
 import { quickSort } from '@/engine/sorting/quickSort'
+import { radixSort } from '@/engine/sorting/radixSort'
 import { selectionSort } from '@/engine/sorting/selectionSort'
+import { shellSort } from '@/engine/sorting/shellSort'
 
 export const SORT_ALGORITHMS = {
   bubble: {
@@ -41,6 +44,24 @@ export const SORT_ALGORITHMS = {
     label: 'Heap Sort',
     complexity: 'O(n log n)',
     run: heapSort
+  },
+  shell: {
+    id: 'shell',
+    label: 'Shell Sort',
+    complexity: 'O(n log n) avg',
+    run: shellSort
+  },
+  counting: {
+    id: 'counting',
+    label: 'Counting Sort',
+    complexity: 'O(n + k)',
+    run: countingSort
+  },
+  radix: {
+    id: 'radix',
+    label: 'Radix Sort',
+    complexity: 'O(d(n + k))',
+    run: radixSort
   }
 } as const
 
@@ -125,6 +146,40 @@ export const PSEUDOCODE: Record<AlgorithmId, string> = {
     markEndSorted()
     heapify(arr, end, 0)
   }
+  return arr
+}`,
+  shell: `function shellSort(input: number[]) {
+  const arr = [...input]
+  for (let gap = Math.floor(arr.length / 2); gap > 0; gap = Math.floor(gap / 2)) {
+    for (let i = gap; i < arr.length; i++) {
+      const current = arr[i]
+      while (j >= gap && arr[j - gap] > current) {
+        shiftValueByGap()
+      }
+      insertCurrentValue()
+    }
+  }
+  return arr
+}`,
+  counting: `function countingSort(input: number[]) {
+  const arr = [...input]
+  const min = Math.min(...arr)
+  const max = Math.max(...arr)
+  const counts = createCountArray(min, max)
+  for (const value of arr) {
+    counts[value - min]++
+  }
+  writeValuesBackInCountOrder()
+  return arr
+}`,
+  radix: `function radixSort(input: number[]) {
+  const arr = [...input]
+  splitNegativeAndNonNegativeValues()
+  for (let exponent = 1; hasMoreDigits(exponent); exponent *= 10) {
+    placeValuesIntoDigitBuckets()
+    flattenBuckets()
+  }
+  mergeNegativeAndNonNegativeResults()
   return arr
 }`
 }
