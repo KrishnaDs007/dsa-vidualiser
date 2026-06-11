@@ -8,6 +8,7 @@ custom code visualization workspace.
 
 - Sorting visualizer with Bubble, Insertion, Selection, Merge, Quick, Heap,
   Shell, Counting, and Radix Sort.
+- Search visualizer with Linear Search and Binary Search.
 - Step controls, speed control, custom array input, animated bars, and synced
   pseudocode highlighting.
 - Local profile/dashboard flow with a temporary cap of 10 saved custom code
@@ -20,8 +21,8 @@ custom code visualization workspace.
 ## Step-by-step roadmap
 
 1. Sorting foundation: complete for the current algorithm set.
-2. Search: linear search, binary search, bounds, rotated arrays, and binary
-   search on answer.
+2. Search foundation: Linear Search and Binary Search are complete; bounds,
+   rotated arrays, and binary search on answer are next.
 3. Trees: BST insert/search and traversal snapshots.
 4. Graphs: BFS, DFS, Dijkstra, topological sort, union find, and MST.
 5. Custom code visualization: language selector, persisted source code,

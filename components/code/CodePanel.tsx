@@ -3,10 +3,17 @@
 import { useEffect, useRef } from 'react'
 import { useAlgorithmStore } from '@/store/algorithmStore'
 
-export function CodePanel({ highlightedCode }: { highlightedCode: string }) {
-  const codeLine = useAlgorithmStore(
+export function CodePanel({
+  highlightedCode,
+  codeLine: controlledCodeLine
+}: {
+  highlightedCode: string
+  codeLine?: number
+}) {
+  const storeCodeLine = useAlgorithmStore(
     (state) => state.frames[state.currentStep]?.codeLine
   )
+  const codeLine = controlledCodeLine ?? storeCodeLine
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {

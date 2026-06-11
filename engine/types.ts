@@ -20,3 +20,14 @@ export interface TreeStep {
   visitedIds: string[]
   codeLine: number
 }
+
+export interface SearchStep {
+  array: number[]
+  target: number
+  checking: number[]
+  activeRange: number[]
+  eliminated: number[]
+  foundIndex: number | null
+  codeLine: number
+  note: string
+}

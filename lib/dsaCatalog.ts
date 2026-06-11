@@ -45,8 +45,8 @@ export const DSA_CATALOG: DsaCategory[] = [
     description:
       'Finding values and boundaries across arrays, answer spaces, and rotated ranges.',
     topics: [
-      { name: 'Linear Search', status: 'planned', patterns: ['Single scan'] },
-      { name: 'Binary Search', status: 'planned', patterns: ['Halving', 'Sorted array'] },
+      { name: 'Linear Search', status: 'ready', patterns: ['Single scan'] },
+      { name: 'Binary Search', status: 'ready', patterns: ['Halving', 'Sorted array'] },
       { name: 'Lower / Upper Bound', status: 'planned', patterns: ['Boundary search'] },
       { name: 'Search in Rotated Array', status: 'planned', patterns: ['Modified binary search'] },
       { name: 'Binary Search on Answer', status: 'planned', patterns: ['Predicate monotonicity'] }
