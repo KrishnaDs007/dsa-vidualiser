@@ -103,3 +103,21 @@ export interface HashStep {
   codeLine: number
   note: string
 }
+
+export interface StackItem {
+  id: string
+  value: number
+}
+
+export interface StackStep {
+  items: StackItem[]
+  inputValues: number[]
+  activeValue: number | null
+  activeItemId: string | null
+  removedItemId: string | null
+  operation: 'push' | 'pop' | 'peek'
+  timeComplexity: string
+  spaceComplexity: string
+  codeLine: number
+  note: string
+}

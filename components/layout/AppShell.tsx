@@ -18,6 +18,7 @@ import {
   Plus,
   Search,
   Sparkles,
+  SquareStack,
   TerminalSquare,
   Trees
 } from 'lucide-react'
@@ -35,6 +36,7 @@ const sideNav = [
   { label: 'Sorting', href: '/sorting', icon: Layers3 },
   { label: 'Searching', href: '/search', icon: Search },
   { label: 'Hashing', href: '/hashing', icon: CircleDot },
+  { label: 'Stacks', href: '/stacks', icon: SquareStack },
   { label: 'Graphs', href: '/graphs', icon: Network },
   { label: 'Trees', href: '/trees', icon: Trees },
   { label: 'Dynamic Programming', href: '/dynamic-programming', icon: Boxes },

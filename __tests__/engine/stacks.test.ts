@@ -1,0 +1,33 @@
+import { describe, expect, it } from 'vitest'
+import { stackPeek } from '@/engine/stacks/stackPeek'
+import { stackPop } from '@/engine/stacks/stackPop'
+import { stackPush } from '@/engine/stacks/stackPush'
+
+describe('stack engine', () => {
+  it('pushes values so the newest value becomes the top', () => {
+    const frames = Array.from(stackPush([10, 20, 30]))
+    const finalFrame = frames.at(-1)
+
+    expect(finalFrame?.items.map((item) => item.value)).toEqual([10, 20, 30])
+    expect(finalFrame?.items.at(-1)?.value).toBe(30)
+    expect(finalFrame?.timeComplexity).toBe('O(1) per push')
+  })
+
+  it('pops values from the top in reverse insertion order', () => {
+    const frames = Array.from(stackPop([10, 20, 30]))
+    const removedValues = frames
+      .filter((frame) => frame.removedItemId)
+      .map((frame) => frame.activeValue)
+
+    expect(removedValues).toEqual([30, 20, 10])
+    expect(frames.at(-1)?.items).toEqual([])
+  })
+
+  it('peeks without removing the top value', () => {
+    const frames = Array.from(stackPeek([4, 8, 12]))
+    const finalFrame = frames.at(-1)
+
+    expect(finalFrame?.activeValue).toBe(12)
+    expect(finalFrame?.items.map((item) => item.value)).toEqual([4, 8, 12])
+  })
+})
