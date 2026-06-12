@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import type React from 'react'
 import { useEffect } from 'react'
 import {
@@ -36,12 +36,11 @@ const sideNav = [
   { label: 'Graphs', href: '/graphs', icon: Network },
   { label: 'Trees', href: '/trees', icon: Trees },
   { label: 'Dynamic Programming', href: '/dynamic-programming', icon: Boxes },
-  { label: 'Custom Code Visualizer', href: '/custom-visualizer', icon: TerminalSquare, gated: true }
+  { label: 'Custom Code Visualizer', href: '/custom-visualizer', icon: TerminalSquare }
 ]
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const router = useRouter()
   const user = useAuthStore((state) => state.user)
   const flash = useAuthStore((state) => state.flash)
   const hydrate = useAuthStore((state) => state.hydrate)
@@ -58,14 +57,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     const id = window.setTimeout(() => setFlash(null), 4200)
     return () => window.clearTimeout(id)
   }, [flash, setFlash])
-
-  function handleGatedNav(event: React.MouseEvent<HTMLAnchorElement>, href: string) {
-    if (href !== '/custom-visualizer' || user) return
-
-    event.preventDefault()
-    setFlash('Please sign in before opening the custom code visualizer.')
-    router.push('/login?next=/custom-visualizer')
-  }
 
   return (
     <div className="min-h-screen text-foreground">
@@ -133,7 +124,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
 
           <Button asChild className="mb-10 w-full justify-center uppercase tracking-[0.18em]" variant="secondary">
-            <Link href="/custom-visualizer" onClick={(event) => handleGatedNav(event, '/custom-visualizer')}>
+            <Link href="/custom-visualizer">
               <Plus className="h-4 w-4" /> New Visualization
             </Link>
           </Button>
@@ -144,12 +135,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             )}
             {sideNav.map((item) => (
               <SideLink
-                gated={item.gated}
                 href={item.href}
                 icon={item.icon}
                 key={item.href}
                 label={item.label}
-                onClick={handleGatedNav}
                 pathname={pathname}
               />
             ))}
@@ -180,16 +169,12 @@ function SideLink({
   href,
   icon: Icon,
   label,
-  pathname,
-  gated,
-  onClick
+  pathname
 }: {
   href: string
   icon: React.ComponentType<{ className?: string }>
   label: string
   pathname: string
-  gated?: boolean
-  onClick?: (event: React.MouseEvent<HTMLAnchorElement>, href: string) => void
 }) {
   const active = pathname === href
 
@@ -200,9 +185,7 @@ function SideLink({
         active && 'bg-[hsl(var(--glass-strong))] text-primary shadow-sm'
       )}
       aria-current={active ? 'page' : undefined}
-      data-gated={gated ? 'true' : undefined}
       href={href}
-      onClick={(event) => onClick?.(event, href)}
     >
       <Icon aria-hidden="true" className="h-5 w-5 shrink-0" />
       <span>{label}</span>

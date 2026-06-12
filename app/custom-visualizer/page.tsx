@@ -4,7 +4,8 @@ import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import type React from 'react'
 import { Suspense, useEffect, useMemo, useState } from 'react'
-import { ArrowRight, Cpu, HardDrive, Save } from 'lucide-react'
+import { ArrowRight, Cpu, HardDrive, Save, Sparkles, TerminalSquare } from 'lucide-react'
+import { CustomCodeEditor } from '@/components/custom-code/CustomCodeEditor'
 import { Button } from '@/components/ui/button'
 import {
   CUSTOM_CODE_LANGUAGES,
@@ -14,6 +15,8 @@ import {
   type CustomCodeLanguageId
 } from '@/lib/customCode'
 import { useAuthStore } from '@/store/authStore'
+
+const CUSTOM_DRAFT_KEY = 'algo-precision-custom-draft'
 
 export default function CustomVisualizerPage() {
   return (
@@ -36,6 +39,7 @@ function CustomVisualizerForm() {
   const [title, setTitle] = useState('Custom Complexity Read')
   const [language, setLanguage] = useState<CustomCodeLanguageId>('javascript')
   const [code, setCode] = useState(getLanguageSample('javascript'))
+  const [draftLoaded, setDraftLoaded] = useState(false)
 
   const result = useMemo(() => analyzeComplexity(code, language), [code, language])
   const editingAnalysis = editId
@@ -43,14 +47,15 @@ function CustomVisualizerForm() {
     : undefined
 
   useEffect(() => {
-    if (!hydrated || user) return
+    if (!editId || !hydrated) return
 
-    setFlash('Please sign in before opening the custom code visualizer.')
-    router.push('/login?next=/custom-visualizer')
-  }, [hydrated, router, setFlash, user])
-
-  useEffect(() => {
-    if (!editId || !hydrated || !user) return
+    if (!user) {
+      setFlash('Please sign in before editing a saved custom visualizer.')
+      router.push(
+        `/login?next=${encodeURIComponent(`/custom-visualizer?id=${editId}`)}`
+      )
+      return
+    }
 
     if (!editingAnalysis) {
       setFlash('That saved custom visualizer could not be found.')
@@ -65,9 +70,48 @@ function CustomVisualizerForm() {
     setCode(editingAnalysis.code ?? getLanguageSample('javascript'))
   }, [editId, editingAnalysis, hydrated, router, setFlash, user])
 
-  if (!user) return null
+  useEffect(() => {
+    if (!hydrated || editId || typeof window === 'undefined') return
+
+    try {
+      const draft = JSON.parse(
+        window.localStorage.getItem(CUSTOM_DRAFT_KEY) ?? 'null'
+      ) as {
+        title?: string
+        language?: string
+        code?: string
+      } | null
+
+      if (!draft) return
+
+      if (draft.title) setTitle(draft.title)
+      if (isCustomCodeLanguageId(draft.language)) setLanguage(draft.language)
+      if (typeof draft.code === 'string') setCode(draft.code)
+    } catch {
+      window.localStorage.removeItem(CUSTOM_DRAFT_KEY)
+    } finally {
+      setDraftLoaded(true)
+    }
+  }, [editId, hydrated])
+
+  useEffect(() => {
+    if (!hydrated || !draftLoaded || editId || typeof window === 'undefined') {
+      return
+    }
+
+    window.localStorage.setItem(
+      CUSTOM_DRAFT_KEY,
+      JSON.stringify({ title, language, code })
+    )
+  }, [code, draftLoaded, editId, hydrated, language, title])
 
   function persistAnalysis() {
+    if (!user) {
+      setFlash('Sign in to save this custom visualizer to your dashboard.')
+      router.push('/login?next=/custom-visualizer')
+      return
+    }
+
     const payload = {
       title,
       language,
@@ -100,13 +144,35 @@ function CustomVisualizerForm() {
             saved source model.
           </p>
         </div>
-        <Button onClick={persistAnalysis}>
-          {editId ? 'Update' : 'Save'} <Save className="h-4 w-4" />
-        </Button>
+        <div className="flex flex-wrap gap-3">
+          {!user && (
+            <Button asChild variant="secondary">
+              <Link href="/login?next=/custom-visualizer">
+                Sign in to save <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          )}
+          <Button onClick={persistAnalysis}>
+            {editId ? 'Update' : 'Save'} <Save className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
 
       <section className="grid gap-6 xl:grid-cols-[minmax(0,1.1fr)_380px]">
-        <div className="bg-[hsl(var(--surface-container-low))] p-6">
+        <div className="flex flex-col gap-5">
+          {!user && (
+            <div className="glass-panel rounded-lg p-4 text-sm text-foreground/75">
+              <div className="flex items-start gap-3">
+                <Sparkles aria-hidden="true" className="mt-0.5 h-4 w-4 text-primary" />
+                <p>
+                  You can write and analyze code now. Sign in only when you want
+                  to save this custom visualizer to your dashboard.
+                </p>
+              </div>
+            </div>
+          )}
+
+          <div className="glass-panel rounded-lg p-5">
           <label className="block text-xs font-bold uppercase tracking-[0.18em]">
             Visualizer Name
           </label>
@@ -143,19 +209,29 @@ function CustomVisualizerForm() {
               Load Sample
             </Button>
           </div>
+          </div>
 
-          <label className="mt-8 block text-xs font-bold uppercase tracking-[0.18em]">
-            Code
-          </label>
-          <textarea
-            className="mt-3 min-h-[520px] w-full resize-y rounded-md bg-[hsl(var(--surface-container-lowest))] p-5 font-mono text-sm leading-7 outline-none focus:ring-2 focus:ring-primary/25"
-            onChange={(event) => setCode(event.target.value)}
-            spellCheck={false}
-            value={code}
+          <CustomCodeEditor
+            code={code}
+            language={language}
+            onChange={setCode}
           />
         </div>
 
         <aside className="flex flex-col gap-5">
+          <div className="glass-panel-strong rounded-lg p-6">
+            <div className="flex items-center gap-3">
+              <span className="grid h-11 w-11 place-items-center rounded-md bg-[hsl(var(--primary)/0.12)] text-primary">
+                <TerminalSquare aria-hidden="true" className="h-5 w-5" />
+              </span>
+              <div>
+                <h2 className="text-xl font-black">Live Complexity</h2>
+                <p className="text-sm text-muted-foreground">
+                  Updates as the editor changes.
+                </p>
+              </div>
+            </div>
+          </div>
           <Metric
             description={result.timeReason}
             icon={Cpu}
@@ -168,20 +244,31 @@ function CustomVisualizerForm() {
             label="Space Complexity"
             value={result.space}
           />
-          <div className="bg-[hsl(var(--surface-container-low))] p-6">
+          <div className="glass-panel rounded-lg p-6">
             <h2 className="text-xl font-black">Signals Detected</h2>
             <ul className="mt-5 space-y-3 text-sm text-foreground/75">
               {result.signals.map((signal) => (
-                <li className="bg-white px-4 py-3" key={signal}>
+                <li
+                  className="rounded-md border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] px-4 py-3"
+                  key={signal}
+                >
                   {signal}
                 </li>
               ))}
             </ul>
-            <Button asChild className="mt-6 w-full" variant="secondary">
-              <Link href="/dashboard">
-                Dashboard <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
+            {user ? (
+              <Button asChild className="mt-6 w-full" variant="secondary">
+                <Link href="/dashboard">
+                  Dashboard <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            ) : (
+              <Button asChild className="mt-6 w-full" variant="secondary">
+                <Link href="/login?next=/custom-visualizer">
+                  Sign in to save <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            )}
           </div>
         </aside>
       </section>
@@ -201,10 +288,10 @@ function Metric({
   icon: React.ComponentType<{ className?: string }>
 }) {
   return (
-    <article className="bg-[hsl(var(--surface-container-low))] p-6">
+    <article className="glass-panel rounded-lg p-6">
       <div className="flex items-center justify-between gap-4">
-        <span className="grid h-12 w-12 place-items-center rounded-md bg-[hsl(var(--surface-container-highest))] text-primary">
-          <Icon className="h-6 w-6" />
+        <span className="grid h-12 w-12 place-items-center rounded-md bg-[hsl(var(--primary)/0.12)] text-primary">
+          <Icon aria-hidden="true" className="h-6 w-6" />
         </span>
         <span className="font-mono text-3xl font-black text-primary">{value}</span>
       </div>
