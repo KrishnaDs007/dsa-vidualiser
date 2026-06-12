@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import type React from 'react'
 import { Suspense, useEffect, useMemo, useState } from 'react'
 import { ArrowRight, Cpu, HardDrive, Save, Sparkles, TerminalSquare } from 'lucide-react'
+import { ComplexityBreakdown } from '@/components/custom-code/ComplexityBreakdown'
 import { CustomCodeEditor } from '@/components/custom-code/CustomCodeEditor'
 import { Button } from '@/components/ui/button'
 import {
@@ -243,6 +244,12 @@ function CustomVisualizerForm() {
             icon={HardDrive}
             label="Space Complexity"
             value={result.space}
+          />
+          <ComplexityBreakdown
+            confidence={result.confidence}
+            factors={result.factors}
+            space={result.space}
+            time={result.time}
           />
           <div className="glass-panel rounded-lg p-6">
             <h2 className="text-xl font-black">Signals Detected</h2>

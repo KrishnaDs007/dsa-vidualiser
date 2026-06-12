@@ -60,4 +60,32 @@ describe('custom code analyzer', () => {
 
     expect(result.time).toBe('O(n^2)')
   })
+
+  it('returns structured factors for visual complexity breakdowns', () => {
+    const result = analyzeComplexity(
+      `function find(nums, target) {
+  let left = 0
+  let right = nums.length - 1
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2)
+    if (nums[mid] === target) return mid
+    if (nums[mid] < target) left = mid + 1
+    else right = mid - 1
+  }
+  return -1
+}`,
+      'javascript'
+    )
+
+    expect(result.confidence).toBeGreaterThan(50)
+    expect(result.factors.map((factor) => factor.label)).toEqual([
+      'Iteration',
+      'Recursion',
+      'Divide',
+      'Storage'
+    ])
+    expect(result.factors.find((factor) => factor.label === 'Divide')?.value).toBe(
+      'Yes'
+    )
+  })
 })

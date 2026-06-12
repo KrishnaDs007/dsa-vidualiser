@@ -119,6 +119,13 @@ export function getLanguageSample(id: CustomCodeLanguageId) {
   return CUSTOM_CODE_LANGUAGES.find((language) => language.id === id)?.sample ?? ''
 }
 
+export interface ComplexityFactor {
+  label: string
+  value: string
+  level: 'low' | 'medium' | 'high'
+  description: string
+}
+
 export function analyzeComplexity(code: string, language: CustomCodeLanguageId) {
   const normalized = code.toLowerCase()
   const loopCount = (
@@ -176,6 +183,53 @@ export function analyzeComplexity(code: string, language: CustomCodeLanguageId) 
     space,
     timeReason,
     spaceReason,
+    confidence: calculateConfidence({
+      loopCount,
+      recursiveCalls,
+      divideSignal,
+      collectionSignal,
+      matrixSignal
+    }),
+    factors: [
+      {
+        label: 'Iteration',
+        value: String(loopCount),
+        level: loopCount >= 2 ? 'high' : loopCount === 1 ? 'medium' : 'low',
+        description:
+          loopCount >= 2
+            ? 'Repeated iteration signals often increase time cost.'
+            : loopCount === 1
+              ? 'One traversal usually means linear time.'
+              : 'No direct loop signal was found.'
+      },
+      {
+        label: 'Recursion',
+        value: String(Math.max(recursiveCalls, 0)),
+        level: recursiveCalls > 1 ? 'high' : recursiveCalls === 1 ? 'medium' : 'low',
+        description:
+          recursiveCalls > 0
+            ? 'Recursive calls add call-stack cost and may affect time.'
+            : 'No recursive self-call signal was found.'
+      },
+      {
+        label: 'Divide',
+        value: divideSignal ? 'Yes' : 'No',
+        level: divideSignal ? 'medium' : 'low',
+        description: divideSignal
+          ? 'Half, mid, binary, or divide-by-two signals suggest logarithmic progress.'
+          : 'No divide-and-conquer signal was found.'
+      },
+      {
+        label: 'Storage',
+        value: matrixSignal ? 'Grid' : collectionSignal ? 'List' : 'Fixed',
+        level: matrixSignal ? 'high' : collectionSignal ? 'medium' : 'low',
+        description: matrixSignal
+          ? 'Matrix-like terms suggest two-dimensional storage.'
+          : collectionSignal
+            ? 'Collection usage suggests extra linear storage.'
+            : 'No growing auxiliary storage signal was found.'
+      }
+    ] satisfies ComplexityFactor[],
     signals: [
       `${loopCount} loop or iterator signal${loopCount === 1 ? '' : 's'}`,
       `${Math.max(recursiveCalls, 0)} recursive call signal${recursiveCalls === 1 ? '' : 's'}`,
@@ -186,6 +240,33 @@ export function analyzeComplexity(code: string, language: CustomCodeLanguageId) 
       `Language profile: ${getLanguageLabel(language)}`
     ]
   }
+}
+
+function calculateConfidence({
+  loopCount,
+  recursiveCalls,
+  divideSignal,
+  collectionSignal,
+  matrixSignal
+}: {
+  loopCount: number
+  recursiveCalls: number
+  divideSignal: boolean
+  collectionSignal: boolean
+  matrixSignal: boolean
+}) {
+  const signalCount = [
+    loopCount > 0,
+    recursiveCalls > 0,
+    divideSignal,
+    collectionSignal,
+    matrixSignal
+  ].filter(Boolean).length
+
+  if (signalCount >= 3) return 88
+  if (signalCount === 2) return 74
+  if (signalCount === 1) return 62
+  return 45
 }
 
 function getRecursiveName(normalized: string, language: CustomCodeLanguageId) {
