@@ -4,12 +4,14 @@ import { Columns3, TerminalSquare } from 'lucide-react'
 import { getLanguageLabel, type CustomCodeLanguageId } from '@/lib/customCode'
 
 interface CustomCodeEditorProps {
+  activeLine?: number
   code: string
   language: CustomCodeLanguageId
   onChange: (code: string) => void
 }
 
 export function CustomCodeEditor({
+  activeLine,
   code,
   language,
   onChange
@@ -43,7 +45,16 @@ export function CustomCodeEditor({
           className="select-none border-r border-[hsl(var(--glass-border))] bg-[hsl(var(--foreground)/0.035)] px-3 py-5 text-right font-mono text-xs leading-7 text-muted-foreground"
         >
           {lineNumbers.map((line) => (
-            <div key={line}>{line}</div>
+            <div
+              className={
+                activeLine === line
+                  ? 'rounded-sm bg-[hsl(var(--primary)/0.16)] pr-1 text-primary'
+                  : undefined
+              }
+              key={line}
+            >
+              {line}
+            </div>
           ))}
         </div>
         <textarea

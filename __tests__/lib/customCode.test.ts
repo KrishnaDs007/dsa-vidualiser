@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import {
+  CUSTOM_CODE_TEMPLATES,
   CUSTOM_CODE_LANGUAGES,
   analyzeComplexity,
+  createCustomCodeTrace,
   getLanguageLabel
 } from '@/lib/customCode'
 
@@ -87,5 +89,29 @@ describe('custom code analyzer', () => {
     expect(result.factors.find((factor) => factor.label === 'Divide')?.value).toBe(
       'Yes'
     )
+  })
+
+  it('provides templates for switching custom code examples', () => {
+    expect(CUSTOM_CODE_TEMPLATES.map((template) => template.id)).toContain(
+      'binary-search'
+    )
+  })
+
+  it('creates line-by-line trace steps with cumulative complexity', () => {
+    const trace = createCustomCodeTrace(
+      `function total(nums) {
+  let sum = 0
+  for (const value of nums) {
+    sum += value
+  }
+  return sum
+}`,
+      'javascript'
+    )
+
+    expect(trace.length).toBeGreaterThan(1)
+    expect(trace[0].lineNumber).toBe(1)
+    expect(trace.some((step) => step.result.time === 'O(n)')).toBe(true)
+    expect(trace.at(-1)?.codePrefix).toContain('return sum')
   })
 })

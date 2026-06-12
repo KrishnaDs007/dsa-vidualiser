@@ -100,7 +100,41 @@ export const CUSTOM_CODE_LANGUAGES = [
   }
 ] as const
 
+export const CUSTOM_CODE_TEMPLATES = [
+  {
+    id: 'two-sum',
+    title: 'Two Sum Hash Map',
+    language: 'javascript',
+    code: getLanguageSampleFromList('javascript')
+  },
+  {
+    id: 'binary-search',
+    title: 'Binary Search',
+    language: 'typescript',
+    code: getLanguageSampleFromList('typescript')
+  },
+  {
+    id: 'kadane',
+    title: 'Kadane Maximum Subarray',
+    language: 'python',
+    code: getLanguageSampleFromList('python')
+  },
+  {
+    id: 'linear-search',
+    title: 'Linear Search',
+    language: 'java',
+    code: getLanguageSampleFromList('java')
+  },
+  {
+    id: 'hash-set-pairs',
+    title: 'Hash Set Pair Count',
+    language: 'cpp',
+    code: getLanguageSampleFromList('cpp')
+  }
+] as const
+
 export type CustomCodeLanguageId = (typeof CUSTOM_CODE_LANGUAGES)[number]['id']
+export type CustomCodeTemplateId = (typeof CUSTOM_CODE_TEMPLATES)[number]['id']
 
 export function isCustomCodeLanguageId(
   value?: string
@@ -116,7 +150,11 @@ export function getLanguageLabel(id: string) {
 }
 
 export function getLanguageSample(id: CustomCodeLanguageId) {
-  return CUSTOM_CODE_LANGUAGES.find((language) => language.id === id)?.sample ?? ''
+  return getLanguageSampleFromList(id)
+}
+
+export function getCustomCodeTemplate(id: CustomCodeTemplateId) {
+  return CUSTOM_CODE_TEMPLATES.find((template) => template.id === id)
 }
 
 export interface ComplexityFactor {
@@ -242,6 +280,70 @@ export function analyzeComplexity(code: string, language: CustomCodeLanguageId) 
   }
 }
 
+export interface CustomCodeTraceStep {
+  lineNumber: number
+  line: string
+  codePrefix: string
+  result: ReturnType<typeof analyzeComplexity>
+  note: string
+}
+
+export function createCustomCodeTrace(
+  code: string,
+  language: CustomCodeLanguageId
+): CustomCodeTraceStep[] {
+  const lines = code.split('\n')
+  const meaningfulLines = lines
+    .map((line, index) => ({ line, index }))
+    .filter(({ line }) => line.trim().length > 0)
+
+  if (meaningfulLines.length === 0) {
+    return [
+      {
+        lineNumber: 1,
+        line: '',
+        codePrefix: '',
+        result: analyzeComplexity('', language),
+        note: 'Write or paste code to begin step-by-step complexity tracing.'
+      }
+    ]
+  }
+
+  return meaningfulLines.map(({ line, index }) => {
+    const codePrefix = lines.slice(0, index + 1).join('\n')
+    const result = analyzeComplexity(codePrefix, language)
+
+    return {
+      lineNumber: index + 1,
+      line,
+      codePrefix,
+      result,
+      note: createTraceNote(line, result)
+    }
+  })
+}
+
+function createTraceNote(
+  line: string,
+  result: ReturnType<typeof analyzeComplexity>
+) {
+  const normalized = line.trim().toLowerCase()
+
+  if (/\b(for|while|foreach|map|filter|reduce)\b/.test(normalized)) {
+    return `This line introduces iteration, so the current time estimate is ${result.time}.`
+  }
+
+  if (/\b(new map|new set|unordered_map|unordered_set|hashmap|hashset|dict|set\(|list\(|vector|arraylist|\[\]|{}|push\(|append\(|add\(|insert\()\b/.test(normalized)) {
+    return `This line suggests growing storage, so the current space estimate is ${result.space}.`
+  }
+
+  if (/\/\s*2|>>\s*1|mid|binary|half/.test(normalized)) {
+    return `This line suggests halving or midpoint logic, so logarithmic behavior may apply.`
+  }
+
+  return `After this line, the current estimate is ${result.time} time and ${result.space} space.`
+}
+
 function calculateConfidence({
   loopCount,
   recursiveCalls,
@@ -278,4 +380,8 @@ function getRecursiveName(normalized: string, language: CustomCodeLanguageId) {
     normalized.match(/function\s+([a-z0-9_]+)/)?.[1] ??
     normalized.match(/\b(?:int|void|bool|string|double|float|long)\s+([a-z0-9_]+)\s*\(/)?.[1]
   )
+}
+
+function getLanguageSampleFromList(id: CustomCodeLanguageId) {
+  return CUSTOM_CODE_LANGUAGES.find((language) => language.id === id)?.sample ?? ''
 }
