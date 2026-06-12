@@ -9,7 +9,7 @@ interface SearchCanvasProps {
 
 export function SearchCanvas({ frame }: SearchCanvasProps) {
   return (
-    <div className="dot-grid min-h-[360px] rounded-lg bg-[hsl(var(--surface))] p-5">
+    <div className="glass-panel dot-grid min-h-[360px] rounded-lg p-5">
       <div className="grid h-full content-center gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {frame.array.map((value, index) => {
           const state = getCellState(index, frame)
@@ -39,20 +39,20 @@ export function SearchCanvas({ frame }: SearchCanvasProps) {
 
 function getCellState(index: number, frame: SearchStep) {
   if (frame.foundIndex === index) {
-    return { background: '#1D9E75', border: '#1D9E75', color: '#FFFFFF' }
+    return { background: '#14B8A6', border: '#0F766E', color: '#FFFFFF' }
   }
 
   if (frame.checking.includes(index)) {
-    return { background: '#FAEEDA', border: '#BA7517', color: '#1B1C18' }
+    return { background: '#FFE7B8', border: '#F59E0B', color: '#172033' }
   }
 
   if (frame.eliminated.includes(index)) {
-    return { background: '#E8E4DD', border: '#B4B2A9', color: '#6F6D67' }
+    return { background: '#DDE7EE', border: '#91A8B3', color: '#52616B' }
   }
 
   if (frame.activeRange.includes(index)) {
-    return { background: '#F8F7FF', border: '#534AB7', color: '#1B1C18' }
+    return { background: '#E8F0FF', border: '#6366F1', color: '#172033' }
   }
 
-  return { background: '#FFFFFF', border: '#D8D4CC', color: '#1B1C18' }
+  return { background: '#F8FAFC', border: '#CBD5E1', color: '#172033' }
 }

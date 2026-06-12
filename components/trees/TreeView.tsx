@@ -84,12 +84,12 @@ export function TreeView({
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="glass-panel flex flex-wrap items-center gap-3 rounded-lg p-3">
           <label className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
             Algorithm
           </label>
           <select
-            className="h-10 rounded-md bg-[hsl(var(--surface-container-highest))] px-3 text-sm outline-none transition focus:ring-2 focus:ring-primary/20"
+            className="h-10 rounded-md px-3 text-sm outline-none transition focus:ring-2 focus:ring-primary/20"
             onChange={(event) => setAlgorithm(event.target.value as BstAlgorithmId)}
             value={algorithm}
           >
@@ -99,15 +99,15 @@ export function TreeView({
               </option>
             ))}
           </select>
-          <span className="rounded-md bg-emerald-200 px-2.5 py-1 font-mono text-sm font-semibold text-emerald-900">
+          <span className="rounded-md bg-[hsl(var(--primary)/0.14)] px-2.5 py-1 font-mono text-sm font-semibold text-primary">
             {activeAlgorithm.complexity}
           </span>
         </div>
       </header>
 
       <section className="grid gap-5 xl:grid-cols-[300px_minmax(0,1fr)_minmax(360px,0.9fr)]">
-        <aside className="flex flex-col gap-4 bg-[hsl(var(--surface-container-low))] p-4">
-          <div className="flex flex-col gap-4 rounded-lg bg-[hsl(var(--surface-container-lowest))] p-4">
+        <aside className="glass-panel flex flex-col gap-4 rounded-lg p-4">
+          <div className="flex flex-col gap-4 rounded-lg border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] p-4">
             <div className="flex flex-wrap items-center gap-2">
               <Button
                 aria-label={isPlaying ? 'Pause' : 'Play'}
@@ -173,7 +173,7 @@ export function TreeView({
               Speed
             </label>
             <select
-              className="h-10 rounded-md bg-[hsl(var(--surface-container-highest))] px-3 text-sm outline-none"
+              className="h-10 rounded-md px-3 text-sm outline-none"
               onChange={(event) => setSpeed(Number(event.target.value))}
               value={speed}
             >
@@ -184,7 +184,7 @@ export function TreeView({
             </select>
           </div>
 
-          <div className="flex flex-col gap-3 rounded-lg bg-[hsl(var(--surface-container-lowest))] p-4">
+          <div className="flex flex-col gap-3 rounded-lg border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] p-4">
             <label className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
               Search target
             </label>
@@ -212,7 +212,7 @@ export function TreeView({
 
         <div className="flex flex-col gap-4">
           <TreeCanvas frame={frame} />
-          <div className="rounded-lg bg-[hsl(var(--surface-container-low))] p-5">
+          <div className="glass-panel rounded-lg p-5">
             <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
               Step Note
             </p>

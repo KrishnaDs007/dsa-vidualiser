@@ -68,9 +68,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-40 flex h-20 items-center gap-6 bg-background/90 px-5 backdrop-blur-xl lg:px-8">
-        <Link className="mr-4 text-2xl font-bold tracking-tight text-foreground" href="/">
+    <div className="min-h-screen text-foreground">
+      <header className="glass-panel-strong sticky top-0 z-40 mx-3 mt-3 flex h-20 items-center gap-6 rounded-lg px-5 lg:mx-5 lg:px-8">
+        <Link className="mr-4 text-2xl font-black tracking-tight text-foreground" href="/">
           AlgoPrecision
         </Link>
 
@@ -80,8 +80,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             return (
               <Link
                 className={cn(
-                  'border-b-2 border-transparent pb-2 text-sm text-foreground/82 transition hover:text-primary',
-                  active && 'border-primary text-primary'
+                  'rounded-md px-3 py-2 text-sm font-semibold text-foreground/76 transition hover:bg-[hsl(var(--glass))] hover:text-primary',
+                  active && 'bg-[hsl(var(--glass-strong))] text-primary shadow-sm'
                 )}
                 href={item.href}
                 key={item.href}
@@ -92,7 +92,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
-        <div className="ml-auto hidden h-10 w-[320px] items-center gap-3 rounded-md bg-[hsl(var(--surface-container-highest))] px-4 text-muted-foreground lg:flex">
+        <div className="ml-auto hidden h-11 w-[320px] items-center gap-3 rounded-md border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] px-4 text-muted-foreground shadow-sm backdrop-blur-xl lg:flex">
           <Search className="h-4 w-4" />
           <span className="text-sm">Search algorithms...</span>
         </div>
@@ -114,9 +114,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </header>
 
       <div className="grid min-h-[calc(100vh-80px)] lg:grid-cols-[320px_minmax(0,1fr)]">
-        <aside className="bg-background px-5 py-10 lg:min-h-[calc(100vh-80px)] lg:px-8">
+        <aside className="px-5 py-10 lg:min-h-[calc(100vh-80px)] lg:px-8">
           <div className="mb-7 flex items-center gap-4">
-            <div className="grid h-12 w-12 place-items-center rounded-lg bg-[hsl(var(--surface-container-highest))] text-primary">
+            <div className="grid h-12 w-12 place-items-center rounded-lg border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass-strong))] text-primary shadow-sm backdrop-blur-xl">
               <GitBranch className="h-6 w-6" />
             </div>
             <div>
@@ -131,7 +131,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </Link>
           </Button>
 
-          <nav className="flex flex-col gap-2">
+          <nav className="glass-panel flex flex-col gap-2 rounded-lg p-2">
             {user && (
               <SideLink href="/dashboard" icon={LayoutDashboard} label="Dashboard" pathname={pathname} />
             )}
@@ -151,7 +151,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
         <div className="min-w-0 px-5 pb-20 pt-8 lg:px-8">
           {flash && (
-            <div className="fixed right-5 top-24 z-50 max-w-sm rounded-md bg-[hsl(var(--surface))]/90 px-4 py-3 text-sm shadow-[0_20px_40px_rgba(27,28,24,0.08)] backdrop-blur-xl">
+            <div className="glass-panel-strong fixed right-5 top-24 z-50 max-w-sm rounded-md px-4 py-3 text-sm">
               <div className="flex items-start gap-3">
                 <Sparkles className="mt-0.5 h-4 w-4 text-primary" />
                 <p>{flash}</p>
@@ -185,8 +185,8 @@ function SideLink({
   return (
     <Link
       className={cn(
-        'group flex min-h-14 items-center gap-5 rounded-md px-5 text-sm font-bold uppercase tracking-[0.18em] text-muted-foreground transition hover:bg-[hsl(var(--surface-container-low))] hover:text-primary',
-        active && 'bg-[hsl(var(--surface-container-highest))] text-primary'
+        'group flex min-h-14 items-center gap-5 rounded-md px-5 text-sm font-bold uppercase tracking-[0.18em] text-muted-foreground transition hover:bg-[hsl(var(--glass))] hover:text-primary',
+        active && 'bg-[hsl(var(--glass-strong))] text-primary shadow-sm'
       )}
       data-gated={gated ? 'true' : undefined}
       href={href}

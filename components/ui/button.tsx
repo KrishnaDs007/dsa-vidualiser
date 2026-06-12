@@ -4,16 +4,17 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  'inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md px-4 py-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
         default:
-          'bg-gradient-to-b from-primary to-[hsl(var(--primary-container))] text-primary-foreground hover:brightness-105',
-        secondary: 'bg-[hsl(var(--surface-container-highest))] text-primary hover:bg-muted',
+          'bg-gradient-to-br from-primary to-[hsl(var(--primary-container))] text-primary-foreground shadow-[0_14px_32px_hsl(var(--primary)/0.24)] hover:-translate-y-0.5 hover:brightness-105',
+        secondary:
+          'border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass-strong))] text-primary shadow-sm backdrop-blur-xl hover:-translate-y-0.5 hover:bg-[hsl(var(--surface-container-lowest))]',
         outline:
-          'border border-border/20 bg-white/70 text-foreground hover:bg-muted',
-        ghost: 'text-foreground hover:bg-muted'
+          'border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] text-foreground shadow-sm backdrop-blur-xl hover:-translate-y-0.5 hover:border-primary/40 hover:bg-[hsl(var(--glass-strong))]',
+        ghost: 'text-foreground hover:bg-[hsl(var(--glass))]'
       },
       size: {
         default: 'h-10 px-4',

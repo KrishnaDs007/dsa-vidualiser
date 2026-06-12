@@ -30,7 +30,7 @@ export function CodePanel({
   }, [codeLine])
 
   return (
-    <div className="h-[560px] overflow-auto rounded-lg bg-[hsl(var(--surface-container-low))] text-sm">
+    <div className="glass-panel h-[560px] overflow-auto rounded-lg text-sm">
       <div
         className="min-w-max p-4"
         dangerouslySetInnerHTML={{ __html: highlightedCode }}

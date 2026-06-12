@@ -12,9 +12,9 @@ export function speedToDelay(speed: number) {
 }
 
 export const STEP_COLORS = {
-  default: { bg: '#F1EFE8', border: '#B4B2A9' },
-  comparing: { bg: '#FAEEDA', border: '#BA7517' },
-  swapped: { bg: '#BA7517', border: '#BA7517' },
-  sorted: { bg: '#1D9E75', border: '#1D9E75' },
-  pivot: { bg: '#534AB7', border: '#534AB7' }
+  default: { bg: '#EAF3F6', border: '#91A8B3' },
+  comparing: { bg: '#FFE7B8', border: '#F59E0B' },
+  swapped: { bg: '#F97316', border: '#EA580C' },
+  sorted: { bg: '#14B8A6', border: '#0F766E' },
+  pivot: { bg: '#6366F1', border: '#4F46E5' }
 }

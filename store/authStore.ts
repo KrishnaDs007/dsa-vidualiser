@@ -1,6 +1,7 @@
 'use client'
 
 import { create } from 'zustand'
+import { parseWorkspaceBackup, serializeWorkspaceBackup } from '@/lib/workspaceBackup'
 
 export interface SavedAnalysis {
   id: string
@@ -42,6 +43,8 @@ interface AuthStore {
   ) => void
   deleteAnalysis: (id: string) => void
   duplicateAnalysis: (id: string) => void
+  exportWorkspace: () => string | null
+  importWorkspace: (json: string) => boolean
 }
 
 const USERS_KEY = 'algo-precision-users'
@@ -263,5 +266,34 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       analyses: nextAnalyses,
       flash: 'Custom visualizer duplicated.'
     })
+  },
+  exportWorkspace: () => {
+    const { user, analyses } = get()
+    if (!user) {
+      set({ flash: 'Please sign in before exporting your workspace.' })
+      return null
+    }
+
+    return serializeWorkspaceBackup(analyses)
+  },
+  importWorkspace: (json) => {
+    const { user } = get()
+    if (!user) {
+      set({ flash: 'Please sign in before importing a workspace.' })
+      return false
+    }
+
+    try {
+      const importedAnalyses = parseWorkspaceBackup(json)
+      const nextAnalyses = updateStoredAnalyses(user.email, () => importedAnalyses)
+      set({
+        analyses: nextAnalyses,
+        flash: `Imported ${nextAnalyses.length} custom visualizer${nextAnalyses.length === 1 ? '' : 's'}.`
+      })
+      return true
+    } catch {
+      set({ flash: 'That workspace backup could not be imported.' })
+      return false
+    }
   }
 }))

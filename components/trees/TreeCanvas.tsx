@@ -20,12 +20,12 @@ export function TreeCanvas({ frame }: TreeCanvasProps) {
     )
 
   return (
-    <div className="dot-grid min-h-[520px] overflow-hidden rounded-lg bg-[hsl(var(--surface))] p-4">
+    <div className="glass-panel dot-grid min-h-[520px] overflow-hidden rounded-lg p-4">
       <svg className="h-[520px] w-full" viewBox="0 0 820 420">
         {edges.map(({ child, parent }) => (
           <motion.line
             animate={{
-              stroke: frame.visitedIds.includes(child.id) ? '#534AB7' : '#B4B2A9'
+              stroke: frame.visitedIds.includes(child.id) ? '#6366F1' : '#91A8B3'
             }}
             key={`${parent.id}-${child.id}`}
             strokeWidth="3"
@@ -74,12 +74,12 @@ export function TreeCanvas({ frame }: TreeCanvasProps) {
 
 function getNodeState(id: string, frame: TreeStep) {
   if (frame.highlightedId === id) {
-    return { fill: '#FAEEDA', stroke: '#BA7517', text: '#1B1C18' }
+    return { fill: '#FFE7B8', stroke: '#F59E0B', text: '#172033' }
   }
 
   if (frame.visitedIds.includes(id)) {
-    return { fill: '#1D9E75', stroke: '#1D9E75', text: '#FFFFFF' }
+    return { fill: '#14B8A6', stroke: '#0F766E', text: '#FFFFFF' }
   }
 
-  return { fill: '#FFFFFF', stroke: '#B4B2A9', text: '#1B1C18' }
+  return { fill: '#F8FAFC', stroke: '#CBD5E1', text: '#172033' }
 }

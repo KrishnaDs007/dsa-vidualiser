@@ -28,7 +28,7 @@ export function ArrayInput() {
   }
 
   return (
-    <div className="flex flex-col gap-2 rounded-lg bg-[hsl(var(--surface-container-lowest))] p-4">
+    <div className="flex flex-col gap-2 rounded-lg border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] p-4">
       <label className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
         Array values
       </label>

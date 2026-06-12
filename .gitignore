@@ -36,3 +36,4 @@ Thumbs.db
 # Local-only project planning and notes
 docs/*.local.md
 docs/local/
+learning/

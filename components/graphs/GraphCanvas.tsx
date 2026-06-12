@@ -11,7 +11,7 @@ export function GraphCanvas({ frame }: GraphCanvasProps) {
   const nodeById = new Map(frame.nodes.map((node) => [node.id, node]))
 
   return (
-    <div className="dot-grid min-h-[520px] overflow-hidden rounded-lg bg-[hsl(var(--surface))] p-4">
+    <div className="glass-panel dot-grid min-h-[520px] overflow-hidden rounded-lg p-4">
       <svg className="h-[520px] w-full" viewBox="0 0 760 400">
         <defs>
           <marker
@@ -22,7 +22,7 @@ export function GraphCanvas({ frame }: GraphCanvasProps) {
             refX="6"
             refY="3"
           >
-            <path d="M0,0 L0,6 L7,3 z" fill="#B4B2A9" />
+            <path d="M0,0 L0,6 L7,3 z" fill="#91A8B3" />
           </marker>
         </defs>
 
@@ -40,7 +40,7 @@ export function GraphCanvas({ frame }: GraphCanvasProps) {
           return (
             <g key={`${edge.source}-${edge.target}`}>
               <motion.line
-                animate={{ stroke: active ? '#534AB7' : '#B4B2A9' }}
+                animate={{ stroke: active ? '#6366F1' : '#91A8B3' }}
                 markerEnd="url(#arrow)"
                 strokeWidth="3"
                 x1={source.x}
@@ -48,11 +48,11 @@ export function GraphCanvas({ frame }: GraphCanvasProps) {
                 y1={source.y}
                 y2={target.y}
               />
-              <circle cx={midX} cy={midY} fill="#FFFFFF" r="13" />
+              <circle cx={midX} cy={midY} fill="#F8FAFC" r="13" />
               <text
                 className="select-none text-xs font-bold"
                 dominantBaseline="middle"
-                fill="#1B1C18"
+                fill="#172033"
                 textAnchor="middle"
                 x={midX}
                 y={midY}
@@ -108,20 +108,20 @@ function GraphNodeView({ node, frame }: { node: GraphNode; frame: GraphStep }) {
 
 function getNodeState(id: string, frame: GraphStep) {
   if (frame.activeNodeId === id) {
-    return { fill: '#FAEEDA', stroke: '#BA7517', text: '#1B1C18' }
+    return { fill: '#FFE7B8', stroke: '#F59E0B', text: '#172033' }
   }
 
   if (frame.settledNodeIds.includes(id)) {
-    return { fill: '#1D9E75', stroke: '#1D9E75', text: '#FFFFFF' }
+    return { fill: '#14B8A6', stroke: '#0F766E', text: '#FFFFFF' }
   }
 
   if (frame.frontierNodeIds.includes(id)) {
-    return { fill: '#F8F7FF', stroke: '#534AB7', text: '#1B1C18' }
+    return { fill: '#E8F0FF', stroke: '#6366F1', text: '#172033' }
   }
 
   if (frame.visitedNodeIds.includes(id)) {
-    return { fill: '#E8E4DD', stroke: '#6F6D67', text: '#1B1C18' }
+    return { fill: '#DDE7EE', stroke: '#91A8B3', text: '#52616B' }
   }
 
-  return { fill: '#FFFFFF', stroke: '#B4B2A9', text: '#1B1C18' }
+  return { fill: '#F8FAFC', stroke: '#CBD5E1', text: '#172033' }
 }

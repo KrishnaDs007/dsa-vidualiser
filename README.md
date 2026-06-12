@@ -16,7 +16,7 @@ custom code visualization workspace.
 - Step controls, speed control, custom array input, animated bars, and synced
   pseudocode highlighting.
 - Local profile/dashboard flow with a temporary cap of 10 saved custom code
-  visualizers.
+  visualizers, including JSON import/export for local backups.
 - DSA roadmap catalog grouped by sorting, searching, hashing, stacks/queues,
   linked lists, trees, graphs, dynamic programming, arrays/strings,
   backtracking, and greedy methods.

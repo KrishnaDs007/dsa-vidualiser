@@ -9,7 +9,7 @@ interface DpCanvasProps {
 
 export function DpCanvas({ frame }: DpCanvasProps) {
   return (
-    <div className="dot-grid min-h-[360px] rounded-lg bg-[hsl(var(--surface))] p-5">
+    <div className="glass-panel dot-grid min-h-[360px] rounded-lg p-5">
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 xl:grid-cols-5">
         {frame.cells.map((cell) => {
           const state = getCellState(cell.id, frame)
@@ -39,16 +39,16 @@ export function DpCanvas({ frame }: DpCanvasProps) {
 
 function getCellState(id: string, frame: DpStep) {
   if (frame.activeCellId === id) {
-    return { background: '#FAEEDA', border: '#BA7517', color: '#1B1C18' }
+    return { background: '#FFE7B8', border: '#F59E0B', color: '#172033' }
   }
 
   if (frame.dependencyCellIds.includes(id)) {
-    return { background: '#F8F7FF', border: '#534AB7', color: '#1B1C18' }
+    return { background: '#E8F0FF', border: '#6366F1', color: '#172033' }
   }
 
   if (frame.completedCellIds.includes(id)) {
-    return { background: '#1D9E75', border: '#1D9E75', color: '#FFFFFF' }
+    return { background: '#14B8A6', border: '#0F766E', color: '#FFFFFF' }
   }
 
-  return { background: '#FFFFFF', border: '#B4B2A9', color: '#1B1C18' }
+  return { background: '#F8FAFC', border: '#CBD5E1', color: '#172033' }
 }

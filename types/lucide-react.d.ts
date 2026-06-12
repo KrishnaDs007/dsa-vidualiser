@@ -10,6 +10,7 @@ declare module 'lucide-react' {
   export const Columns3: LucideIcon
   export const Copy: LucideIcon
   export const Cpu: LucideIcon
+  export const Download: LucideIcon
   export const GitBranch: LucideIcon
   export const GitMerge: LucideIcon
   export const HardDrive: LucideIcon
@@ -33,5 +34,6 @@ declare module 'lucide-react' {
   export const TerminalSquare: LucideIcon
   export const Trash2: LucideIcon
   export const Trees: LucideIcon
+  export const Upload: LucideIcon
   export const Zap: LucideIcon
 }

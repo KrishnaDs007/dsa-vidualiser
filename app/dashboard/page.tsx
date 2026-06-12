@@ -2,8 +2,17 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
-import { ArrowRight, Columns3, Copy, Pencil, TerminalSquare, Trash2 } from 'lucide-react'
+import { useRef, type ChangeEvent, useEffect } from 'react'
+import {
+  ArrowRight,
+  Columns3,
+  Copy,
+  Download,
+  Pencil,
+  TerminalSquare,
+  Trash2,
+  Upload
+} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { getLanguageLabel } from '@/lib/customCode'
 import { MAX_SAVED_ANALYSES, useAuthStore } from '@/store/authStore'
@@ -28,7 +37,10 @@ export default function DashboardPage() {
   const analyses = useAuthStore((state) => state.analyses)
   const deleteAnalysis = useAuthStore((state) => state.deleteAnalysis)
   const duplicateAnalysis = useAuthStore((state) => state.duplicateAnalysis)
+  const exportWorkspace = useAuthStore((state) => state.exportWorkspace)
+  const importWorkspace = useAuthStore((state) => state.importWorkspace)
   const setFlash = useAuthStore((state) => state.setFlash)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (!hydrated || user) return
@@ -39,6 +51,33 @@ export default function DashboardPage() {
 
   if (!user) return null
 
+  function downloadWorkspace() {
+    const json = exportWorkspace()
+    if (!json) return
+
+    const blob = new Blob([json], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const anchor = document.createElement('a')
+    anchor.href = url
+    anchor.download = `dsa-visualizer-workspace-${new Date().toISOString().slice(0, 10)}.json`
+    anchor.click()
+    URL.revokeObjectURL(url)
+  }
+
+  function importWorkspaceFile(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    const reader = new FileReader()
+    reader.onload = () => {
+      if (typeof reader.result === 'string') {
+        importWorkspace(reader.result)
+      }
+      event.target.value = ''
+    }
+    reader.readAsText(file)
+  }
+
   return (
     <main className="mx-auto max-w-7xl">
       <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-primary">
@@ -47,6 +86,25 @@ export default function DashboardPage() {
       <h1 className="mt-4 text-4xl font-black tracking-tight">
         {user.name}&apos;s Dashboard
       </h1>
+      <div className="mt-6 flex flex-wrap gap-3">
+        <Button onClick={downloadWorkspace} type="button" variant="secondary">
+          <Download className="h-4 w-4" /> Export Workspace
+        </Button>
+        <Button
+          onClick={() => fileInputRef.current?.click()}
+          type="button"
+          variant="outline"
+        >
+          <Upload className="h-4 w-4" /> Import Workspace
+        </Button>
+        <input
+          accept="application/json"
+          className="hidden"
+          onChange={importWorkspaceFile}
+          ref={fileInputRef}
+          type="file"
+        />
+      </div>
 
       <section className="mt-12">
         <h2 className="text-2xl font-black tracking-tight">Pinned Visualizers</h2>
