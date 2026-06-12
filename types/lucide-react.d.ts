@@ -7,6 +7,7 @@ declare module 'lucide-react' {
   export const BarChart3: LucideIcon
   export const BookOpen: LucideIcon
   export const Boxes: LucideIcon
+  export const CircleDot: LucideIcon
   export const Columns3: LucideIcon
   export const Copy: LucideIcon
   export const Cpu: LucideIcon

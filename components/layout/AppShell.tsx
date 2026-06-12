@@ -8,6 +8,7 @@ import {
   BarChart3,
   BookOpen,
   Boxes,
+  CircleDot,
   GitBranch,
   Home,
   Layers3,
@@ -33,6 +34,7 @@ const primaryNav = [
 const sideNav = [
   { label: 'Sorting', href: '/sorting', icon: Layers3 },
   { label: 'Searching', href: '/search', icon: Search },
+  { label: 'Hashing', href: '/hashing', icon: CircleDot },
   { label: 'Graphs', href: '/graphs', icon: Network },
   { label: 'Trees', href: '/trees', icon: Trees },
   { label: 'Dynamic Programming', href: '/dynamic-programming', icon: Boxes },

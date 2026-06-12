@@ -9,6 +9,7 @@ custom code visualization workspace.
 - Sorting visualizer with Bubble, Insertion, Selection, Merge, Quick, Heap,
   Shell, Counting, and Radix Sort.
 - Search visualizer with Linear Search and Binary Search.
+- Hashing visualizer with Hash Insert and Hash Search using separate chaining.
 - Tree visualizer with BST Insert, BST Search, and Inorder Traversal.
 - Graph visualizer with BFS, DFS, and Dijkstra on a weighted directed graph.
 - Dynamic Programming visualizer with Fibonacci, Climbing Stairs, and Coin
@@ -28,15 +29,18 @@ custom code visualization workspace.
 1. Sorting foundation: complete for the current algorithm set.
 2. Search foundation: Linear Search and Binary Search are complete; bounds,
    rotated arrays, and binary search on answer are next.
-3. Trees foundation: BST insert/search and inorder traversal are complete;
+3. Hashing foundation: Hash Insert and Hash Search are complete; Two Sum,
+   Frequency Counter, Group Anagrams, Longest Consecutive Sequence, and
+   Subarray Sum Equals K are next.
+4. Trees foundation: BST insert/search and inorder traversal are complete;
    preorder, postorder, level-order, LCA, and trie workflows are next.
-4. Graphs foundation: BFS, DFS, and Dijkstra are complete; topological sort,
+5. Graphs foundation: BFS, DFS, and Dijkstra are complete; topological sort,
    union find, and MST are next.
-5. Dynamic Programming foundation: Fibonacci, Climbing Stairs, and Coin Change
+6. Dynamic Programming foundation: Fibonacci, Climbing Stairs, and Coin Change
    are complete; 0/1 Knapsack, LCS, and LIS are next.
-6. Custom code visualization: language selector, persisted source code,
+7. Custom code visualization: language selector, persisted source code,
    step-by-step tracing, and per-step time/space complexity updates.
-7. Backend sync: deferred until the local-first profile and visualizer flows are
+8. Backend sync: deferred until the local-first profile and visualizer flows are
    stable.
 
 ## Run locally

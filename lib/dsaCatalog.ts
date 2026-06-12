@@ -58,6 +58,8 @@ export const DSA_CATALOG: DsaCategory[] = [
     description:
       'Constant-time lookup patterns using maps, sets, counters, and prefix signatures.',
     topics: [
+      { name: 'Hash Insert', status: 'ready', patterns: ['Modulo hashing', 'Chaining'] },
+      { name: 'Hash Search', status: 'ready', patterns: ['Bucket lookup', 'Chain scan'] },
       { name: 'Two Sum', status: 'planned', patterns: ['Hash map lookup'] },
       { name: 'Frequency Counter', status: 'planned', patterns: ['Counting'] },
       { name: 'Group Anagrams', status: 'planned', patterns: ['Canonical keys'] },

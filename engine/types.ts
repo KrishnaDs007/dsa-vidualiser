@@ -76,3 +76,30 @@ export interface DpStep {
   codeLine: number
   note: string
 }
+
+export interface HashEntry {
+  id: string
+  key: number
+  value: string
+}
+
+export interface HashBucket {
+  id: number
+  entries: HashEntry[]
+}
+
+export interface HashStep {
+  buckets: HashBucket[]
+  inputKeys: number[]
+  activeKey: number | null
+  activeBucketId: number | null
+  activeEntryId: string | null
+  insertedEntryIds: string[]
+  visitedEntryIds: string[]
+  foundEntryId: string | null
+  bucketCount: number
+  timeComplexity: string
+  spaceComplexity: string
+  codeLine: number
+  note: string
+}
