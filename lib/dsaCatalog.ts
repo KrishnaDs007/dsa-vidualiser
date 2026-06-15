@@ -74,6 +74,7 @@ export const DSA_CATALOG: DsaCategory[] = [
       'LIFO/FIFO structures for monotonic scans, parsing, windows, and scheduling.',
     topics: [
       { name: 'Stack Push / Pop / Peek', status: 'ready', patterns: ['LIFO', 'Top pointer'] },
+      { name: 'Queue Enqueue / Dequeue / Peek', status: 'ready', patterns: ['FIFO', 'Front and rear'] },
       { name: 'Valid Parentheses', status: 'planned', patterns: ['Stack parsing'] },
       { name: 'Next Greater Element', status: 'planned', patterns: ['Monotonic stack'] },
       { name: 'Daily Temperatures', status: 'planned', patterns: ['Monotonic stack'] },

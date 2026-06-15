@@ -121,3 +121,21 @@ export interface StackStep {
   codeLine: number
   note: string
 }
+
+export interface QueueItem {
+  id: string
+  value: number
+}
+
+export interface QueueStep {
+  items: QueueItem[]
+  inputValues: number[]
+  activeValue: number | null
+  activeItemId: string | null
+  removedItemId: string | null
+  operation: 'enqueue' | 'dequeue' | 'peek'
+  timeComplexity: string
+  spaceComplexity: string
+  codeLine: number
+  note: string
+}

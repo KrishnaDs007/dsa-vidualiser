@@ -11,6 +11,7 @@ custom code visualization workspace.
 - Search visualizer with Linear Search and Binary Search.
 - Hashing visualizer with Hash Insert and Hash Search using separate chaining.
 - Stack visualizer with Push, Pop, and Peek operations.
+- Queue visualizer with Enqueue, Dequeue, and Peek operations.
 - Tree visualizer with BST Insert, BST Search, and Inorder Traversal.
 - Graph visualizer with BFS, DFS, and Dijkstra on a weighted directed graph.
 - Dynamic Programming visualizer with Fibonacci, Climbing Stairs, and Coin
@@ -33,9 +34,9 @@ custom code visualization workspace.
 3. Hashing foundation: Hash Insert and Hash Search are complete; Two Sum,
    Frequency Counter, Group Anagrams, Longest Consecutive Sequence, and
    Subarray Sum Equals K are next.
-4. Stacks foundation: Push, Pop, and Peek are complete; Valid Parentheses,
-   Next Greater Element, Daily Temperatures, Sliding Window Maximum, and Queue
-   Using Stacks are next.
+4. Stacks and queues foundation: Stack Push/Pop/Peek and Queue
+   Enqueue/Dequeue/Peek are complete; Valid Parentheses, Next Greater Element,
+   Daily Temperatures, Sliding Window Maximum, and Queue Using Stacks are next.
 5. Trees foundation: BST insert/search and inorder traversal are complete;
    preorder, postorder, level-order, LCA, and trie workflows are next.
 6. Graphs foundation: BFS, DFS, and Dijkstra are complete; topological sort,
