@@ -161,3 +161,17 @@ export interface LinkedListStep {
   codeLine: number
   note: string
 }
+
+export interface ArrayStringStep {
+  array: number[]
+  target: number
+  leftIndex: number | null
+  rightIndex: number | null
+  currentSum: number | null
+  foundIndexes: number[]
+  eliminatedIndexes: number[]
+  timeComplexity: string
+  spaceComplexity: string
+  codeLine: number
+  note: string
+}

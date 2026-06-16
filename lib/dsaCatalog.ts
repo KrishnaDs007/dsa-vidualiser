@@ -144,7 +144,7 @@ export const DSA_CATALOG: DsaCategory[] = [
     description:
       'Core interview patterns around windows, prefixes, pointers, and in-place edits.',
     topics: [
-      { name: 'Two Pointers', status: 'planned', patterns: ['Opposite ends', 'Same direction'] },
+      { name: 'Two Pointers', status: 'ready', patterns: ['Opposite ends', 'Same direction'] },
       { name: 'Sliding Window', status: 'planned', patterns: ['Window expansion'] },
       { name: 'Prefix Sum', status: 'planned', patterns: ['Range query'] },
       { name: 'Kadane Algorithm', status: 'planned', patterns: ['Running optimum'] },

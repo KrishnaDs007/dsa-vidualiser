@@ -40,6 +40,7 @@ const sideNav = [
   { label: 'Stacks', href: '/stacks', icon: SquareStack },
   { label: 'Queues', href: '/queues', icon: GitBranch },
   { label: 'Linked Lists', href: '/linked-lists', icon: GitMerge },
+  { label: 'Arrays & Strings', href: '/arrays-strings', icon: BarChart3 },
   { label: 'Graphs', href: '/graphs', icon: Network },
   { label: 'Trees', href: '/trees', icon: Trees },
   { label: 'Dynamic Programming', href: '/dynamic-programming', icon: Boxes },
