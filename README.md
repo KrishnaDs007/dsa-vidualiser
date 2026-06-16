@@ -12,6 +12,7 @@ custom code visualization workspace.
 - Hashing visualizer with Hash Insert and Hash Search using separate chaining.
 - Stack visualizer with Push, Pop, and Peek operations.
 - Queue visualizer with Enqueue, Dequeue, and Peek operations.
+- Linked List visualizer with Reverse Linked List pointer rewiring.
 - Tree visualizer with BST Insert, BST Search, and Inorder Traversal.
 - Graph visualizer with BFS, DFS, and Dijkstra on a weighted directed graph.
 - Dynamic Programming visualizer with Fibonacci, Climbing Stairs, and Coin
@@ -37,15 +38,18 @@ custom code visualization workspace.
 4. Stacks and queues foundation: Stack Push/Pop/Peek and Queue
    Enqueue/Dequeue/Peek are complete; Valid Parentheses, Next Greater Element,
    Daily Temperatures, Sliding Window Maximum, and Queue Using Stacks are next.
-5. Trees foundation: BST insert/search and inorder traversal are complete;
+5. Linked Lists foundation: Reverse Linked List is complete; Middle of Linked
+   List, Detect Cycle, Merge Two Sorted Lists, and Remove Nth Node From End are
+   next.
+6. Trees foundation: BST insert/search and inorder traversal are complete;
    preorder, postorder, level-order, LCA, and trie workflows are next.
-6. Graphs foundation: BFS, DFS, and Dijkstra are complete; topological sort,
+7. Graphs foundation: BFS, DFS, and Dijkstra are complete; topological sort,
    union find, and MST are next.
-7. Dynamic Programming foundation: Fibonacci, Climbing Stairs, and Coin Change
+8. Dynamic Programming foundation: Fibonacci, Climbing Stairs, and Coin Change
    are complete; 0/1 Knapsack, LCS, and LIS are next.
-8. Custom code visualization: language selector, persisted source code,
+9. Custom code visualization: language selector, persisted source code,
    step-by-step tracing, and per-step time/space complexity updates.
-9. Backend sync: deferred until the local-first profile and visualizer flows are
+10. Backend sync: deferred until the local-first profile and visualizer flows are
    stable.
 
 ## Run locally

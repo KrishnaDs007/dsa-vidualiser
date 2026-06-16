@@ -139,3 +139,25 @@ export interface QueueStep {
   codeLine: number
   note: string
 }
+
+export interface LinkedListNode {
+  id: string
+  value: number
+  nextId: string | null
+  x: number
+  y: number
+}
+
+export interface LinkedListStep {
+  nodes: LinkedListNode[]
+  inputValues: number[]
+  headId: string | null
+  prevId: string | null
+  currentId: string | null
+  nextId: string | null
+  rewiredNodeIds: string[]
+  timeComplexity: string
+  spaceComplexity: string
+  codeLine: number
+  note: string
+}
