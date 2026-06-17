@@ -1,6 +1,6 @@
 import type { QueueItem } from '@/engine/types'
 
-export function makeQueueItem(value: number, index: number): QueueItem {
+export function makeQueueItem(value: number | string, index: number): QueueItem {
   return {
     id: `queue-${value}-${index}`,
     value

@@ -107,16 +107,17 @@ export interface HashStep {
 
 export interface StackItem {
   id: string
-  value: number
+  value: number | string
 }
 
 export interface StackStep {
   items: StackItem[]
-  inputValues: number[]
-  activeValue: number | null
+  inputValues: Array<number | string>
+  activeValue: number | string | null
   activeItemId: string | null
   removedItemId: string | null
-  operation: 'push' | 'pop' | 'peek'
+  operation: 'push' | 'pop' | 'peek' | 'parse' | 'monotonic'
+  result?: string
   timeComplexity: string
   spaceComplexity: string
   codeLine: number
@@ -125,16 +126,17 @@ export interface StackStep {
 
 export interface QueueItem {
   id: string
-  value: number
+  value: number | string
 }
 
 export interface QueueStep {
   items: QueueItem[]
-  inputValues: number[]
-  activeValue: number | null
+  inputValues: Array<number | string>
+  activeValue: number | string | null
   activeItemId: string | null
   removedItemId: string | null
-  operation: 'enqueue' | 'dequeue' | 'peek'
+  operation: 'enqueue' | 'dequeue' | 'peek' | 'deque' | 'twoStacks'
+  result?: string
   timeComplexity: string
   spaceComplexity: string
   codeLine: number

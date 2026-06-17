@@ -61,7 +61,7 @@ function step({
 }: {
   items: QueueItem[]
   inputValues: number[]
-  activeValue?: number | null
+  activeValue?: QueueStep['activeValue']
   activeItemId?: string | null
   removedItemId?: string | null
   operation: 'dequeue'

@@ -2,6 +2,11 @@ import { describe, expect, it } from 'vitest'
 import { stackPeek } from '@/engine/stacks/stackPeek'
 import { stackPop } from '@/engine/stacks/stackPop'
 import { stackPush } from '@/engine/stacks/stackPush'
+import {
+  dailyTemperatures,
+  nextGreaterElement,
+  validParentheses
+} from '@/engine/stacks/stackPatterns'
 
 describe('stack engine', () => {
   it('pushes values so the newest value becomes the top', () => {
@@ -29,5 +34,24 @@ describe('stack engine', () => {
 
     expect(finalFrame?.activeValue).toBe(12)
     expect(finalFrame?.items.map((item) => item.value)).toEqual([4, 8, 12])
+  })
+
+  it('validates matched parentheses with a stack', () => {
+    const frames = Array.from(validParentheses([]))
+
+    expect(frames.at(-1)?.result).toBe('valid')
+    expect(frames.at(-1)?.items).toEqual([])
+  })
+
+  it('computes next greater elements with a monotonic stack', () => {
+    const frames = Array.from(nextGreaterElement([2, 1, 2, 4, 3]))
+
+    expect(frames.at(-1)?.result).toBe('4, 2, 4, -1, -1')
+  })
+
+  it('computes daily temperature waits with a monotonic stack', () => {
+    const frames = Array.from(dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73]))
+
+    expect(frames.at(-1)?.result).toBe('1, 1, 4, 2, 1, 1, 0, 0')
   })
 })

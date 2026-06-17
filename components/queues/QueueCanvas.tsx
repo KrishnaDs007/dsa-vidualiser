@@ -22,6 +22,11 @@ export function QueueCanvas({ frame }: QueueCanvasProps) {
             active value: {frame.activeValue}
           </span>
         )}
+        {frame.result && (
+          <span className="rounded-md bg-emerald-100 px-3 py-2 text-sm font-bold text-emerald-900">
+            result: {frame.result}
+          </span>
+        )}
       </div>
 
       <div className="grid gap-3">
@@ -59,7 +64,7 @@ function QueueNode({ item, frame }: { item: QueueItem; frame: QueueStep }) {
       layout
     >
       <span className="font-mono text-xs font-bold uppercase opacity-70">value</span>
-      <span className="text-3xl font-black">{item.value}</span>
+      <span className="break-all text-3xl font-black">{item.value}</span>
     </motion.div>
   )
 }

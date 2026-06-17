@@ -56,9 +56,9 @@ function step({
   codeLine,
   note
 }: {
-  items: { id: string; value: number }[]
+  items: StackItem[]
   inputValues: number[]
-  activeValue?: number | null
+  activeValue?: StackStep['activeValue']
   activeItemId?: string | null
   operation: 'push'
   codeLine: number

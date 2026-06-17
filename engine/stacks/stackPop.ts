@@ -1,4 +1,4 @@
-import type { StackStep } from '@/engine/types'
+import type { StackItem, StackStep } from '@/engine/types'
 import { cloneStack, makeStackItem } from '@/engine/stacks/stackUtils'
 
 export function* stackPop(values: number[]): Generator<StackStep> {
@@ -57,9 +57,9 @@ function step({
   codeLine,
   note
 }: {
-  items: { id: string; value: number }[]
+  items: StackItem[]
   inputValues: number[]
-  activeValue?: number | null
+  activeValue?: StackStep['activeValue']
   activeItemId?: string | null
   removedItemId?: string | null
   operation: 'pop'

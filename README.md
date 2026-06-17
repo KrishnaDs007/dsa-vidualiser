@@ -12,8 +12,10 @@ custom code visualization workspace.
   Search in Rotated Array, and Binary Search on Answer.
 - Hashing visualizer with Hash Insert, Hash Search, Two Sum, Frequency Counter,
   Group Anagrams, Longest Consecutive Sequence, and Subarray Sum Equals K.
-- Stack visualizer with Push, Pop, and Peek operations.
-- Queue visualizer with Enqueue, Dequeue, and Peek operations.
+- Stack visualizer with Push, Pop, Peek, Valid Parentheses, Next Greater
+  Element, and Daily Temperatures.
+- Queue visualizer with Enqueue, Dequeue, Peek, Sliding Window Maximum, and
+  Queue Using Stacks.
 - Linked List visualizer with Reverse Linked List pointer rewiring.
 - Arrays and Strings visualizer with Two Pointers pair-sum, Sliding Window
   max-sum, and Prefix Sum range-query tracing.
@@ -40,9 +42,7 @@ custom code visualization workspace.
 1. Sorting foundation: complete for the current algorithm set.
 2. Search foundation: complete for the current algorithm set.
 3. Hashing foundation: complete for the current algorithm set.
-4. Stacks and queues foundation: Stack Push/Pop/Peek and Queue
-   Enqueue/Dequeue/Peek are complete; Valid Parentheses, Next Greater Element,
-   Daily Temperatures, Sliding Window Maximum, and Queue Using Stacks are next.
+4. Stacks and queues foundation: complete for the current algorithm set.
 5. Linked Lists foundation: Reverse Linked List is complete; Middle of Linked
    List, Detect Cycle, Merge Two Sorted Lists, and Remove Nth Node From End are
    next.

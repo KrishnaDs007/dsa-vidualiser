@@ -24,6 +24,11 @@ export function StackCanvas({ frame }: StackCanvasProps) {
             active value: {frame.activeValue}
           </span>
         )}
+        {frame.result && (
+          <span className="rounded-md bg-emerald-100 px-3 py-2 text-sm font-bold text-emerald-900">
+            result: {frame.result}
+          </span>
+        )}
       </div>
 
       <div className="mx-auto flex max-w-sm flex-col items-stretch gap-2">
@@ -63,7 +68,7 @@ function StackNode({ item, frame }: { item: StackItem; frame: StackStep }) {
       layout
     >
       <span className="font-mono text-xs font-bold opacity-70">value</span>
-      <span className="text-2xl font-black">{item.value}</span>
+      <span className="break-all text-2xl font-black">{item.value}</span>
     </motion.div>
   )
 }

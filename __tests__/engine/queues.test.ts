@@ -2,6 +2,10 @@ import { describe, expect, it } from 'vitest'
 import { queueDequeue } from '@/engine/queues/queueDequeue'
 import { queueEnqueue } from '@/engine/queues/queueEnqueue'
 import { queuePeek } from '@/engine/queues/queuePeek'
+import {
+  queueUsingStacks,
+  slidingWindowMaximum
+} from '@/engine/queues/queuePatterns'
 
 describe('queue engine', () => {
   it('enqueues values so the first value remains at the front', () => {
@@ -29,5 +33,17 @@ describe('queue engine', () => {
 
     expect(finalFrame?.activeValue).toBe(4)
     expect(finalFrame?.items.map((item) => item.value)).toEqual([4, 8, 12])
+  })
+
+  it('tracks sliding window maximums with a deque', () => {
+    const frames = Array.from(slidingWindowMaximum([1, 3, -1, -3, 5, 3, 6, 7]))
+
+    expect(frames.at(-1)?.result).toBe('3, 3, 5, 5, 6, 7')
+  })
+
+  it('dequeues in FIFO order when implemented with two stacks', () => {
+    const frames = Array.from(queueUsingStacks([10, 20, 30]))
+
+    expect(frames.at(-1)?.result).toBe('dequeued: [10, 20, 30]')
   })
 })

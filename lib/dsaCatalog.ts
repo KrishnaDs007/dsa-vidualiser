@@ -75,11 +75,11 @@ export const DSA_CATALOG: DsaCategory[] = [
     topics: [
       { name: 'Stack Push / Pop / Peek', status: 'ready', patterns: ['LIFO', 'Top pointer'] },
       { name: 'Queue Enqueue / Dequeue / Peek', status: 'ready', patterns: ['FIFO', 'Front and rear'] },
-      { name: 'Valid Parentheses', status: 'planned', patterns: ['Stack parsing'] },
-      { name: 'Next Greater Element', status: 'planned', patterns: ['Monotonic stack'] },
-      { name: 'Daily Temperatures', status: 'planned', patterns: ['Monotonic stack'] },
-      { name: 'Sliding Window Maximum', status: 'planned', patterns: ['Deque'] },
-      { name: 'Queue Using Stacks', status: 'planned', patterns: ['Amortized operations'] }
+      { name: 'Valid Parentheses', status: 'ready', patterns: ['Stack parsing'] },
+      { name: 'Next Greater Element', status: 'ready', patterns: ['Monotonic stack'] },
+      { name: 'Daily Temperatures', status: 'ready', patterns: ['Monotonic stack'] },
+      { name: 'Sliding Window Maximum', status: 'ready', patterns: ['Deque'] },
+      { name: 'Queue Using Stacks', status: 'ready', patterns: ['Amortized operations'] }
     ]
   },
   {
