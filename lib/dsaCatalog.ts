@@ -60,11 +60,11 @@ export const DSA_CATALOG: DsaCategory[] = [
     topics: [
       { name: 'Hash Insert', status: 'ready', patterns: ['Modulo hashing', 'Chaining'] },
       { name: 'Hash Search', status: 'ready', patterns: ['Bucket lookup', 'Chain scan'] },
-      { name: 'Two Sum', status: 'planned', patterns: ['Hash map lookup'] },
-      { name: 'Frequency Counter', status: 'planned', patterns: ['Counting'] },
-      { name: 'Group Anagrams', status: 'planned', patterns: ['Canonical keys'] },
-      { name: 'Longest Consecutive Sequence', status: 'planned', patterns: ['Hash set expansion'] },
-      { name: 'Subarray Sum Equals K', status: 'planned', patterns: ['Prefix sum', 'Hash map'] }
+      { name: 'Two Sum', status: 'ready', patterns: ['Hash map lookup'] },
+      { name: 'Frequency Counter', status: 'ready', patterns: ['Counting'] },
+      { name: 'Group Anagrams', status: 'ready', patterns: ['Canonical keys'] },
+      { name: 'Longest Consecutive Sequence', status: 'ready', patterns: ['Hash set expansion'] },
+      { name: 'Subarray Sum Equals K', status: 'ready', patterns: ['Prefix sum', 'Hash map'] }
     ]
   },
   {

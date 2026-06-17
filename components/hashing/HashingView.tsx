@@ -9,9 +9,10 @@ import {
   HASH_ALGORITHMS,
   type HashAlgorithmId
 } from '@/engine/hashing'
-import { parseArrayInput } from '@/lib/array'
 import { speedToDelay } from '@/lib/constants'
 import type { HighlightedCodeSamples } from '@/lib/codeSampleLanguages'
+
+type HashValue = number | string
 
 interface HashingViewProps {
   highlightedCodeByAlgo: Record<HashAlgorithmId, HighlightedCodeSamples>
@@ -27,9 +28,9 @@ export function HashingView({
   initialTarget
 }: HashingViewProps) {
   const [algorithm, setAlgorithm] = useState<HashAlgorithmId>(initialAlgo)
-  const [keys, setKeys] = useState(initialKeys)
+  const [keys, setKeys] = useState<HashValue[]>(initialKeys)
   const [keyInput, setKeyInput] = useState(initialKeys.join(', '))
-  const [target, setTarget] = useState(initialTarget)
+  const [target, setTarget] = useState<HashValue>(initialTarget)
   const [bucketCount, setBucketCount] = useState(7)
   const [step, setStep] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -42,6 +43,14 @@ export function HashingView({
   const totalSteps = Math.max(frames.length - 1, 0)
   const frame = frames[Math.min(step, totalSteps)] ?? frames[0]
   const activeAlgorithm = HASH_ALGORITHMS[algorithm]
+  const targetLabel =
+    algorithm === 'groupAnagrams'
+      ? 'Sample word'
+      : algorithm === 'subarraySum'
+        ? 'Target sum K'
+        : algorithm === 'longestConsecutive' || algorithm === 'frequency'
+          ? 'Reference value'
+          : 'Search target'
 
   useEffect(() => {
     setStep(0)
@@ -65,9 +74,24 @@ export function HashingView({
   }, [isPlaying, speed, step, totalSteps])
 
   function applyKeys() {
-    const parsed = parseArrayInput(keyInput).slice(0, 18)
+    const parsed = parseHashInput(keyInput, algorithm).slice(0, 18)
     setKeys(parsed)
     setKeyInput(parsed.join(', '))
+  }
+
+  function changeAlgorithm(next: HashAlgorithmId) {
+    setAlgorithm(next)
+    if (next === 'groupAnagrams') {
+      const words = ['eat', 'tea', 'tan', 'ate', 'nat', 'bat']
+      setKeys(words)
+      setKeyInput(words.join(', '))
+      setTarget('eat')
+      return
+    }
+    const numericSample = [18, 25, 32, 7, 14, 21]
+    setKeys(numericSample)
+    setKeyInput(numericSample.join(', '))
+    setTarget(next === 'subarraySum' ? 39 : next === 'twoSum' ? 39 : numericSample[0])
   }
 
   return (
@@ -92,7 +116,7 @@ export function HashingView({
           </label>
           <select
             className="h-10 rounded-md px-3 text-sm outline-none transition focus:ring-2 focus:ring-primary/20"
-            onChange={(event) => setAlgorithm(event.target.value as HashAlgorithmId)}
+            onChange={(event) => changeAlgorithm(event.target.value as HashAlgorithmId)}
             value={algorithm}
           >
             {Object.values(HASH_ALGORITHMS).map((item) => (
@@ -198,12 +222,18 @@ export function HashingView({
             />
 
             <label className="mt-2 text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
-              Search target
+              {targetLabel}
             </label>
             <input
               className="border-b-2 border-[hsl(var(--surface-container-highest))] bg-transparent px-0 py-2 text-sm outline-none transition focus:border-primary"
-              onChange={(event) => setTarget(Number(event.target.value))}
-              type="number"
+              onChange={(event) =>
+                setTarget(
+                  algorithm === 'groupAnagrams'
+                    ? event.target.value
+                    : Number(event.target.value)
+                )
+              }
+              type={algorithm === 'groupAnagrams' ? 'text' : 'number'}
               value={target}
             />
 
@@ -247,6 +277,21 @@ export function HashingView({
       </section>
     </main>
   )
+}
+
+function parseHashInput(input: string, algorithm: HashAlgorithmId): HashValue[] {
+  const tokens = input
+    .split(/[\s,]+/)
+    .map((value) => value.trim())
+    .filter(Boolean)
+
+  if (algorithm === 'groupAnagrams') return tokens
+
+  const numbers = tokens
+    .map((value) => Number(value))
+    .filter((value) => Number.isFinite(value))
+
+  return numbers.length > 0 ? numbers : [18, 25, 32, 7, 14, 21]
 }
 
 function Metric({ label, value }: { label: string; value: string }) {

@@ -2,29 +2,30 @@ import type { HashBucket, HashStep } from '@/engine/types'
 import { cloneBuckets, createBuckets, hashKey, makeEntry } from '@/engine/hashing/hashUtils'
 
 export function* hashInsert(
-  keys: number[],
-  target: number,
+  keys: Array<number | string>,
+  target: number | string,
   bucketCount = 7
 ): Generator<HashStep> {
+  const numericKeys = keys.map((key) => Number(key)).filter(Number.isFinite)
   const buckets = createBuckets(bucketCount)
   const insertedEntryIds: string[] = []
 
   yield step({
     buckets,
-    inputKeys: keys,
+    inputKeys: numericKeys,
     bucketCount,
     insertedEntryIds,
     codeLine: 1,
     note: `Create ${bucketCount} empty buckets.`
   })
 
-  for (let index = 0; index < keys.length; index++) {
-    const key = keys[index]
+  for (let index = 0; index < numericKeys.length; index++) {
+    const key = numericKeys[index]
     const bucketId = hashKey(key, bucketCount)
 
     yield step({
       buckets,
-      inputKeys: keys,
+      inputKeys: numericKeys,
       activeKey: key,
       activeBucketId: bucketId,
       bucketCount,
@@ -39,7 +40,7 @@ export function* hashInsert(
 
     yield step({
       buckets,
-      inputKeys: keys,
+      inputKeys: numericKeys,
       activeKey: key,
       activeBucketId: bucketId,
       activeEntryId: entry.id,
@@ -55,8 +56,8 @@ export function* hashInsert(
 
   yield step({
     buckets,
-    inputKeys: keys,
-    activeKey: target,
+    inputKeys: numericKeys,
+    activeKey: Number(target),
     bucketCount,
     insertedEntryIds,
     codeLine: 6,

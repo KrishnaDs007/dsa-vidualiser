@@ -11,6 +11,11 @@ export function hashKey(key: number, bucketCount: number) {
   return Math.abs(key) % bucketCount
 }
 
+export function hashText(value: string, bucketCount: number) {
+  const total = [...value].reduce((sum, char) => sum + char.charCodeAt(0), 0)
+  return total % bucketCount
+}
+
 export function cloneBuckets(buckets: HashBucket[]) {
   return buckets.map((bucket) => ({
     ...bucket,
@@ -18,14 +23,14 @@ export function cloneBuckets(buckets: HashBucket[]) {
   }))
 }
 
-export function entryId(key: number, position: number) {
+export function entryId(key: number | string, position: number) {
   return `key-${key}-${position}`
 }
 
-export function makeEntry(key: number, position: number): HashEntry {
+export function makeEntry(key: number | string, position: number, value = `value-${key}`): HashEntry {
   return {
     id: entryId(key, position),
     key,
-    value: `value-${key}`
+    value
   }
 }

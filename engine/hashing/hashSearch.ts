@@ -2,14 +2,16 @@ import type { HashBucket, HashStep } from '@/engine/types'
 import { cloneBuckets, createBuckets, hashKey, makeEntry } from '@/engine/hashing/hashUtils'
 
 export function* hashSearch(
-  keys: number[],
-  target: number,
+  keys: Array<number | string>,
+  target: number | string,
   bucketCount = 7
 ): Generator<HashStep> {
+  const numericKeys = keys.map((key) => Number(key)).filter(Number.isFinite)
+  const numericTarget = Number(target)
   const buckets = createBuckets(bucketCount)
   const insertedEntryIds: string[] = []
 
-  keys.forEach((key, index) => {
+  numericKeys.forEach((key, index) => {
     const bucketId = hashKey(key, bucketCount)
     const entry = makeEntry(key, index)
     buckets[bucketId].entries.push(entry)
@@ -18,25 +20,25 @@ export function* hashSearch(
 
   yield step({
     buckets,
-    inputKeys: keys,
-    activeKey: target,
+    inputKeys: numericKeys,
+    activeKey: numericTarget,
     bucketCount,
     insertedEntryIds,
     codeLine: 1,
-    note: `Hash table is built with ${keys.length} keys and ${bucketCount} buckets.`
+    note: `Hash table is built with ${numericKeys.length} keys and ${bucketCount} buckets.`
   })
 
-  const bucketId = hashKey(target, bucketCount)
+  const bucketId = hashKey(numericTarget, bucketCount)
 
   yield step({
     buckets,
-    inputKeys: keys,
-    activeKey: target,
+    inputKeys: numericKeys,
+    activeKey: numericTarget,
     activeBucketId: bucketId,
     bucketCount,
     insertedEntryIds,
     codeLine: 2,
-    note: `Hash target ${target}: abs(${target}) % ${bucketCount} = bucket ${bucketId}.`
+    note: `Hash target ${numericTarget}: abs(${numericTarget}) % ${bucketCount} = bucket ${bucketId}.`
   })
 
   const visitedEntryIds: string[] = []
@@ -45,22 +47,22 @@ export function* hashSearch(
 
     yield step({
       buckets,
-      inputKeys: keys,
-      activeKey: target,
+      inputKeys: numericKeys,
+      activeKey: numericTarget,
       activeBucketId: bucketId,
       activeEntryId: entry.id,
       insertedEntryIds,
       visitedEntryIds,
       bucketCount,
       codeLine: 4,
-      note: `Compare target ${target} with key ${entry.key}.`
+      note: `Compare target ${numericTarget} with key ${entry.key}.`
     })
 
-    if (entry.key === target) {
+    if (entry.key === numericTarget) {
       yield step({
         buckets,
-        inputKeys: keys,
-        activeKey: target,
+        inputKeys: numericKeys,
+        activeKey: numericTarget,
         activeBucketId: bucketId,
         activeEntryId: entry.id,
         insertedEntryIds,
@@ -68,7 +70,7 @@ export function* hashSearch(
         foundEntryId: entry.id,
         bucketCount,
         codeLine: 5,
-        note: `Found ${target} in bucket ${bucketId}.`
+        note: `Found ${numericTarget} in bucket ${bucketId}.`
       })
       return
     }
@@ -76,14 +78,14 @@ export function* hashSearch(
 
   yield step({
     buckets,
-    inputKeys: keys,
-    activeKey: target,
+    inputKeys: numericKeys,
+    activeKey: numericTarget,
     activeBucketId: bucketId,
     insertedEntryIds,
     visitedEntryIds,
     bucketCount,
     codeLine: 8,
-    note: `${target} was not found in bucket ${bucketId}.`
+    note: `${numericTarget} was not found in bucket ${bucketId}.`
   })
 }
 

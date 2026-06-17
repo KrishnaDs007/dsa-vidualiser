@@ -12,7 +12,7 @@ export function HashCanvas({ frame }: HashCanvasProps) {
     <div className="glass-panel dot-grid min-h-[520px] rounded-lg p-5">
       <div className="mb-5 flex flex-wrap items-center gap-3 text-sm">
         <span className="rounded-md bg-[hsl(var(--primary)/0.12)] px-3 py-2 font-mono font-bold text-primary">
-          bucket = abs(key) % {frame.bucketCount}
+          {frame.strategyLabel ?? `bucket = abs(key) % ${frame.bucketCount}`}
         </span>
         {frame.activeKey !== null && (
           <span className="rounded-md bg-[hsl(var(--accent)/0.16)] px-3 py-2 font-semibold">
@@ -72,6 +72,11 @@ function HashEntryNode({ entry, frame }: { entry: HashEntry; frame: HashStep }) 
     >
       <span className="font-mono text-xs font-bold opacity-70">key</span>
       <span className="text-lg font-black">{entry.key}</span>
+      {entry.value !== `value-${entry.key}` && (
+        <span className="max-w-40 truncate text-xs font-semibold opacity-75">
+          {entry.value}
+        </span>
+      )}
     </motion.div>
   )
 }

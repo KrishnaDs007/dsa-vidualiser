@@ -79,7 +79,7 @@ export interface DpStep {
 
 export interface HashEntry {
   id: string
-  key: number
+  key: number | string
   value: string
 }
 
@@ -90,14 +90,15 @@ export interface HashBucket {
 
 export interface HashStep {
   buckets: HashBucket[]
-  inputKeys: number[]
-  activeKey: number | null
+  inputKeys: Array<number | string>
+  activeKey: number | string | null
   activeBucketId: number | null
   activeEntryId: string | null
   insertedEntryIds: string[]
   visitedEntryIds: string[]
   foundEntryId: string | null
   bucketCount: number
+  strategyLabel?: string
   timeComplexity: string
   spaceComplexity: string
   codeLine: number
