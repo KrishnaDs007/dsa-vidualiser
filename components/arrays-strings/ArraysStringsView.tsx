@@ -40,6 +40,12 @@ export function ArraysStringsView({
   const totalSteps = Math.max(frames.length - 1, 0)
   const frame = frames[Math.min(step, totalSteps)] ?? frames[0]
   const activeAlgorithm = ARRAY_STRING_ALGORITHMS[algorithm]
+  const helperLabel = algorithm === 'slidingWindow' ? 'Window size' : 'Target'
+  const heading = algorithm === 'slidingWindow' ? 'Sliding Window' : 'Two Pointers'
+  const description =
+    algorithm === 'slidingWindow'
+      ? 'Slide a fixed-size window across the array while updating the running sum in constant time.'
+      : 'Move left and right pointers inward on a sorted array to find a pair sum with linear time and constant auxiliary space.'
 
   useEffect(() => {
     setStep(0)
@@ -68,6 +74,11 @@ export function ArraysStringsView({
     setValueInput(parsed.join(', '))
   }
 
+  function changeAlgorithm(next: ArrayStringAlgorithmId) {
+    setAlgorithm(next)
+    setTarget(next === 'slidingWindow' ? 3 : 10)
+  }
+
   return (
     <main className="mx-auto flex max-w-7xl flex-col gap-8">
       <header className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
@@ -75,12 +86,9 @@ export function ArraysStringsView({
           <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-primary">
             Arrays And Strings
           </p>
-          <h1 className="mt-4 text-4xl font-black tracking-tight">
-            Two Pointers
-          </h1>
+          <h1 className="mt-4 text-4xl font-black tracking-tight">{heading}</h1>
           <p className="mt-4 max-w-3xl text-base leading-7 text-foreground/75">
-            Move left and right pointers inward on a sorted array to find a pair
-            sum with linear time and constant auxiliary space.
+            {description}
           </p>
         </div>
 
@@ -91,7 +99,7 @@ export function ArraysStringsView({
           <select
             className="h-10 rounded-md px-3 text-sm outline-none transition focus:ring-2 focus:ring-primary/20"
             onChange={(event) =>
-              setAlgorithm(event.target.value as ArrayStringAlgorithmId)
+              changeAlgorithm(event.target.value as ArrayStringAlgorithmId)
             }
             value={algorithm}
           >
@@ -197,7 +205,7 @@ export function ArraysStringsView({
               value={valueInput}
             />
             <label className="mt-2 text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
-              Target
+              {helperLabel}
             </label>
             <input
               className="border-b-2 border-[hsl(var(--surface-container-highest))] bg-transparent px-0 py-2 text-sm outline-none transition focus:border-primary"

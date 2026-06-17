@@ -163,6 +163,7 @@ export interface LinkedListStep {
 }
 
 export interface ArrayStringStep {
+  mode: 'twoPointers' | 'slidingWindow'
   array: number[]
   target: number
   leftIndex: number | null

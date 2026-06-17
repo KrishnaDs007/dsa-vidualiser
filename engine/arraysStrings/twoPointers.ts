@@ -110,6 +110,7 @@ function step({
   note: string
 }): ArrayStringStep {
   return {
+    mode: 'twoPointers',
     array: [...array],
     target,
     leftIndex,

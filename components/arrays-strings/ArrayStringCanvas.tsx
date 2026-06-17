@@ -8,11 +8,13 @@ interface ArrayStringCanvasProps {
 }
 
 export function ArrayStringCanvas({ frame }: ArrayStringCanvasProps) {
+  const targetLabel = frame.mode === 'slidingWindow' ? 'window size' : 'target'
+
   return (
     <div className="glass-panel dot-grid min-h-[360px] rounded-lg p-5">
       <div className="mb-5 flex flex-wrap items-center gap-3">
         <span className="rounded-md bg-[hsl(var(--primary)/0.12)] px-3 py-2 font-mono text-sm font-bold text-primary">
-          target: {frame.target}
+          {targetLabel}: {frame.target}
         </span>
         <span className="rounded-md bg-[hsl(var(--accent)/0.16)] px-3 py-2 text-sm font-semibold">
           sum: {frame.currentSum ?? '-'}

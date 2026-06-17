@@ -1,3 +1,4 @@
+import { slidingWindowMaxSum } from '@/engine/arraysStrings/slidingWindow'
 import { twoPointerTwoSum } from '@/engine/arraysStrings/twoPointers'
 
 export const ARRAY_STRING_ALGORITHMS = {
@@ -6,6 +7,12 @@ export const ARRAY_STRING_ALGORITHMS = {
     label: 'Two Pointers Pair Sum',
     complexity: 'O(n) time / O(1) space',
     run: twoPointerTwoSum
+  },
+  slidingWindow: {
+    id: 'slidingWindow',
+    label: 'Sliding Window Max Sum',
+    complexity: 'O(n) time / O(1) space',
+    run: slidingWindowMaxSum
   }
 } as const
 
@@ -32,5 +39,17 @@ export const ARRAY_STRING_PSEUDOCODE: Record<ArrayStringAlgorithmId, string> = {
     }
   }
   return null
+}`,
+  slidingWindow: `function maxWindowSum(values: number[], size: number) {
+  let sum = 0
+  let best = -Infinity
+  for (let index = 0; index < values.length; index++) {
+    sum += values[index]
+    if (index >= size - 1) {
+      best = Math.max(best, sum)
+      sum -= values[index - size + 1]
+    }
+  }
+  return best
 }`
 }
