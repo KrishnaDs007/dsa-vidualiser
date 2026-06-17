@@ -8,7 +8,8 @@ custom code visualization workspace.
 
 - Sorting visualizer with Bubble, Insertion, Selection, Merge, Quick, Heap,
   Shell, Counting, and Radix Sort.
-- Search visualizer with Linear Search and Binary Search.
+- Search visualizer with Linear Search, Binary Search, Lower / Upper Bound,
+  Search in Rotated Array, and Binary Search on Answer.
 - Hashing visualizer with Hash Insert and Hash Search using separate chaining.
 - Stack visualizer with Push, Pop, and Peek operations.
 - Queue visualizer with Enqueue, Dequeue, and Peek operations.
@@ -36,8 +37,7 @@ custom code visualization workspace.
 ## Step-by-step roadmap
 
 1. Sorting foundation: complete for the current algorithm set.
-2. Search foundation: Linear Search and Binary Search are complete; bounds,
-   rotated arrays, and binary search on answer are next.
+2. Search foundation: complete for the current algorithm set.
 3. Hashing foundation: Hash Insert and Hash Search are complete; Two Sum,
    Frequency Counter, Group Anagrams, Longest Consecutive Sequence, and
    Subarray Sum Equals K are next.

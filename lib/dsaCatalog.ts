@@ -47,9 +47,9 @@ export const DSA_CATALOG: DsaCategory[] = [
     topics: [
       { name: 'Linear Search', status: 'ready', patterns: ['Single scan'] },
       { name: 'Binary Search', status: 'ready', patterns: ['Halving', 'Sorted array'] },
-      { name: 'Lower / Upper Bound', status: 'planned', patterns: ['Boundary search'] },
-      { name: 'Search in Rotated Array', status: 'planned', patterns: ['Modified binary search'] },
-      { name: 'Binary Search on Answer', status: 'planned', patterns: ['Predicate monotonicity'] }
+      { name: 'Lower / Upper Bound', status: 'ready', patterns: ['Boundary search'] },
+      { name: 'Search in Rotated Array', status: 'ready', patterns: ['Modified binary search'] },
+      { name: 'Binary Search on Answer', status: 'ready', patterns: ['Predicate monotonicity'] }
     ]
   },
   {

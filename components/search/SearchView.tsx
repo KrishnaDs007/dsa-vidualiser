@@ -41,6 +41,15 @@ export function SearchView({
   const totalSteps = Math.max(frames.length - 1, 0)
   const frame = frames[Math.min(step, totalSteps)] ?? frames[0]
   const activeAlgorithm = SEARCH_ALGORITHMS[algorithm]
+  const targetLabel = algorithm === 'answer' ? 'Days' : 'Target'
+  const sortedInputNote =
+    algorithm === 'binary' || algorithm === 'bounds'
+      ? 'This visualizer displays a sorted copy of the input values.'
+      : algorithm === 'rotated'
+        ? 'This visualizer displays a rotated sorted copy of the input values.'
+        : algorithm === 'answer'
+          ? 'This visualizer displays the numeric answer space for package capacity.'
+          : null
 
   useEffect(() => {
     setStep(0)
@@ -69,6 +78,15 @@ export function SearchView({
     setArrayInput(parsed.join(', '))
   }
 
+  function changeAlgorithm(next: SearchAlgorithmId) {
+    setAlgorithm(next)
+    if (next === 'answer') {
+      setTarget(3)
+      return
+    }
+    setTarget(array[0] ?? 0)
+  }
+
   return (
     <main className="mx-auto flex max-w-7xl flex-col gap-8">
       <header className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
@@ -92,7 +110,7 @@ export function SearchView({
           </label>
           <select
             className="h-10 rounded-md px-3 text-sm outline-none transition focus:ring-2 focus:ring-primary/20"
-            onChange={(event) => setAlgorithm(event.target.value as SearchAlgorithmId)}
+            onChange={(event) => changeAlgorithm(event.target.value as SearchAlgorithmId)}
             value={algorithm}
           >
             {Object.values(SEARCH_ALGORITHMS).map((item) => (
@@ -188,7 +206,7 @@ export function SearchView({
 
           <div className="flex flex-col gap-3 rounded-lg border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] p-4">
             <label className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
-              Target
+              {targetLabel}
             </label>
             <input
               className="border-b-2 border-[hsl(var(--surface-container-highest))] bg-transparent px-0 py-2 text-sm outline-none transition focus:border-primary"
@@ -219,9 +237,9 @@ export function SearchView({
               Step Note
             </p>
             <p className="mt-3 text-base font-semibold">{frame.note}</p>
-            {activeAlgorithm.requiresSortedInput && (
+            {sortedInputNote && (
               <p className="mt-3 text-sm text-muted-foreground">
-                Binary search displays a sorted copy of the input values.
+                {sortedInputNote}
               </p>
             )}
           </div>

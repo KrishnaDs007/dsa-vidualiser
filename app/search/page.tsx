@@ -18,7 +18,9 @@ export default async function SearchPage({
   const parsedTarget = Number.parseInt(searchParams.target ?? '', 10)
   const initialTarget = Number.isFinite(parsedTarget)
     ? parsedTarget
-    : initialArray[0]
+    : initialAlgo === 'answer'
+      ? 3
+      : initialArray[0]
   const highlightedCodeByAlgo = await highlightCodeSamplesByAlgo(SEARCH_PSEUDOCODE)
 
   return (
