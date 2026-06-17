@@ -9,6 +9,7 @@ import {
   ARRAY_STRING_ALGORITHMS,
   type ArrayStringAlgorithmId
 } from '@/engine/arraysStrings'
+import type { ArrayStringStep } from '@/engine/types'
 import { parseArrayInput } from '@/lib/array'
 import { speedToDelay } from '@/lib/constants'
 
@@ -29,22 +30,44 @@ export function ArraysStringsView({
   const [values, setValues] = useState(initialValues)
   const [valueInput, setValueInput] = useState(initialValues.join(', '))
   const [target, setTarget] = useState(initialTarget)
+  const [rangeStart, setRangeStart] = useState(1)
   const [step, setStep] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [speed, setSpeed] = useState(1)
 
   const frames = useMemo(
-    () => Array.from(ARRAY_STRING_ALGORITHMS[algorithm].run(values, target)),
-    [algorithm, target, values]
+    () =>
+      Array.from(
+        (
+          ARRAY_STRING_ALGORITHMS[algorithm].run as (
+            values: number[],
+            target: number,
+            rangeStart?: number
+          ) => Generator<ArrayStringStep>
+        )(values, target, rangeStart)
+      ),
+    [algorithm, rangeStart, target, values]
   )
   const totalSteps = Math.max(frames.length - 1, 0)
   const frame = frames[Math.min(step, totalSteps)] ?? frames[0]
   const activeAlgorithm = ARRAY_STRING_ALGORITHMS[algorithm]
-  const helperLabel = algorithm === 'slidingWindow' ? 'Window size' : 'Target'
-  const heading = algorithm === 'slidingWindow' ? 'Sliding Window' : 'Two Pointers'
+  const helperLabel =
+    algorithm === 'slidingWindow'
+      ? 'Window size'
+      : algorithm === 'prefixSum'
+        ? 'Query start'
+        : 'Target'
+  const heading =
+    algorithm === 'slidingWindow'
+      ? 'Sliding Window'
+      : algorithm === 'prefixSum'
+        ? 'Prefix Sum'
+        : 'Two Pointers'
   const description =
     algorithm === 'slidingWindow'
       ? 'Slide a fixed-size window across the array while updating the running sum in constant time.'
+      : algorithm === 'prefixSum'
+        ? 'Build a prefix array once, then answer a selected range sum by subtracting two prefix totals.'
       : 'Move left and right pointers inward on a sorted array to find a pair sum with linear time and constant auxiliary space.'
 
   useEffect(() => {
@@ -76,7 +99,16 @@ export function ArraysStringsView({
 
   function changeAlgorithm(next: ArrayStringAlgorithmId) {
     setAlgorithm(next)
-    setTarget(next === 'slidingWindow' ? 3 : 10)
+    if (next === 'slidingWindow') {
+      setTarget(3)
+      return
+    }
+    if (next === 'prefixSum') {
+      setRangeStart(1)
+      setTarget(Math.min(4, Math.max(values.length - 1, 0)))
+      return
+    }
+    setTarget(10)
   }
 
   return (
@@ -207,8 +239,25 @@ export function ArraysStringsView({
             <label className="mt-2 text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
               {helperLabel}
             </label>
+            {algorithm === 'prefixSum' && (
+              <>
+                <input
+                  className="border-b-2 border-[hsl(var(--surface-container-highest))] bg-transparent px-0 py-2 text-sm outline-none transition focus:border-primary"
+                  max={Math.max(values.length - 1, 0)}
+                  min={0}
+                  onChange={(event) => setRangeStart(Number(event.target.value))}
+                  type="number"
+                  value={rangeStart}
+                />
+                <label className="mt-2 text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
+                  Query end
+                </label>
+              </>
+            )}
             <input
               className="border-b-2 border-[hsl(var(--surface-container-highest))] bg-transparent px-0 py-2 text-sm outline-none transition focus:border-primary"
+              max={algorithm === 'prefixSum' ? Math.max(values.length - 1, 0) : undefined}
+              min={algorithm === 'prefixSum' ? 0 : undefined}
               onChange={(event) => setTarget(Number(event.target.value))}
               type="number"
               value={target}

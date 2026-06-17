@@ -8,7 +8,13 @@ interface ArrayStringCanvasProps {
 }
 
 export function ArrayStringCanvas({ frame }: ArrayStringCanvasProps) {
-  const targetLabel = frame.mode === 'slidingWindow' ? 'window size' : 'target'
+  const targetLabel =
+    frame.mode === 'slidingWindow'
+      ? 'window size'
+      : frame.mode === 'prefixSum'
+        ? 'query end'
+        : 'target'
+  const sumLabel = frame.mode === 'prefixSum' ? 'range sum' : 'sum'
 
   return (
     <div className="glass-panel dot-grid min-h-[360px] rounded-lg p-5">
@@ -17,7 +23,7 @@ export function ArrayStringCanvas({ frame }: ArrayStringCanvasProps) {
           {targetLabel}: {frame.target}
         </span>
         <span className="rounded-md bg-[hsl(var(--accent)/0.16)] px-3 py-2 text-sm font-semibold">
-          sum: {frame.currentSum ?? '-'}
+          {sumLabel}: {frame.currentSum ?? '-'}
         </span>
       </div>
 
@@ -47,6 +53,39 @@ export function ArrayStringCanvas({ frame }: ArrayStringCanvasProps) {
           )
         })}
       </div>
+
+      {frame.derivedArray && (
+        <div className="mt-6">
+          <p className="mb-3 font-mono text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
+            Prefix table
+          </p>
+          <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-5">
+            {frame.derivedArray.map((value, index) => {
+              const isActive =
+                frame.mode === 'prefixSum' &&
+                (index === (frame.leftIndex ?? -1) || index === (frame.rightIndex ?? -1) + 1)
+
+              return (
+                <motion.div
+                  animate={{
+                    backgroundColor: isActive ? '#4338CA' : '#EEF2FF',
+                    borderColor: isActive ? '#312E81' : '#C7D2FE',
+                    color: isActive ? '#FFFFFF' : '#172033'
+                  }}
+                  className="rounded-md border-2 p-3 shadow-sm"
+                  key={`prefix-${index}`}
+                  layout
+                >
+                  <span className="font-mono text-xs uppercase tracking-[0.16em] opacity-75">
+                    P{index}
+                  </span>
+                  <p className="mt-2 text-xl font-black">{value}</p>
+                </motion.div>
+              )
+            })}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { prefixRangeSum } from '@/engine/arraysStrings/prefixSum'
 import { slidingWindowMaxSum } from '@/engine/arraysStrings/slidingWindow'
 import { twoPointerTwoSum } from '@/engine/arraysStrings/twoPointers'
 
@@ -29,5 +30,16 @@ describe('arrays and strings engine', () => {
     expect(finalFrame?.mode).toBe('slidingWindow')
     expect(finalFrame?.currentSum).toBe(9)
     expect(finalFrame?.foundIndexes).toEqual([2, 3, 4])
+  })
+
+  it('builds prefix sums and answers a range query', () => {
+    const frames = Array.from(prefixRangeSum([3, -2, 5, 1, 6], 3, 1))
+    const finalFrame = frames.at(-1)
+
+    expect(finalFrame?.mode).toBe('prefixSum')
+    expect(finalFrame?.derivedArray).toEqual([0, 3, 1, 6, 7, 13])
+    expect(finalFrame?.currentSum).toBe(4)
+    expect(finalFrame?.foundIndexes).toEqual([1, 2, 3])
+    expect(finalFrame?.spaceComplexity).toBe('O(n)')
   })
 })

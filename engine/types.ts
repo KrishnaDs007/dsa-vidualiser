@@ -163,8 +163,9 @@ export interface LinkedListStep {
 }
 
 export interface ArrayStringStep {
-  mode: 'twoPointers' | 'slidingWindow'
+  mode: 'twoPointers' | 'slidingWindow' | 'prefixSum'
   array: number[]
+  derivedArray?: number[]
   target: number
   leftIndex: number | null
   rightIndex: number | null

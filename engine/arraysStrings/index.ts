@@ -1,3 +1,4 @@
+import { prefixRangeSum } from '@/engine/arraysStrings/prefixSum'
 import { slidingWindowMaxSum } from '@/engine/arraysStrings/slidingWindow'
 import { twoPointerTwoSum } from '@/engine/arraysStrings/twoPointers'
 
@@ -13,6 +14,12 @@ export const ARRAY_STRING_ALGORITHMS = {
     label: 'Sliding Window Max Sum',
     complexity: 'O(n) time / O(1) space',
     run: slidingWindowMaxSum
+  },
+  prefixSum: {
+    id: 'prefixSum',
+    label: 'Prefix Sum Range Query',
+    complexity: 'O(n) build + O(1) query / O(n) space',
+    run: prefixRangeSum
   }
 } as const
 
@@ -51,5 +58,12 @@ export const ARRAY_STRING_PSEUDOCODE: Record<ArrayStringAlgorithmId, string> = {
     }
   }
   return best
+}`,
+  prefixSum: `function rangeSum(values: number[], left: number, right: number) {
+  const prefix = Array(values.length + 1).fill(0)
+  for (let index = 0; index < values.length; index++) {
+    prefix[index + 1] = prefix[index] + values[index]
+  }
+  return prefix[right + 1] - prefix[left]
 }`
 }
