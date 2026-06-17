@@ -11,9 +11,10 @@ import {
 } from '@/engine/search'
 import { parseArrayInput } from '@/lib/array'
 import { speedToDelay } from '@/lib/constants'
+import type { HighlightedCodeSamples } from '@/lib/codeSampleLanguages'
 
 interface SearchViewProps {
-  highlightedCodeByAlgo: Record<SearchAlgorithmId, string>
+  highlightedCodeByAlgo: Record<SearchAlgorithmId, HighlightedCodeSamples>
   initialAlgo: SearchAlgorithmId
   initialArray: number[]
   initialTarget: number
@@ -106,7 +107,7 @@ export function SearchView({
         </div>
       </header>
 
-      <section className="grid gap-5 xl:grid-cols-[300px_minmax(0,1fr)_minmax(360px,0.9fr)]">
+      <section className="grid gap-5 2xl:grid-cols-[300px_minmax(0,1fr)_minmax(360px,0.9fr)]">
         <aside className="glass-panel flex flex-col gap-4 rounded-lg p-4">
           <div className="flex flex-col gap-4 rounded-lg border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] p-4">
             <div className="flex flex-wrap items-center gap-2">
@@ -228,7 +229,9 @@ export function SearchView({
 
         <CodePanel
           codeLine={frame.codeLine}
-          highlightedCode={highlightedCodeByAlgo[algorithm]}
+          docsHref={`/docs#searching-${algorithm}`}
+          highlightedCode={highlightedCodeByAlgo[algorithm].typescript}
+          highlightedCodeByLanguage={highlightedCodeByAlgo[algorithm]}
         />
       </section>
     </main>

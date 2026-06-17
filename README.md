@@ -21,6 +21,10 @@ custom code visualization workspace.
   Change state tables.
 - Step controls, speed control, custom array input, animated bars, and synced
   pseudocode highlighting.
+- Visualizer code panels include a language dropdown for TypeScript,
+  JavaScript, Python, Java, C++, C, and C# starter samples.
+- Searchable documentation covers every ready visualizer with patterns,
+  complexity, step summaries, and direct links back into the live views.
 - Local profile/dashboard flow with a temporary cap of 10 saved custom code
   visualizers, including JSON import/export for local backups.
 - DSA roadmap catalog grouped by sorting, searching, hashing, stacks/queues,

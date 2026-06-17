@@ -1,4 +1,6 @@
+import { DocsBrowser } from '@/components/docs/DocsBrowser'
 import { DSA_CATALOG, SUPPORTED_LANGUAGES } from '@/lib/dsaCatalog'
+import { VISUALIZER_DOCS } from '@/lib/visualizerDocs'
 
 export default function DocsPage() {
   const readyCount = DSA_CATALOG.flatMap((category) => category.topics).filter(
@@ -50,6 +52,8 @@ export default function DocsPage() {
           ))}
         </div>
       </section>
+
+      <DocsBrowser docs={VISUALIZER_DOCS} />
 
       <section className="mt-10 grid gap-5 xl:grid-cols-2">
         {DSA_CATALOG.map((category) => (

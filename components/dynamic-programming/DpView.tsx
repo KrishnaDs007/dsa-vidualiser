@@ -10,9 +10,10 @@ import {
   type DpAlgorithmId
 } from '@/engine/dynamicProgramming'
 import { speedToDelay } from '@/lib/constants'
+import type { HighlightedCodeSamples } from '@/lib/codeSampleLanguages'
 
 interface DpViewProps {
-  highlightedCodeByAlgo: Record<DpAlgorithmId, string>
+  highlightedCodeByAlgo: Record<DpAlgorithmId, HighlightedCodeSamples>
   initialAlgo: DpAlgorithmId
   initialSize: number
 }
@@ -98,7 +99,7 @@ export function DpView({
         </div>
       </header>
 
-      <section className="grid gap-5 xl:grid-cols-[300px_minmax(0,1fr)_minmax(360px,0.9fr)]">
+      <section className="grid gap-5 2xl:grid-cols-[300px_minmax(0,1fr)_minmax(360px,0.9fr)]">
         <aside className="glass-panel flex flex-col gap-4 rounded-lg p-4">
           <div className="flex flex-col gap-4 rounded-lg border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] p-4">
             <div className="flex flex-wrap items-center gap-2">
@@ -209,7 +210,9 @@ export function DpView({
 
         <CodePanel
           codeLine={frame.codeLine}
-          highlightedCode={highlightedCodeByAlgo[algorithm]}
+          docsHref={`/docs#dynamic-programming-${algorithm}`}
+          highlightedCode={highlightedCodeByAlgo[algorithm].typescript}
+          highlightedCodeByLanguage={highlightedCodeByAlgo[algorithm]}
         />
       </section>
     </main>

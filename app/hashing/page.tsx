@@ -1,10 +1,10 @@
-import { codeToHtml } from 'shiki'
 import { HashingView } from '@/components/hashing/HashingView'
 import {
   HASH_PSEUDOCODE,
   isHashAlgorithmId
 } from '@/engine/hashing'
 import { parseArrayParam } from '@/lib/array'
+import { highlightCodeSamplesByAlgo } from '@/lib/codeSamples'
 
 export default async function HashingPage({
   searchParams
@@ -19,17 +19,7 @@ export default async function HashingPage({
   const initialTarget = Number.isFinite(parsedTarget)
     ? parsedTarget
     : initialKeys[0]
-  const highlightedCodeByAlgo = Object.fromEntries(
-    await Promise.all(
-      Object.entries(HASH_PSEUDOCODE).map(async ([id, code]) => [
-        id,
-        await codeToHtml(code, {
-          lang: 'typescript',
-          theme: 'github-light'
-        })
-      ])
-    )
-  ) as Record<keyof typeof HASH_PSEUDOCODE, string>
+  const highlightedCodeByAlgo = await highlightCodeSamplesByAlgo(HASH_PSEUDOCODE)
 
   return (
     <HashingView

@@ -1,10 +1,10 @@
-import { codeToHtml } from 'shiki'
 import { DpView } from '@/components/dynamic-programming/DpView'
 import {
   DP_ALGORITHMS,
   DP_PSEUDOCODE,
   isDpAlgorithmId
 } from '@/engine/dynamicProgramming'
+import { highlightCodeSamplesByAlgo } from '@/lib/codeSamples'
 
 export default async function DynamicProgrammingPage({
   searchParams
@@ -18,17 +18,7 @@ export default async function DynamicProgrammingPage({
   const initialSize = Number.isFinite(parsedSize)
     ? parsedSize
     : DP_ALGORITHMS[initialAlgo].defaultSize
-  const highlightedCodeByAlgo = Object.fromEntries(
-    await Promise.all(
-      Object.entries(DP_PSEUDOCODE).map(async ([id, code]) => [
-        id,
-        await codeToHtml(code, {
-          lang: 'typescript',
-          theme: 'github-light'
-        })
-      ])
-    )
-  ) as Record<keyof typeof DP_PSEUDOCODE, string>
+  const highlightedCodeByAlgo = await highlightCodeSamplesByAlgo(DP_PSEUDOCODE)
 
   return (
     <DpView

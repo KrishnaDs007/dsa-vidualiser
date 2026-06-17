@@ -7,11 +7,12 @@ import { ArrayInput } from '@/components/controls/ArrayInput'
 import { ControlPanel } from '@/components/controls/ControlPanel'
 import { SORT_ALGORITHMS, type AlgorithmId } from '@/engine/sorting'
 import { usePlayback } from '@/hooks/usePlayback'
+import type { HighlightedCodeSamples } from '@/lib/codeSampleLanguages'
 import { useAlgorithmStore } from '@/store/algorithmStore'
 import { usePlaybackStore } from '@/store/playbackStore'
 
 interface SortingViewProps {
-  highlightedCodeByAlgo: Record<AlgorithmId, string>
+  highlightedCodeByAlgo: Record<AlgorithmId, HighlightedCodeSamples>
   initialAlgo: AlgorithmId
   initialArray: number[]
 }
@@ -30,7 +31,7 @@ export function SortingView({
     (state) => state.frames[state.currentStep]
   )
   const pause = usePlaybackStore((state) => state.pause)
-  const highlightedCode = highlightedCodeByAlgo[algorithm]
+  const highlightedCodeByLanguage = highlightedCodeByAlgo[algorithm]
 
   useEffect(() => {
     setAlgorithm(initialAlgo)
@@ -79,13 +80,17 @@ export function SortingView({
         </div>
       </header>
 
-      <section className="grid gap-5 xl:grid-cols-[260px_minmax(0,1.35fr)_minmax(380px,0.9fr)]">
+      <section className="grid gap-5 2xl:grid-cols-[260px_minmax(0,1.35fr)_minmax(380px,0.9fr)]">
         <aside className="glass-panel flex flex-col gap-4 rounded-lg p-4">
           <ControlPanel />
           <ArrayInput />
         </aside>
         <SortCanvas frame={frame} />
-        <CodePanel highlightedCode={highlightedCode} />
+        <CodePanel
+          docsHref={`/docs#sorting-${algorithm}`}
+          highlightedCode={highlightedCodeByLanguage.typescript}
+          highlightedCodeByLanguage={highlightedCodeByLanguage}
+        />
       </section>
     </main>
   )

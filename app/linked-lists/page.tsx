@@ -1,10 +1,10 @@
-import { codeToHtml } from 'shiki'
 import { LinkedListsView } from '@/components/linked-lists/LinkedListsView'
 import {
   LINKED_LIST_PSEUDOCODE,
   isLinkedListAlgorithmId
 } from '@/engine/linkedLists'
 import { parseArrayParam } from '@/lib/array'
+import { highlightCodeSamplesByAlgo } from '@/lib/codeSamples'
 
 export default async function LinkedListsPage({
   searchParams
@@ -15,17 +15,9 @@ export default async function LinkedListsPage({
     ? searchParams.algo
     : 'reverse'
   const initialValues = parseArrayParam(searchParams.values || '12, 24, 36, 48')
-  const highlightedCodeByAlgo = Object.fromEntries(
-    await Promise.all(
-      Object.entries(LINKED_LIST_PSEUDOCODE).map(async ([id, code]) => [
-        id,
-        await codeToHtml(code, {
-          lang: 'typescript',
-          theme: 'github-light'
-        })
-      ])
-    )
-  ) as Record<keyof typeof LINKED_LIST_PSEUDOCODE, string>
+  const highlightedCodeByAlgo = await highlightCodeSamplesByAlgo(
+    LINKED_LIST_PSEUDOCODE
+  )
 
   return (
     <LinkedListsView

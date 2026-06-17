@@ -1,10 +1,10 @@
-import { codeToHtml } from 'shiki'
 import { StacksView } from '@/components/stacks/StacksView'
 import {
   STACK_PSEUDOCODE,
   isStackAlgorithmId
 } from '@/engine/stacks'
 import { parseArrayParam } from '@/lib/array'
+import { highlightCodeSamplesByAlgo } from '@/lib/codeSamples'
 
 export default async function StacksPage({
   searchParams
@@ -15,17 +15,7 @@ export default async function StacksPage({
     ? searchParams.algo
     : 'push'
   const initialValues = parseArrayParam(searchParams.values || '12, 24, 36, 48')
-  const highlightedCodeByAlgo = Object.fromEntries(
-    await Promise.all(
-      Object.entries(STACK_PSEUDOCODE).map(async ([id, code]) => [
-        id,
-        await codeToHtml(code, {
-          lang: 'typescript',
-          theme: 'github-light'
-        })
-      ])
-    )
-  ) as Record<keyof typeof STACK_PSEUDOCODE, string>
+  const highlightedCodeByAlgo = await highlightCodeSamplesByAlgo(STACK_PSEUDOCODE)
 
   return (
     <StacksView

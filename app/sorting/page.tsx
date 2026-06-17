@@ -1,7 +1,7 @@
-import { codeToHtml } from 'shiki'
 import { SortingView } from '@/components/sorting/SortingView'
 import { PSEUDOCODE, isAlgorithmId } from '@/engine/sorting'
 import { parseArrayParam } from '@/lib/array'
+import { highlightCodeSamplesByAlgo } from '@/lib/codeSamples'
 
 export default async function SortingPage({
   searchParams
@@ -12,17 +12,7 @@ export default async function SortingPage({
     ? searchParams.algo
     : 'bubble'
   const initialArray = parseArrayParam(searchParams.arr)
-  const highlightedCodeByAlgo = Object.fromEntries(
-    await Promise.all(
-      Object.entries(PSEUDOCODE).map(async ([id, code]) => [
-        id,
-        await codeToHtml(code, {
-          lang: 'typescript',
-          theme: 'github-light'
-        })
-      ])
-    )
-  ) as Record<keyof typeof PSEUDOCODE, string>
+  const highlightedCodeByAlgo = await highlightCodeSamplesByAlgo(PSEUDOCODE)
 
   return (
     <SortingView

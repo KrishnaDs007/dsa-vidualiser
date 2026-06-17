@@ -1,7 +1,7 @@
-import { codeToHtml } from 'shiki'
 import { TreeView } from '@/components/trees/TreeView'
 import { BST_PSEUDOCODE, isBstAlgorithmId } from '@/engine/trees'
 import { parseArrayParam } from '@/lib/array'
+import { highlightCodeSamplesByAlgo } from '@/lib/codeSamples'
 
 export default async function TreesPage({
   searchParams
@@ -16,17 +16,7 @@ export default async function TreesPage({
   const initialTarget = Number.isFinite(parsedTarget)
     ? parsedTarget
     : initialValues[0]
-  const highlightedCodeByAlgo = Object.fromEntries(
-    await Promise.all(
-      Object.entries(BST_PSEUDOCODE).map(async ([id, code]) => [
-        id,
-        await codeToHtml(code, {
-          lang: 'typescript',
-          theme: 'github-light'
-        })
-      ])
-    )
-  ) as Record<keyof typeof BST_PSEUDOCODE, string>
+  const highlightedCodeByAlgo = await highlightCodeSamplesByAlgo(BST_PSEUDOCODE)
 
   return (
     <TreeView

@@ -1,13 +1,23 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
+import { BookOpen } from 'lucide-react'
+import {
+  CODE_SAMPLE_LANGUAGES,
+  type HighlightedCodeSamples
+} from '@/lib/codeSampleLanguages'
 import { useAlgorithmStore } from '@/store/algorithmStore'
 
 export function CodePanel({
+  docsHref,
   highlightedCode,
+  highlightedCodeByLanguage,
   codeLine: controlledCodeLine
 }: {
+  docsHref?: string
   highlightedCode: string
+  highlightedCodeByLanguage?: HighlightedCodeSamples
   codeLine?: number
 }) {
   const storeCodeLine = useAlgorithmStore(
@@ -15,6 +25,8 @@ export function CodePanel({
   )
   const codeLine = controlledCodeLine ?? storeCodeLine
   const ref = useRef<HTMLDivElement>(null)
+  const [language, setLanguage] = useState<keyof HighlightedCodeSamples>('typescript')
+  const visibleCode = highlightedCodeByLanguage?.[language] ?? highlightedCode
 
   useEffect(() => {
     if (!ref.current) return
@@ -27,15 +39,44 @@ export function CodePanel({
       block: 'nearest',
       behavior: 'smooth'
     })
-  }, [codeLine])
+  }, [codeLine, visibleCode])
 
   return (
-    <div className="glass-panel h-[560px] overflow-auto rounded-lg text-sm">
+    <div className="glass-panel flex max-h-[620px] min-h-[360px] flex-col rounded-lg text-sm">
+      <div className="flex flex-wrap items-center gap-3 border-b border-[hsl(var(--glass-border))] p-3">
+        <label className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
+          Sample
+        </label>
+        <select
+          className="h-9 rounded-md px-3 text-sm outline-none transition focus:ring-2 focus:ring-primary/20"
+          onChange={(event) =>
+            setLanguage(event.target.value as keyof HighlightedCodeSamples)
+          }
+          value={language}
+        >
+          {CODE_SAMPLE_LANGUAGES.map((item) => (
+            <option key={item.id} value={item.id}>
+              {item.label}
+            </option>
+          ))}
+        </select>
+        {docsHref && (
+          <Link
+            className="ml-auto inline-flex h-9 items-center gap-2 rounded-md bg-[hsl(var(--primary))] px-3 text-sm font-bold text-primary-foreground"
+            href={docsHref}
+          >
+            <BookOpen className="h-4 w-4" />
+            Details
+          </Link>
+        )}
+      </div>
+      <div className="flex-1 overflow-auto">
       <div
         className="min-w-max p-4"
-        dangerouslySetInnerHTML={{ __html: highlightedCode }}
+        dangerouslySetInnerHTML={{ __html: visibleCode }}
         ref={ref}
       />
+      </div>
     </div>
   )
 }

@@ -1,9 +1,9 @@
-import { codeToHtml } from 'shiki'
 import { GraphView } from '@/components/graphs/GraphView'
 import {
   GRAPH_PSEUDOCODE,
   isGraphAlgorithmId
 } from '@/engine/graphs'
+import { highlightCodeSamplesByAlgo } from '@/lib/codeSamples'
 
 export default async function GraphsPage({
   searchParams
@@ -14,17 +14,7 @@ export default async function GraphsPage({
     ? searchParams.algo
     : 'bfs'
   const initialStartId = searchParams.start ?? 'a'
-  const highlightedCodeByAlgo = Object.fromEntries(
-    await Promise.all(
-      Object.entries(GRAPH_PSEUDOCODE).map(async ([id, code]) => [
-        id,
-        await codeToHtml(code, {
-          lang: 'typescript',
-          theme: 'github-light'
-        })
-      ])
-    )
-  ) as Record<keyof typeof GRAPH_PSEUDOCODE, string>
+  const highlightedCodeByAlgo = await highlightCodeSamplesByAlgo(GRAPH_PSEUDOCODE)
 
   return (
     <GraphView

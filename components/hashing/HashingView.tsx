@@ -11,9 +11,10 @@ import {
 } from '@/engine/hashing'
 import { parseArrayInput } from '@/lib/array'
 import { speedToDelay } from '@/lib/constants'
+import type { HighlightedCodeSamples } from '@/lib/codeSampleLanguages'
 
 interface HashingViewProps {
-  highlightedCodeByAlgo: Record<HashAlgorithmId, string>
+  highlightedCodeByAlgo: Record<HashAlgorithmId, HighlightedCodeSamples>
   initialAlgo: HashAlgorithmId
   initialKeys: number[]
   initialTarget: number
@@ -106,7 +107,7 @@ export function HashingView({
         </div>
       </header>
 
-      <section className="grid gap-5 xl:grid-cols-[300px_minmax(0,1fr)_minmax(360px,0.9fr)]">
+      <section className="grid gap-5 2xl:grid-cols-[300px_minmax(0,1fr)_minmax(360px,0.9fr)]">
         <aside className="glass-panel flex flex-col gap-4 rounded-lg p-4">
           <div className="flex flex-col gap-4 rounded-lg border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] p-4">
             <div className="flex flex-wrap items-center gap-2">
@@ -239,7 +240,9 @@ export function HashingView({
 
         <CodePanel
           codeLine={frame.codeLine}
-          highlightedCode={highlightedCodeByAlgo[algorithm]}
+          docsHref={`/docs#hashing-${algorithm}`}
+          highlightedCode={highlightedCodeByAlgo[algorithm].typescript}
+          highlightedCodeByLanguage={highlightedCodeByAlgo[algorithm]}
         />
       </section>
     </main>

@@ -1,10 +1,10 @@
-import { codeToHtml } from 'shiki'
 import { QueuesView } from '@/components/queues/QueuesView'
 import {
   QUEUE_PSEUDOCODE,
   isQueueAlgorithmId
 } from '@/engine/queues'
 import { parseArrayParam } from '@/lib/array'
+import { highlightCodeSamplesByAlgo } from '@/lib/codeSamples'
 
 export default async function QueuesPage({
   searchParams
@@ -15,17 +15,7 @@ export default async function QueuesPage({
     ? searchParams.algo
     : 'enqueue'
   const initialValues = parseArrayParam(searchParams.values || '12, 24, 36, 48')
-  const highlightedCodeByAlgo = Object.fromEntries(
-    await Promise.all(
-      Object.entries(QUEUE_PSEUDOCODE).map(async ([id, code]) => [
-        id,
-        await codeToHtml(code, {
-          lang: 'typescript',
-          theme: 'github-light'
-        })
-      ])
-    )
-  ) as Record<keyof typeof QUEUE_PSEUDOCODE, string>
+  const highlightedCodeByAlgo = await highlightCodeSamplesByAlgo(QUEUE_PSEUDOCODE)
 
   return (
     <QueuesView

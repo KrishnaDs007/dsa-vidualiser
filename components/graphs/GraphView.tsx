@@ -11,9 +11,10 @@ import {
   type GraphAlgorithmId
 } from '@/engine/graphs'
 import { speedToDelay } from '@/lib/constants'
+import type { HighlightedCodeSamples } from '@/lib/codeSampleLanguages'
 
 interface GraphViewProps {
-  highlightedCodeByAlgo: Record<GraphAlgorithmId, string>
+  highlightedCodeByAlgo: Record<GraphAlgorithmId, HighlightedCodeSamples>
   initialAlgo: GraphAlgorithmId
   initialStartId: string
 }
@@ -95,7 +96,7 @@ export function GraphView({
         </div>
       </header>
 
-      <section className="grid gap-5 xl:grid-cols-[300px_minmax(0,1fr)_minmax(360px,0.9fr)]">
+      <section className="grid gap-5 2xl:grid-cols-[300px_minmax(0,1fr)_minmax(360px,0.9fr)]">
         <aside className="glass-panel flex flex-col gap-4 rounded-lg p-4">
           <div className="flex flex-col gap-4 rounded-lg border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] p-4">
             <div className="flex flex-wrap items-center gap-2">
@@ -204,7 +205,9 @@ export function GraphView({
 
         <CodePanel
           codeLine={frame.codeLine}
-          highlightedCode={highlightedCodeByAlgo[algorithm]}
+          docsHref={`/docs#graphs-${algorithm}`}
+          highlightedCode={highlightedCodeByAlgo[algorithm].typescript}
+          highlightedCodeByLanguage={highlightedCodeByAlgo[algorithm]}
         />
       </section>
     </main>
