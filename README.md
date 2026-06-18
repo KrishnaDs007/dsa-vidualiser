@@ -16,7 +16,8 @@ custom code visualization workspace.
   Element, and Daily Temperatures.
 - Queue visualizer with Enqueue, Dequeue, Peek, Sliding Window Maximum, and
   Queue Using Stacks.
-- Linked List visualizer with Reverse Linked List pointer rewiring.
+- Linked List visualizer with Reverse, Middle, Cycle Detection, Merge Two
+  Sorted Lists, and Remove Nth Node From End.
 - Arrays and Strings visualizer with Two Pointers pair-sum, Sliding Window
   max-sum, and Prefix Sum range-query tracing.
 - Tree visualizer with BST Insert, BST Search, and Inorder Traversal.
@@ -43,9 +44,7 @@ custom code visualization workspace.
 2. Search foundation: complete for the current algorithm set.
 3. Hashing foundation: complete for the current algorithm set.
 4. Stacks and queues foundation: complete for the current algorithm set.
-5. Linked Lists foundation: Reverse Linked List is complete; Middle of Linked
-   List, Detect Cycle, Merge Two Sorted Lists, and Remove Nth Node From End are
-   next.
+5. Linked Lists foundation: complete for the current algorithm set.
 6. Arrays and Strings foundation: Two Pointers, Sliding Window, and Prefix Sum
    are complete; Kadane Algorithm and Matrix Traversal are next.
 7. Trees foundation: BST insert/search and inorder traversal are complete;

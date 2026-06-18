@@ -159,6 +159,7 @@ export interface LinkedListStep {
   currentId: string | null
   nextId: string | null
   rewiredNodeIds: string[]
+  result?: string
   timeComplexity: string
   spaceComplexity: string
   codeLine: number

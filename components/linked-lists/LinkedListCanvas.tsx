@@ -8,11 +8,16 @@ interface LinkedListCanvasProps {
 
 export function LinkedListCanvas({ frame }: LinkedListCanvasProps) {
   const width = Math.max(720, frame.nodes.length * 132 + 120)
-  const height = 380
+  const height = 430
   const nodeById = new Map(frame.nodes.map((node) => [node.id, node]))
 
   return (
     <div className="glass-panel dot-grid min-h-[420px] overflow-x-auto rounded-lg p-5">
+      {frame.result && (
+        <div className="mb-4 inline-flex rounded-md bg-emerald-100 px-3 py-2 text-sm font-bold text-emerald-900">
+          result: {frame.result}
+        </div>
+      )}
       <svg className="min-w-full" height={height} viewBox={`0 0 ${width} ${height}`} width={width}>
         <defs>
           <marker

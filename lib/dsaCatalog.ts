@@ -89,10 +89,10 @@ export const DSA_CATALOG: DsaCategory[] = [
       'Pointer movement, reversal, cycle detection, and merge-style list workflows.',
     topics: [
       { name: 'Reverse Linked List', status: 'ready', patterns: ['Pointer rewiring'] },
-      { name: 'Middle of Linked List', status: 'planned', patterns: ['Fast and slow pointers'] },
-      { name: 'Detect Cycle', status: 'planned', patterns: ['Floyd cycle detection'] },
-      { name: 'Merge Two Sorted Lists', status: 'planned', patterns: ['Two pointers'] },
-      { name: 'Remove Nth Node From End', status: 'planned', patterns: ['Two pointers'] }
+      { name: 'Middle of Linked List', status: 'ready', patterns: ['Fast and slow pointers'] },
+      { name: 'Detect Cycle', status: 'ready', patterns: ['Floyd cycle detection'] },
+      { name: 'Merge Two Sorted Lists', status: 'ready', patterns: ['Two pointers'] },
+      { name: 'Remove Nth Node From End', status: 'ready', patterns: ['Two pointers'] }
     ]
   },
   {
