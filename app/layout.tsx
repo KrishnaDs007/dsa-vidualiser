@@ -4,7 +4,12 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'DSA Visualizer',
-  description: 'Interactive data structures and algorithms visualizer'
+  description: 'Interactive data structures and algorithms visualizer',
+  icons: {
+    icon: '/icon.png',
+    shortcut: '/icon.png',
+    apple: '/icon.png'
+  }
 }
 
 export default function RootLayout({
