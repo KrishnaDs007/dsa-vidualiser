@@ -67,6 +67,12 @@ npm run dev
 
 Open `http://localhost:3000`.
 
+If styles or static assets look stale during development, restart with:
+
+```bash
+npm run dev:clean
+```
+
 ## Quality checks
 
 ```bash

@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:clean": "npm run clean:next && npm run dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "clean:next": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\"",
     "type-check": "tsc --noEmit",
     "test": "vitest run"
   },
