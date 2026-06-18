@@ -9,7 +9,7 @@ export interface SortStep {
 
 export interface TreeNode {
   id: string
-  value: number
+  value: number | string
   parentId?: string
   x: number
   y: number

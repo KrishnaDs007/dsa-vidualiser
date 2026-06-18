@@ -103,11 +103,11 @@ export const DSA_CATALOG: DsaCategory[] = [
     topics: [
       { name: 'BST Insert / Search', status: 'ready', patterns: ['Binary search tree'] },
       { name: 'Inorder Traversal', status: 'ready', patterns: ['DFS'] },
-      { name: 'Preorder Traversal', status: 'planned', patterns: ['DFS'] },
-      { name: 'Postorder Traversal', status: 'planned', patterns: ['DFS'] },
-      { name: 'Level Order Traversal', status: 'planned', patterns: ['BFS', 'Queue'] },
-      { name: 'Lowest Common Ancestor', status: 'planned', patterns: ['Tree recursion'] },
-      { name: 'Trie Insert / Search', status: 'planned', patterns: ['Prefix tree'] }
+      { name: 'Preorder Traversal', status: 'ready', patterns: ['DFS'] },
+      { name: 'Postorder Traversal', status: 'ready', patterns: ['DFS'] },
+      { name: 'Level Order Traversal', status: 'ready', patterns: ['BFS', 'Queue'] },
+      { name: 'Lowest Common Ancestor', status: 'ready', patterns: ['Tree recursion'] },
+      { name: 'Trie Insert / Search', status: 'ready', patterns: ['Prefix tree'] }
     ]
   },
   {

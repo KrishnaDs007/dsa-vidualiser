@@ -1,6 +1,13 @@
 import type { TreeNode, TreeStep } from '@/engine/types'
+import {
+  bstLevelOrderTraversal,
+  bstLowestCommonAncestor,
+  bstPostorderTraversal,
+  bstPreorderTraversal,
+  trieInsertSearch
+} from '@/engine/trees/treePatterns'
 
-interface BstModelNode {
+export interface BstModelNode {
   id: string
   value: number
   parentId?: string
@@ -123,6 +130,36 @@ export const BST_ALGORITHMS = {
     label: 'Inorder Traversal',
     complexity: 'O(n)',
     run: (values: number[], _target: number) => bstInorderTraversal(values)
+  },
+  preorder: {
+    id: 'preorder',
+    label: 'Preorder Traversal',
+    complexity: 'O(n)',
+    run: (values: number[], _target: number) => bstPreorderTraversal(values)
+  },
+  postorder: {
+    id: 'postorder',
+    label: 'Postorder Traversal',
+    complexity: 'O(n)',
+    run: (values: number[], _target: number) => bstPostorderTraversal(values)
+  },
+  levelOrder: {
+    id: 'levelOrder',
+    label: 'Level Order Traversal',
+    complexity: 'O(n)',
+    run: (values: number[], _target: number) => bstLevelOrderTraversal(values)
+  },
+  lca: {
+    id: 'lca',
+    label: 'Lowest Common Ancestor',
+    complexity: 'O(h)',
+    run: bstLowestCommonAncestor
+  },
+  trie: {
+    id: 'trie',
+    label: 'Trie Insert / Search',
+    complexity: 'O(w * k)',
+    run: trieInsertSearch
   }
 } as const
 
@@ -156,10 +193,50 @@ export const BST_PSEUDOCODE: Record<BstAlgorithmId, string> = {
   inorder(node.left)
   visit(node)
   inorder(node.right)
+}`,
+  preorder: `function preorder(node: Node | null) {
+  if (!node) return
+  visit(node)
+  preorder(node.left)
+  preorder(node.right)
+}`,
+  postorder: `function postorder(node: Node | null) {
+  if (!node) return
+  postorder(node.left)
+  postorder(node.right)
+  visit(node)
+}`,
+  levelOrder: `function levelOrder(root: Node | null) {
+  const queue = root ? [root] : []
+  while (queue.length > 0) {
+    const node = queue.shift()
+    visit(node)
+    if (node.left) queue.push(node.left)
+    if (node.right) queue.push(node.right)
+  }
+}`,
+  lca: `function lca(root: Node | null, p: number, q: number) {
+  let current = root
+  while (current) {
+    if (p < current.value && q < current.value) current = current.left
+    else if (p > current.value && q > current.value) current = current.right
+    else return current
+  }
+  return null
+}`,
+  trie: `function trieSearch(words: string[], target: string) {
+  const root = {}
+  for (const word of words) insert(root, word)
+  let node = root
+  for (const char of target) {
+    if (!node.children[char]) return false
+    node = node.children[char]
+  }
+  return node.isWord === true
 }`
 }
 
-function buildTree(values: number[]) {
+export function buildTree(values: number[]) {
   const nodes = new Map<string, BstModelNode>()
   let rootId: string | undefined
 
@@ -203,7 +280,7 @@ function buildTree(values: number[]) {
   return { nodes, rootId }
 }
 
-function snapshot(
+export function snapshot(
   nodes: Map<string, BstModelNode>,
   highlightedId: string | null,
   visitedIds: string[],
