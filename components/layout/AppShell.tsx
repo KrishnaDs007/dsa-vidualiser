@@ -118,14 +118,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
-        <Link
-          className="order-last flex h-10 w-full items-center gap-3 rounded-md border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] px-3 text-muted-foreground shadow-sm backdrop-blur-xl sm:w-auto md:hidden"
-          href="/docs"
-        >
-          <Search className="h-4 w-4" aria-hidden="true" />
-          <span className="text-sm">Search algorithms</span>
-        </Link>
-
         <div
           aria-hidden="true"
           className="ml-auto hidden h-11 w-[320px] items-center gap-3 rounded-md border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] px-4 text-muted-foreground shadow-sm backdrop-blur-xl lg:flex"
@@ -165,7 +157,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <aside
           aria-label="Algorithm navigation"
           className={cn(
-            'fixed bottom-3 left-3 right-3 top-24 z-50 hidden overflow-hidden rounded-lg lg:static lg:block lg:min-h-[calc(100vh-80px)] lg:overflow-visible lg:px-8 lg:py-10',
+            'fixed bottom-3 left-3 right-3 top-20 z-50 hidden overflow-hidden rounded-lg lg:sticky lg:top-24 lg:block lg:h-[calc(100vh-7rem)] lg:min-h-0 lg:overflow-hidden lg:px-5 lg:py-5 2xl:px-8 2xl:py-8',
             isMenuOpen && 'block'
           )}
         >
@@ -185,7 +177,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </Link>
           </Button>
 
-          <nav aria-label="Algorithm categories" className="glass-panel flex h-full flex-col gap-2 overflow-y-auto rounded-lg p-2 lg:h-auto lg:overflow-visible">
+          <nav aria-label="Algorithm categories" className="glass-panel flex h-full flex-col gap-2 overflow-y-auto rounded-lg p-2 lg:h-auto lg:max-h-[calc(100vh-15rem)]">
             {user && (
               <SideLink href="/dashboard" icon={LayoutDashboard} label="Dashboard" pathname={pathname} />
             )}
@@ -201,7 +193,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </nav>
         </aside>
 
-        <div className="min-w-0 px-3 pb-16 pt-4 sm:px-5 lg:px-8 lg:pb-20 lg:pt-8 2xl:px-10" id="main-content" tabIndex={-1}>
+        <div className="min-w-0 px-3 pb-6 pt-4 sm:px-5 lg:px-8 lg:pb-8 lg:pt-8 2xl:px-10" id="main-content" tabIndex={-1}>
           {flash && (
             <div
               aria-live="polite"
@@ -215,17 +207,17 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </div>
           )}
           {children}
-          <Footer />
         </div>
       </div>
+      <Footer />
     </div>
   )
 }
 
 function Footer() {
   return (
-    <footer className="mt-16 border-t border-[hsl(var(--glass-border))] pt-8 text-sm text-foreground/70">
-      <div className="glass-panel flex flex-col gap-4 rounded-lg p-5 sm:flex-row sm:items-center sm:justify-between">
+    <footer className="mt-6 w-full border-t border-[hsl(var(--glass-border))] bg-[hsl(var(--glass-strong))] px-3 py-4 text-sm text-foreground/70 sm:px-5 lg:px-8">
+      <div className="mx-auto flex max-w-[132rem] flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-primary">
             DSA Visualizer
@@ -241,9 +233,15 @@ function Footer() {
         <div className="flex flex-col gap-2 sm:items-end">
           <Link
             className="font-bold text-primary hover:underline"
+            href="https://krishnasportfolio-rho.vercel.app/"
+          >
+            Portfolio
+          </Link>
+          <Link
+            className="font-bold text-primary hover:underline"
             href="https://dsa-vidualiser.vercel.app/"
           >
-            dsa-vidualiser.vercel.app
+            Live project
           </Link>
           <p>All rights reserved.</p>
         </div>
@@ -268,14 +266,14 @@ function SideLink({
   return (
     <Link
       className={cn(
-        'group flex min-h-12 shrink-0 items-center gap-3 whitespace-nowrap rounded-md px-4 text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground transition hover:bg-[hsl(var(--glass))] hover:text-primary lg:min-h-14 lg:gap-5 lg:px-5 lg:text-sm lg:tracking-[0.18em]',
+        'group flex min-h-12 shrink-0 items-center gap-3 rounded-md px-4 text-xs font-bold uppercase tracking-[0.12em] text-muted-foreground transition hover:bg-[hsl(var(--glass))] hover:text-primary lg:min-h-12 lg:gap-3 lg:px-3 lg:text-[11px] lg:tracking-[0.12em] 2xl:min-h-14 2xl:px-5 2xl:text-sm 2xl:tracking-[0.18em]',
         active && 'bg-[hsl(var(--glass-strong))] text-primary shadow-sm'
       )}
       aria-current={active ? 'page' : undefined}
       href={href}
     >
       <Icon aria-hidden="true" className="h-5 w-5 shrink-0" />
-      <span>{label}</span>
+      <span className="min-w-0 truncate">{label}</span>
     </Link>
   )
 }

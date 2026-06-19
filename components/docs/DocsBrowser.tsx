@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Search } from 'lucide-react'
 import type { VisualizerDoc } from '@/lib/visualizerDocs'
@@ -21,6 +21,18 @@ export function DocsBrowser({ docs }: DocsBrowserProps) {
       }, {}),
     [results]
   )
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.location.hash) return
+
+    const id = window.location.hash.slice(1)
+    window.setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }, 80)
+  }, [])
 
   return (
     <section className="mt-10">

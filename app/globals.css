@@ -63,6 +63,7 @@
 html {
   color-scheme: light dark;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -103,6 +104,10 @@ body::before {
 
 a {
   color: inherit;
+}
+
+[id] {
+  scroll-margin-top: 7rem;
 }
 
 a:focus-visible,
@@ -292,9 +297,9 @@ input:not([type='range']):not([type='file']):not([type='checkbox']):not([type='r
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   body {
-    padding-bottom: 7.5rem;
+    padding-bottom: 5.5rem;
   }
 
   body::before {
@@ -318,18 +323,32 @@ input:not([type='range']):not([type='file']):not([type='checkbox']):not([type='r
 
   .playback-panel {
     position: fixed;
-    left: 0.75rem;
-    right: 0.75rem;
-    bottom: 0.75rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    bottom: 0.5rem;
     z-index: 60;
-    max-height: 8.5rem;
-    overflow: auto;
+    max-height: 5rem;
+    overflow: hidden;
+    padding: 0.75rem !important;
     box-shadow: var(--shadow-soft);
     backdrop-filter: blur(22px) saturate(145%);
   }
 
   .playback-panel > div:first-child {
     justify-content: center;
+  }
+
+  .playback-panel input[type='range'],
+  .playback-panel label,
+  .playback-panel select,
+  .playback-panel [data-mobile-hide='true'] {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .responsive-page {
+    gap: 1rem;
   }
 }
 
