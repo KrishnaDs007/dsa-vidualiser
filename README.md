@@ -28,6 +28,8 @@ custom code visualization workspace.
   0/1 Knapsack, LCS, and LIS state tables.
 - Backtracking visualizer with Subsets, Permutations, Combinations, N-Queens,
   and Sudoku Solver decision states.
+- Greedy visualizer with Activity Selection, Merge Intervals, Jump Game, Gas
+  Station, and Huffman Coding local-choice states.
 - Step controls, speed control, custom array input, animated bars, and synced
   pseudocode highlighting.
 - Responsive layout for mobile, tablet, laptop, desktop, and wide 4K monitors.
@@ -55,9 +57,10 @@ custom code visualization workspace.
 8. Graphs foundation: complete for the current algorithm set.
 9. Dynamic Programming foundation: complete for the current algorithm set.
 10. Backtracking foundation: complete for the current algorithm set.
-11. Custom code visualization: language selector, persisted source code,
+11. Greedy foundation: complete for the current algorithm set.
+12. Custom code visualization: language selector, persisted source code,
    step-by-step tracing, and per-step time/space complexity updates.
-12. Backend sync: deferred until the local-first profile and visualizer flows are
+13. Backend sync: deferred until the local-first profile and visualizer flows are
    stable.
 
 ## Run locally

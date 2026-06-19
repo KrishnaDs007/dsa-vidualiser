@@ -208,3 +208,23 @@ export interface BacktrackingStep {
   codeLine: number
   note: string
 }
+
+export interface GreedyItem {
+  id: string
+  label: string
+  value: string
+  meta?: string
+  state: 'default' | 'active' | 'selected' | 'rejected' | 'merged'
+}
+
+export interface GreedyStep {
+  items: GreedyItem[]
+  selectedIds: string[]
+  rejectedIds: string[]
+  activeId: string | null
+  result: string
+  timeComplexity: string
+  spaceComplexity: string
+  codeLine: number
+  note: string
+}

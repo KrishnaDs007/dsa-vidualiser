@@ -170,11 +170,11 @@ export const DSA_CATALOG: DsaCategory[] = [
     description:
       'Local-choice strategies with sorted inputs, intervals, and exchange arguments.',
     topics: [
-      { name: 'Activity Selection', status: 'planned', patterns: ['Interval sorting'] },
-      { name: 'Merge Intervals', status: 'planned', patterns: ['Interval scan'] },
-      { name: 'Jump Game', status: 'planned', patterns: ['Reachability'] },
-      { name: 'Gas Station', status: 'planned', patterns: ['Running balance'] },
-      { name: 'Huffman Coding', status: 'planned', patterns: ['Priority queue'] }
+      { name: 'Activity Selection', status: 'ready', patterns: ['Interval sorting'] },
+      { name: 'Merge Intervals', status: 'ready', patterns: ['Interval scan'] },
+      { name: 'Jump Game', status: 'ready', patterns: ['Reachability'] },
+      { name: 'Gas Station', status: 'ready', patterns: ['Running balance'] },
+      { name: 'Huffman Coding', status: 'ready', patterns: ['Priority queue'] }
     ]
   }
 ]

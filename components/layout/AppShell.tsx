@@ -21,7 +21,8 @@ import {
   Sparkles,
   SquareStack,
   TerminalSquare,
-  Trees
+  Trees,
+  Zap
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -45,6 +46,7 @@ const sideNav = [
   { label: 'Trees', href: '/trees', icon: Trees },
   { label: 'Dynamic Programming', href: '/dynamic-programming', icon: Boxes },
   { label: 'Backtracking', href: '/backtracking', icon: GitBranch },
+  { label: 'Greedy', href: '/greedy', icon: Zap },
   { label: 'Custom Code Visualizer', href: '/custom-visualizer', icon: TerminalSquare }
 ]
 
