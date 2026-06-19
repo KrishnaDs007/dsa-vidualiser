@@ -12,7 +12,7 @@ export function LinkedListCanvas({ frame }: LinkedListCanvasProps) {
   const nodeById = new Map(frame.nodes.map((node) => [node.id, node]))
 
   return (
-    <div className="glass-panel dot-grid min-h-[420px] overflow-x-auto rounded-lg p-5">
+    <div className="visualizer-canvas glass-panel dot-grid min-h-[340px] overflow-x-auto rounded-lg p-4 sm:min-h-[420px] sm:p-5 2xl:min-h-[520px]">
       {frame.result && (
         <div className="mb-4 inline-flex rounded-md bg-emerald-100 px-3 py-2 text-sm font-bold text-emerald-900">
           result: {frame.result}

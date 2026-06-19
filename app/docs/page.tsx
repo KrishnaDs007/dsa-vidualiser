@@ -12,14 +12,14 @@ export default function DocsPage() {
   )
 
   return (
-    <main className="mx-auto max-w-7xl">
+    <main className="responsive-page">
       <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-primary">
         Documentation
       </p>
-      <h1 className="mt-4 text-4xl font-black tracking-tight">
+      <h1 className="mt-4 responsive-heading font-black tracking-tight">
         Algorithm Roadmap
       </h1>
-      <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+      <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(280px,360px)] lg:items-start">
         <p className="max-w-3xl text-base leading-7 text-foreground/75">
           This standalone workbench will grow from deterministic DSA visualizers
           into custom code visualization with step-by-step state, time
@@ -55,7 +55,7 @@ export default function DocsPage() {
 
       <DocsBrowser docs={VISUALIZER_DOCS} />
 
-      <section className="mt-10 grid gap-5 xl:grid-cols-2">
+      <section className="mt-10 responsive-grid">
         {DSA_CATALOG.map((category) => (
           <article
             className="bg-[hsl(var(--surface-container-low))] p-6"

@@ -41,13 +41,13 @@ export function SortingView({
   const activeAlgorithm = SORT_ALGORITHMS[algorithm]
 
   return (
-    <main className="mx-auto flex max-w-7xl flex-col gap-8">
+    <main className="responsive-page flex flex-col gap-6 lg:gap-8">
       <header className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-primary">
             Generator Driven
           </p>
-          <h1 className="mt-4 text-4xl font-black tracking-tight">
+          <h1 className="mt-4 responsive-heading font-black tracking-tight">
             Sorting Visualizer
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-7 text-foreground/75">
@@ -80,8 +80,8 @@ export function SortingView({
         </div>
       </header>
 
-      <section className="grid gap-5 2xl:grid-cols-[260px_minmax(0,1.35fr)_minmax(380px,0.9fr)]">
-        <aside className="glass-panel flex flex-col gap-4 rounded-lg p-4">
+      <section className="visualizer-grid">
+        <aside className="visualizer-controls glass-panel flex flex-col gap-4 rounded-lg p-3 sm:p-4">
           <ControlPanel />
           <ArrayInput />
         </aside>

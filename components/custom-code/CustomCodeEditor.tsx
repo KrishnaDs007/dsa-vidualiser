@@ -39,7 +39,7 @@ export function CustomCodeEditor({
         </div>
       </div>
 
-      <div className="grid min-h-[560px] grid-cols-[3.5rem_minmax(0,1fr)]">
+      <div className="grid min-h-[420px] grid-cols-[2.75rem_minmax(0,1fr)] sm:min-h-[560px] sm:grid-cols-[3.5rem_minmax(0,1fr)]">
         <div
           aria-hidden="true"
           className="select-none border-r border-[hsl(var(--glass-border))] bg-[hsl(var(--foreground)/0.035)] px-3 py-5 text-right font-mono text-xs leading-7 text-muted-foreground"
@@ -59,7 +59,7 @@ export function CustomCodeEditor({
         </div>
         <textarea
           aria-label="Custom code"
-          className="min-h-[560px] w-full resize-y border-0 bg-transparent p-5 font-mono text-sm leading-7 outline-none"
+          className="min-h-[420px] w-full resize-y border-0 bg-transparent p-4 font-mono text-sm leading-7 outline-none sm:min-h-[560px] sm:p-5"
           onChange={(event) => onChange(event.target.value)}
           placeholder="Write or paste code to analyze time and space complexity."
           spellCheck={false}

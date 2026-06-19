@@ -71,8 +71,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <a className="skip-link" href="#main-content">
         Skip to main content
       </a>
-      <header className="glass-panel-strong sticky top-0 z-40 mx-3 mt-3 flex h-20 items-center gap-6 rounded-lg px-5 lg:mx-5 lg:px-8">
-        <Link className="mr-4 text-2xl font-black tracking-tight text-foreground" href="/">
+      <header className="glass-panel-strong sticky top-0 z-40 mx-3 mt-3 flex min-h-16 flex-wrap items-center gap-3 rounded-lg px-3 py-3 sm:gap-4 sm:px-5 lg:mx-5 lg:min-h-20 lg:gap-6 lg:px-8">
+        <Link className="mr-auto text-xl font-black tracking-tight text-foreground sm:text-2xl lg:mr-4" href="/">
           AlgoPrecision
         </Link>
 
@@ -95,6 +95,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
+        <Link
+          className="order-last flex h-10 w-full items-center gap-3 rounded-md border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] px-3 text-muted-foreground shadow-sm backdrop-blur-xl sm:w-auto md:hidden"
+          href="/docs"
+        >
+          <Search className="h-4 w-4" aria-hidden="true" />
+          <span className="text-sm">Search algorithms</span>
+        </Link>
+
         <div
           aria-hidden="true"
           className="ml-auto hidden h-11 w-[320px] items-center gap-3 rounded-md border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] px-4 text-muted-foreground shadow-sm backdrop-blur-xl lg:flex"
@@ -104,7 +112,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
 
         {user ? (
-          <div className="flex items-center gap-2">
+          <div className="flex min-w-0 items-center gap-2">
             <Button asChild variant="ghost">
               <Link href="/dashboard">{user.name}</Link>
             </Button>
@@ -119,9 +127,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         )}
       </header>
 
-      <div className="grid min-h-[calc(100vh-80px)] lg:grid-cols-[320px_minmax(0,1fr)]">
-        <aside aria-label="Algorithm navigation" className="px-5 py-10 lg:min-h-[calc(100vh-80px)] lg:px-8">
-          <div className="mb-7 flex items-center gap-4">
+      <div className="grid min-h-[calc(100vh-80px)] lg:grid-cols-[minmax(260px,320px)_minmax(0,1fr)] 2xl:grid-cols-[minmax(300px,360px)_minmax(0,1fr)]">
+        <aside aria-label="Algorithm navigation" className="sticky top-[5.5rem] z-30 px-3 py-4 lg:static lg:min-h-[calc(100vh-80px)] lg:px-8 lg:py-10">
+          <div className="mb-7 hidden items-center gap-4 lg:flex">
             <div className="grid h-12 w-12 place-items-center rounded-lg border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass-strong))] text-primary shadow-sm backdrop-blur-xl">
               <GitBranch className="h-6 w-6" />
             </div>
@@ -131,13 +139,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </div>
           </div>
 
-          <Button asChild className="mb-10 w-full justify-center uppercase tracking-[0.18em]" variant="secondary">
+          <Button asChild className="mb-3 hidden w-full justify-center uppercase tracking-[0.18em] lg:mb-10 lg:inline-flex" variant="secondary">
             <Link href="/custom-visualizer">
               <Plus className="h-4 w-4" /> New Visualization
             </Link>
           </Button>
 
-          <nav aria-label="Algorithm categories" className="glass-panel flex flex-col gap-2 rounded-lg p-2">
+          <nav aria-label="Algorithm categories" className="glass-panel flex gap-2 overflow-x-auto rounded-lg p-2 lg:flex-col lg:overflow-visible">
             {user && (
               <SideLink href="/dashboard" icon={LayoutDashboard} label="Dashboard" pathname={pathname} />
             )}
@@ -153,11 +161,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </nav>
         </aside>
 
-        <div className="min-w-0 px-5 pb-20 pt-8 lg:px-8" id="main-content" tabIndex={-1}>
+        <div className="min-w-0 px-3 pb-16 pt-4 sm:px-5 lg:px-8 lg:pb-20 lg:pt-8 2xl:px-10" id="main-content" tabIndex={-1}>
           {flash && (
             <div
               aria-live="polite"
-              className="glass-panel-strong fixed right-5 top-24 z-50 max-w-sm rounded-md px-4 py-3 text-sm"
+              className="glass-panel-strong fixed left-3 right-3 top-24 z-50 rounded-md px-4 py-3 text-sm sm:left-auto sm:max-w-sm"
               role="status"
             >
               <div className="flex items-start gap-3">
@@ -189,7 +197,7 @@ function SideLink({
   return (
     <Link
       className={cn(
-        'group flex min-h-14 items-center gap-5 rounded-md px-5 text-sm font-bold uppercase tracking-[0.18em] text-muted-foreground transition hover:bg-[hsl(var(--glass))] hover:text-primary',
+        'group flex min-h-12 shrink-0 items-center gap-3 whitespace-nowrap rounded-md px-4 text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground transition hover:bg-[hsl(var(--glass))] hover:text-primary lg:min-h-14 lg:gap-5 lg:px-5 lg:text-sm lg:tracking-[0.18em]',
         active && 'bg-[hsl(var(--glass-strong))] text-primary shadow-sm'
       )}
       aria-current={active ? 'page' : undefined}

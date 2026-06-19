@@ -22,7 +22,7 @@ export function Bar({ value, state, maxValue }: BarProps) {
         backgroundColor: colors.bg,
         borderColor: colors.border
       }}
-      className="relative flex min-w-7 flex-1 items-end justify-center rounded-t-md border px-1 shadow-sm"
+      className="relative flex min-w-6 flex-1 items-end justify-center rounded-t-md border px-1 shadow-sm sm:min-w-7"
       layout
       style={{ height: `${heightPct}%` }}
       transition={

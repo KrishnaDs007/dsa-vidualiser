@@ -28,6 +28,7 @@ custom code visualization workspace.
   0/1 Knapsack, LCS, and LIS state tables.
 - Step controls, speed control, custom array input, animated bars, and synced
   pseudocode highlighting.
+- Responsive layout for mobile, tablet, laptop, desktop, and wide 4K monitors.
 - Visualizer code panels include a language dropdown for TypeScript,
   JavaScript, Python, Java, C++, C, and C# starter samples.
 - Searchable documentation covers every ready visualizer with patterns,

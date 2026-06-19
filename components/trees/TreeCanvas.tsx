@@ -20,8 +20,8 @@ export function TreeCanvas({ frame }: TreeCanvasProps) {
     )
 
   return (
-    <div className="glass-panel dot-grid min-h-[520px] overflow-hidden rounded-lg p-4">
-      <svg className="h-[520px] w-full" viewBox="0 0 820 420">
+    <div className="visualizer-canvas glass-panel dot-grid min-h-[360px] overflow-x-auto overflow-y-hidden rounded-lg p-4 sm:min-h-[520px] 2xl:min-h-[620px]">
+      <svg className="h-[360px] min-w-[780px] sm:h-[520px] sm:min-w-0 sm:w-full" viewBox="0 0 820 420">
         {edges.map(({ child, parent }) => (
           <motion.line
             animate={{

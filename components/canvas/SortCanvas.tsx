@@ -13,7 +13,7 @@ export function SortCanvas({ frame }: SortCanvasProps) {
 
   return (
     <LayoutGroup>
-      <div className="glass-panel dot-grid flex min-h-[560px] items-end gap-2 overflow-hidden rounded-lg p-5">
+      <div className="visualizer-canvas glass-panel dot-grid flex min-h-[360px] items-end gap-2 overflow-x-auto overflow-y-hidden rounded-lg p-4 sm:min-h-[460px] sm:p-5 2xl:min-h-[620px]">
         <AnimatePresence>
           {frame?.array.map((value, index) => (
             <Bar

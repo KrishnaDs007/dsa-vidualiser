@@ -47,10 +47,10 @@ const algorithms = [
 
 export default function HomePage() {
   return (
-    <main className="mx-auto max-w-7xl">
+    <main className="responsive-page">
       <div className="mb-14 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <h1 className="text-4xl font-black tracking-tight sm:text-5xl">
+          <h1 className="responsive-heading font-black tracking-tight">
             Sorting Algorithms
           </h1>
           <p className="mt-4 max-w-3xl text-lg leading-8 text-foreground/78">
@@ -69,12 +69,12 @@ export default function HomePage() {
         </div>
       </div>
 
-      <section className="grid gap-7 xl:grid-cols-3">
+      <section className="responsive-grid">
         {algorithms.slice(0, 3).map((algorithm) => (
           <AlgorithmCard algorithm={algorithm} key={algorithm.title} />
         ))}
 
-        <article className="bg-[hsl(var(--surface-container-low))] p-8 xl:col-span-2">
+        <article className="bg-[hsl(var(--surface-container-low))] p-5 sm:p-8 xl:col-span-2">
           <div className="grid gap-8 md:grid-cols-[minmax(0,0.9fr)_minmax(280px,1fr)] md:items-center">
             <div>
               <div className="mb-6 flex flex-wrap gap-3">
@@ -126,7 +126,7 @@ function AlgorithmCard({
 
   return (
     <Link
-      className="group flex min-h-[400px] flex-col bg-[hsl(var(--surface-container-low))] p-8 transition hover:bg-[hsl(var(--surface-container-lowest))]"
+      className="group flex min-h-[320px] flex-col bg-[hsl(var(--surface-container-low))] p-5 transition hover:bg-[hsl(var(--surface-container-lowest))] sm:min-h-[400px] sm:p-8"
       href={algorithm.href}
     >
       <div className="mb-9 flex items-start justify-between gap-4">

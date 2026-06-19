@@ -166,13 +166,13 @@ function CustomVisualizerForm() {
   }
 
   return (
-    <main className="mx-auto max-w-7xl">
+    <main className="responsive-page">
       <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-primary">
             Custom Code Visualizer
           </p>
-          <h1 className="mt-4 text-4xl font-black tracking-tight">
+          <h1 className="mt-4 responsive-heading font-black tracking-tight">
             Complexity Blueprint
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-7 text-foreground/75">
@@ -195,7 +195,7 @@ function CustomVisualizerForm() {
         </div>
       </div>
 
-      <section className="grid gap-6 xl:grid-cols-[minmax(0,1.1fr)_380px]">
+      <section className="grid gap-6 xl:grid-cols-[minmax(0,1.1fr)_minmax(320px,380px)] 2xl:grid-cols-[minmax(0,1.35fr)_minmax(360px,440px)]">
         <div className="flex flex-col gap-5">
           {!user && (
             <div className="glass-panel rounded-lg p-4 text-sm text-foreground/75">

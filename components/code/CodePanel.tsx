@@ -42,7 +42,7 @@ export function CodePanel({
   }, [codeLine, visibleCode])
 
   return (
-    <div className="glass-panel flex max-h-[620px] min-h-[360px] flex-col rounded-lg text-sm">
+    <div className="visualizer-code glass-panel flex max-h-[520px] min-h-[300px] flex-col rounded-lg text-xs sm:max-h-[620px] sm:min-h-[360px] sm:text-sm 2xl:max-h-[720px]">
       <div className="flex flex-wrap items-center gap-3 border-b border-[hsl(var(--glass-border))] p-3">
         <label className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
           Sample
@@ -62,7 +62,7 @@ export function CodePanel({
         </select>
         {docsHref && (
           <Link
-            className="ml-auto inline-flex h-9 items-center gap-2 rounded-md bg-[hsl(var(--primary))] px-3 text-sm font-bold text-primary-foreground"
+            className="ml-auto inline-flex h-9 items-center gap-2 rounded-md bg-[hsl(var(--primary))] px-3 text-sm font-bold text-primary-foreground max-sm:ml-0"
             href={docsHref}
           >
             <BookOpen className="h-4 w-4" />
@@ -71,11 +71,11 @@ export function CodePanel({
         )}
       </div>
       <div className="flex-1 overflow-auto">
-      <div
-        className="min-w-max p-4"
-        dangerouslySetInnerHTML={{ __html: visibleCode }}
-        ref={ref}
-      />
+        <div
+          className="min-w-max p-3 sm:p-4"
+          dangerouslySetInnerHTML={{ __html: visibleCode }}
+          ref={ref}
+        />
       </div>
     </div>
   )

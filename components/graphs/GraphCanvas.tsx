@@ -11,8 +11,8 @@ export function GraphCanvas({ frame }: GraphCanvasProps) {
   const nodeById = new Map(frame.nodes.map((node) => [node.id, node]))
 
   return (
-    <div className="glass-panel dot-grid min-h-[520px] overflow-hidden rounded-lg p-4">
-      <svg className="h-[520px] w-full" viewBox="0 0 760 400">
+    <div className="visualizer-canvas glass-panel dot-grid min-h-[360px] overflow-x-auto overflow-y-hidden rounded-lg p-4 sm:min-h-[520px] 2xl:min-h-[620px]">
+      <svg className="h-[360px] min-w-[720px] sm:h-[520px] sm:min-w-0 sm:w-full" viewBox="0 0 760 400">
         <defs>
           <marker
             id="arrow"

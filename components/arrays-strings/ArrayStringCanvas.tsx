@@ -28,7 +28,7 @@ export function ArrayStringCanvas({ frame }: ArrayStringCanvasProps) {
           : 'sum'
 
   return (
-    <div className="glass-panel dot-grid min-h-[360px] rounded-lg p-5">
+    <div className="visualizer-canvas glass-panel dot-grid min-h-[320px] rounded-lg p-4 sm:min-h-[360px] sm:p-5 2xl:min-h-[460px]">
       <div className="mb-5 flex flex-wrap items-center gap-3">
         <span className="rounded-md bg-[hsl(var(--primary)/0.12)] px-3 py-2 font-mono text-sm font-bold text-primary">
           {targetLabel}: {frame.target}
@@ -38,7 +38,7 @@ export function ArrayStringCanvas({ frame }: ArrayStringCanvasProps) {
         </span>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5">
         {frame.array.map((value, index) => {
           const state = getCellState(index, frame)
 

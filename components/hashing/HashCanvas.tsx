@@ -9,7 +9,7 @@ interface HashCanvasProps {
 
 export function HashCanvas({ frame }: HashCanvasProps) {
   return (
-    <div className="glass-panel dot-grid min-h-[520px] rounded-lg p-5">
+    <div className="visualizer-canvas glass-panel dot-grid min-h-[360px] rounded-lg p-4 sm:min-h-[520px] sm:p-5 2xl:min-h-[620px]">
       <div className="mb-5 flex flex-wrap items-center gap-3 text-sm">
         <span className="rounded-md bg-[hsl(var(--primary)/0.12)] px-3 py-2 font-mono font-bold text-primary">
           {frame.strategyLabel ?? `bucket = abs(key) % ${frame.bucketCount}`}

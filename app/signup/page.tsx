@@ -24,12 +24,12 @@ export default function SignupPage() {
   }
 
   return (
-    <main className="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+    <main className="responsive-page grid max-w-5xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
       <section>
         <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-primary">
           Build Your Library
         </p>
-        <h1 className="mt-4 text-4xl font-black tracking-tight">Create account</h1>
+        <h1 className="mt-4 responsive-heading font-black tracking-tight">Create account</h1>
         <p className="mt-5 max-w-md text-base leading-7 text-foreground/75">
           Your dashboard starts with sorting visualizers and grows with every
           custom code complexity analysis you save.

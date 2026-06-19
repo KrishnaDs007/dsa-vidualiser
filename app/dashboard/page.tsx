@@ -79,11 +79,11 @@ export default function DashboardPage() {
   }
 
   return (
-    <main className="mx-auto max-w-7xl">
+    <main className="responsive-page">
       <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-primary">
         Personal Workspace
       </p>
-      <h1 className="mt-4 text-4xl font-black tracking-tight">
+      <h1 className="mt-4 responsive-heading font-black tracking-tight">
         {user.name}&apos;s Dashboard
       </h1>
       <div className="mt-6 flex flex-wrap gap-3">
