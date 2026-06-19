@@ -33,6 +33,10 @@ import { useAuthStore } from '@/store/authStore'
 
 const CUSTOM_DRAFT_KEY = 'algo-precision-custom-draft'
 
+// Backend auth is intentionally disabled for now. Flip this to true when
+// backend-backed sign-in and dashboard sync are ready.
+const AUTH_ENTRYPOINTS_ENABLED = false
+
 export default function CustomVisualizerPage() {
   return (
     <Suspense>
@@ -77,10 +81,12 @@ function CustomVisualizerForm() {
     if (!editId || !hydrated) return
 
     if (!user) {
-      setFlash('Please sign in before editing a saved custom visualizer.')
-      router.push(
-        `/login?next=${encodeURIComponent(`/custom-visualizer?id=${editId}`)}`
-      )
+      setFlash('Editing saved custom visualizers will be available after backend auth is connected.')
+      router.replace('/custom-visualizer')
+      // Re-enable this redirect when backend auth is connected:
+      // router.push(
+      //   `/login?next=${encodeURIComponent(`/custom-visualizer?id=${editId}`)}`
+      // )
       return
     }
 
@@ -134,8 +140,9 @@ function CustomVisualizerForm() {
 
   function persistAnalysis() {
     if (!user) {
-      setFlash('Sign in to save this custom visualizer to your dashboard.')
-      router.push('/login?next=/custom-visualizer')
+      setFlash('Saving custom visualizers will be available after backend auth is connected.')
+      // Re-enable this redirect when backend auth is connected:
+      // router.push('/login?next=/custom-visualizer')
       return
     }
 
@@ -182,7 +189,7 @@ function CustomVisualizerForm() {
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
-          {!user && (
+          {AUTH_ENTRYPOINTS_ENABLED && !user && (
             <Button asChild variant="secondary">
               <Link href="/login?next=/custom-visualizer">
                 Sign in to save <ArrowRight className="h-4 w-4" />
@@ -202,8 +209,8 @@ function CustomVisualizerForm() {
               <div className="flex items-start gap-3">
                 <Sparkles aria-hidden="true" className="mt-0.5 h-4 w-4 text-primary" />
                 <p>
-                  You can write and analyze code now. Sign in only when you want
-                  to save this custom visualizer to your dashboard.
+                  You can write and analyze code now. Saving to a profile will
+                  be enabled after backend auth is connected.
                 </p>
               </div>
             </div>
@@ -368,13 +375,13 @@ function CustomVisualizerForm() {
                   Dashboard <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
-            ) : (
+            ) : AUTH_ENTRYPOINTS_ENABLED ? (
               <Button asChild className="mt-6 w-full" variant="secondary">
                 <Link href="/login?next=/custom-visualizer">
                   Sign in to save <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
-            )}
+            ) : null}
           </div>
         </aside>
       </section>

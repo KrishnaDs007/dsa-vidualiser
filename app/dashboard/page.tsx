@@ -30,6 +30,10 @@ const pinned = [
   }
 ]
 
+// Backend auth is intentionally disabled for now. Flip this to true when the
+// backend-backed profile/dashboard flow is ready.
+const AUTH_ENTRYPOINTS_ENABLED = false
+
 export default function DashboardPage() {
   const router = useRouter()
   const user = useAuthStore((state) => state.user)
@@ -45,11 +49,41 @@ export default function DashboardPage() {
   useEffect(() => {
     if (!hydrated || user) return
 
+    if (!AUTH_ENTRYPOINTS_ENABLED) return
+
     setFlash('Please sign in to open your dashboard.')
+    // Re-enable this redirect when backend auth is connected:
     router.push('/login?next=/dashboard')
   }, [hydrated, router, setFlash, user])
 
-  if (!user) return null
+  if (!user) {
+    return (
+      <main className="responsive-page">
+        <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-primary">
+          Personal Workspace
+        </p>
+        <h1 className="mt-4 responsive-heading font-black tracking-tight">
+          Dashboard Paused
+        </h1>
+        <p className="mt-4 max-w-3xl text-base leading-7 text-foreground/75">
+          Profile dashboard sync is paused until backend auth is connected.
+          Visualizers and custom code analysis remain available locally.
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Button asChild>
+            <Link href="/custom-visualizer">
+              Open Custom Visualizer <TerminalSquare className="h-4 w-4" />
+            </Link>
+          </Button>
+          <Button asChild variant="secondary">
+            <Link href="/docs">
+              Browse Docs <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+      </main>
+    )
+  }
 
   function downloadWorkspace() {
     const json = exportWorkspace()

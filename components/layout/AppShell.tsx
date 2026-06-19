@@ -34,6 +34,10 @@ const primaryNav = [
   { label: 'Documentation', href: '/docs', icon: BookOpen }
 ]
 
+// Backend auth is intentionally disabled for now. Flip this to true when the
+// backend-backed login/session flow is ready.
+const AUTH_ENTRYPOINTS_ENABLED = false
+
 const sideNav = [
   { label: 'Sorting', href: '/sorting', icon: Layers3 },
   { label: 'Searching', href: '/search', icon: Search },
@@ -114,20 +118,22 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <span className="text-sm">Search algorithms...</span>
         </div>
 
-        {user ? (
-          <div className="flex min-w-0 items-center gap-2">
-            <Button asChild variant="ghost">
-              <Link href="/dashboard">{user.name}</Link>
+        {AUTH_ENTRYPOINTS_ENABLED &&
+          (user ? (
+            <div className="flex min-w-0 items-center gap-2">
+              <Button asChild variant="ghost">
+                <Link href="/dashboard">{user.name}</Link>
+              </Button>
+              <Button aria-label="Sign out" onClick={logout} size="icon" variant="outline">
+                <LogOut className="h-4 w-4" />
+              </Button>
+            </div>
+          ) : (
+            // Re-enable this login button when backend auth is connected.
+            <Button asChild>
+              <Link href="/login">Sign In</Link>
             </Button>
-            <Button aria-label="Sign out" onClick={logout} size="icon" variant="outline">
-              <LogOut className="h-4 w-4" />
-            </Button>
-          </div>
-        ) : (
-          <Button asChild>
-            <Link href="/login">Sign In</Link>
-          </Button>
-        )}
+          ))}
       </header>
 
       <div className="grid min-h-[calc(100vh-80px)] lg:grid-cols-[minmax(260px,320px)_minmax(0,1fr)] 2xl:grid-cols-[minmax(300px,360px)_minmax(0,1fr)]">
