@@ -215,38 +215,114 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 }
 
 function Footer() {
+  const productLinks = [
+    { label: 'Explore', href: '/' },
+    { label: 'Docs', href: '/docs' },
+    { label: 'Sorting', href: '/sorting' },
+    { label: 'Graphs', href: '/graphs' },
+    { label: 'Dynamic Programming', href: '/dynamic-programming' },
+    { label: 'Custom Visualizer', href: '/custom-visualizer' }
+  ]
+
+  const profileLinks = [
+    { label: 'Portfolio', href: 'https://krishnasportfolio-rho.vercel.app/' },
+    { label: 'Email', href: 'mailto:krishnadevashish17@gmail.com' },
+    { label: 'Live Project', href: 'https://dsa-vidualiser.vercel.app/' }
+  ]
+
   return (
-    <footer className="mt-6 w-full border-t border-[hsl(var(--glass-border))] bg-[hsl(var(--glass-strong))] px-3 py-4 text-sm text-foreground/70 sm:px-5 lg:px-8">
-      <div className="mx-auto flex max-w-[132rem] flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-primary">
+    <footer className="mt-6 w-full bg-[#07111f] text-slate-100 shadow-[0_-24px_70px_rgba(0,0,0,0.18)]">
+      <div className="mx-auto grid max-w-[132rem] gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(220px,0.7fr)_minmax(220px,0.7fr)_auto] lg:px-10">
+        <div className="max-w-2xl">
+          <p className="font-mono text-xs font-black uppercase tracking-[0.22em] text-cyan-300">
             DSA Visualizer
           </p>
-          <p className="mt-2 font-semibold text-foreground">
-            Built by Krishna Devashish
+          <h2 className="mt-3 text-2xl font-black tracking-tight text-white">
+            Learn algorithms by watching every decision move.
+          </h2>
+          <p className="mt-3 text-sm leading-6 text-slate-300">
+            A standalone visual learning workspace for sorting, searching,
+            trees, graphs, dynamic programming, backtracking, greedy methods,
+            and custom code complexity. Built to make abstract DSA steps feel
+            visible, testable, and easier to revisit.
           </p>
-          <p className="mt-1">
-            Interactive DSA visualizer for algorithms, custom code complexity,
-            and step-by-step learning.
-          </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            <span className="rounded-md bg-cyan-300 px-3 py-1.5 text-xs font-black uppercase tracking-[0.16em] text-slate-950">
+              Product: AlgoPrecision
+            </span>
+            <span className="rounded-md bg-amber-300 px-3 py-1.5 text-xs font-black uppercase tracking-[0.16em] text-slate-950">
+              Creator: Krishna Devashish
+            </span>
+          </div>
         </div>
-        <div className="flex flex-col gap-2 sm:items-end">
-          <Link
-            className="font-bold text-primary hover:underline"
-            href="https://krishnasportfolio-rho.vercel.app/"
+
+        <FooterLinkGroup title="Menu" links={productLinks} />
+        <FooterLinkGroup title="Profile & Links" links={profileLinks} />
+
+        <div className="flex flex-col gap-4 lg:items-end">
+          <button
+            className="inline-flex h-11 items-center justify-center rounded-md bg-white px-4 text-sm font-black text-slate-950 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-200"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            type="button"
           >
-            Portfolio
-          </Link>
-          <Link
-            className="font-bold text-primary hover:underline"
-            href="https://dsa-vidualiser.vercel.app/"
-          >
-            Live project
-          </Link>
-          <p>All rights reserved.</p>
+            Back to top
+          </button>
+          <div className="rounded-lg border border-white/10 bg-white/5 p-4 text-sm leading-6 text-slate-300">
+            <p className="font-bold text-white">Connect</p>
+            <p className="mt-1">
+              Portfolio and contact links are wired now. Add GitHub, LinkedIn,
+              or X links here when those public profile URLs are ready.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="border-t border-white/10 px-4 py-4 text-xs text-slate-400 sm:px-6 lg:px-10">
+        <div className="mx-auto flex max-w-[132rem] flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            Copyright {new Date().getFullYear()} Krishna Devashish. All rights
+            reserved.
+          </p>
+          <p>Built for interactive DSA learning and custom complexity exploration.</p>
         </div>
       </div>
     </footer>
+  )
+}
+
+function FooterLinkGroup({
+  title,
+  links
+}: {
+  title: string
+  links: Array<{ label: string; href: string }>
+}) {
+  return (
+    <nav aria-label={title}>
+      <p className="font-mono text-xs font-black uppercase tracking-[0.18em] text-cyan-300">
+        {title}
+      </p>
+      <div className="mt-4 grid gap-2">
+        {links.map((item) => {
+          const isExternal = item.href.startsWith('http')
+
+          return (
+            <Link
+              className="group inline-flex items-center justify-between gap-3 rounded-md border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-slate-200 transition hover:border-cyan-300/60 hover:bg-cyan-300/12 hover:text-white"
+              href={item.href}
+              key={item.href}
+              rel={isExternal ? 'noreferrer' : undefined}
+              target={isExternal ? '_blank' : undefined}
+            >
+              <span>{item.label}</span>
+              <span className="text-cyan-300 transition group-hover:translate-x-0.5">
+                -&gt;
+              </span>
+            </Link>
+          )
+        })}
+      </div>
+    </nav>
   )
 }
 
