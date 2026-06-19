@@ -157,11 +157,11 @@ export const DSA_CATALOG: DsaCategory[] = [
     description:
       'Decision trees with choose, explore, unchoose steps and pruning signals.',
     topics: [
-      { name: 'Subsets', status: 'planned', patterns: ['Decision tree'] },
-      { name: 'Permutations', status: 'planned', patterns: ['Used set'] },
-      { name: 'Combinations', status: 'planned', patterns: ['Start index'] },
-      { name: 'N-Queens', status: 'planned', patterns: ['Constraint pruning'] },
-      { name: 'Sudoku Solver', status: 'planned', patterns: ['Constraint search'] }
+      { name: 'Subsets', status: 'ready', patterns: ['Decision tree'] },
+      { name: 'Permutations', status: 'ready', patterns: ['Used set'] },
+      { name: 'Combinations', status: 'ready', patterns: ['Start index'] },
+      { name: 'N-Queens', status: 'ready', patterns: ['Constraint pruning'] },
+      { name: 'Sudoku Solver', status: 'ready', patterns: ['Constraint search'] }
     ]
   },
   {

@@ -26,6 +26,8 @@ custom code visualization workspace.
   Minimum Spanning Tree.
 - Dynamic Programming visualizer with Fibonacci, Climbing Stairs, Coin Change,
   0/1 Knapsack, LCS, and LIS state tables.
+- Backtracking visualizer with Subsets, Permutations, Combinations, N-Queens,
+  and Sudoku Solver decision states.
 - Step controls, speed control, custom array input, animated bars, and synced
   pseudocode highlighting.
 - Responsive layout for mobile, tablet, laptop, desktop, and wide 4K monitors.
@@ -52,9 +54,10 @@ custom code visualization workspace.
 7. Trees foundation: complete for the current algorithm set.
 8. Graphs foundation: complete for the current algorithm set.
 9. Dynamic Programming foundation: complete for the current algorithm set.
-10. Custom code visualization: language selector, persisted source code,
+10. Backtracking foundation: complete for the current algorithm set.
+11. Custom code visualization: language selector, persisted source code,
    step-by-step tracing, and per-step time/space complexity updates.
-11. Backend sync: deferred until the local-first profile and visualizer flows are
+12. Backend sync: deferred until the local-first profile and visualizer flows are
    stable.
 
 ## Run locally

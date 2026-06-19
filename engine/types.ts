@@ -186,3 +186,25 @@ export interface ArrayStringStep {
   codeLine: number
   note: string
 }
+
+export interface BacktrackingCell {
+  id: string
+  label: string
+  value: string
+  state: 'empty' | 'active' | 'chosen' | 'rejected' | 'fixed'
+}
+
+export interface BacktrackingStep {
+  choices: string[]
+  path: string[]
+  results: string[]
+  activeChoice: string | null
+  rejectedChoices: string[]
+  board?: BacktrackingCell[]
+  boardSize?: number
+  result?: string
+  timeComplexity: string
+  spaceComplexity: string
+  codeLine: number
+  note: string
+}

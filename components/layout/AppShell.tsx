@@ -44,6 +44,7 @@ const sideNav = [
   { label: 'Graphs', href: '/graphs', icon: Network },
   { label: 'Trees', href: '/trees', icon: Trees },
   { label: 'Dynamic Programming', href: '/dynamic-programming', icon: Boxes },
+  { label: 'Backtracking', href: '/backtracking', icon: GitBranch },
   { label: 'Custom Code Visualizer', href: '/custom-visualizer', icon: TerminalSquare }
 ]
 
