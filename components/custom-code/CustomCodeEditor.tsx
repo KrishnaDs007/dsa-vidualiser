@@ -35,30 +35,36 @@ export function CustomCodeEditor({
 
   return (
     <section className="glass-panel overflow-hidden rounded-lg">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[hsl(var(--glass-border))] px-4 py-3">
-        <div className="flex items-center gap-3">
+      <div className="grid gap-3 border-b border-[hsl(var(--glass-border))] px-3 py-3 sm:px-4 lg:flex lg:flex-wrap lg:items-center lg:justify-between">
+        <div className="flex min-w-0 items-center gap-3">
           <span className="grid h-10 w-10 place-items-center rounded-md bg-[hsl(var(--primary)/0.12)] text-primary">
             <TerminalSquare aria-hidden="true" className="h-5 w-5" />
           </span>
-          <div>
+          <div className="min-w-0">
             <p className="text-sm font-black">Custom Code Editor</p>
-            <p className="text-xs text-muted-foreground">
+            <p className="truncate text-xs text-muted-foreground">
               {getLanguageLabel(language)}
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2 rounded-md bg-[hsl(var(--glass))] px-3 py-2 text-xs font-semibold text-muted-foreground">
-          <Columns3 aria-hidden="true" className="h-4 w-4" />
-          {lineCount} lines
+        <div className="flex flex-wrap items-center gap-2 lg:ml-auto">
+          <div className="flex items-center gap-2 rounded-md bg-[hsl(var(--glass))] px-3 py-2 text-xs font-semibold text-muted-foreground">
+            <Columns3 aria-hidden="true" className="h-4 w-4" />
+            {lineCount} lines
+          </div>
+          {complexitySummary}
         </div>
-        {complexitySummary}
-        {headerActions}
+        {headerActions && (
+          <div className="flex min-w-0 flex-wrap items-center gap-2 lg:justify-end">
+            {headerActions}
+          </div>
+        )}
       </div>
 
-      <div className="grid min-h-[420px] grid-cols-[2.75rem_minmax(0,1fr)] sm:min-h-[560px] sm:grid-cols-[3.5rem_minmax(0,1fr)]">
+      <div className="grid min-h-[360px] grid-cols-[2.5rem_minmax(0,1fr)] sm:min-h-[560px] sm:grid-cols-[3.5rem_minmax(0,1fr)]">
         <div
           aria-hidden="true"
-          className="select-none border-r border-[hsl(var(--glass-border))] bg-[hsl(var(--foreground)/0.035)] px-3 py-5 text-right font-mono text-xs leading-7 text-muted-foreground"
+          className="select-none border-r border-[hsl(var(--glass-border))] bg-[hsl(var(--foreground)/0.035)] px-2 py-4 text-right font-mono text-xs leading-7 text-muted-foreground sm:px-3 sm:py-5"
         >
           {lineNumbers.map((line) => (
             <div
@@ -75,7 +81,7 @@ export function CustomCodeEditor({
         </div>
         <textarea
           aria-label="Custom code"
-          className="min-h-[420px] w-full resize-y border-0 bg-transparent p-4 font-mono text-sm leading-7 outline-none sm:min-h-[560px] sm:p-5"
+          className="min-h-[360px] w-full resize-y border-0 bg-transparent p-3 font-mono text-sm leading-7 outline-none sm:min-h-[560px] sm:p-5"
           onChange={(event) => onChange(event.target.value)}
           placeholder="Write or paste code to analyze time and space complexity."
           ref={textareaRef}

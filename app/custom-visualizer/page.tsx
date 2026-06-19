@@ -196,9 +196,9 @@ function CustomVisualizerForm() {
               </Link>
             </Button>
           )}
-          <Button onClick={persistAnalysis}>
+          {/* <Button onClick={persistAnalysis}>
             {editId ? 'Update' : 'Save'} <Save className="h-4 w-4" />
-          </Button>
+          </Button> */}
         </div>
       </div>
 
@@ -221,7 +221,7 @@ function CustomVisualizerForm() {
               Visualizer Name
             </label>
             <input
-              className="mt-3 w-full border-b-2 border-[hsl(var(--surface-container-highest))] bg-transparent px-0 py-3 text-base outline-none focus:border-primary"
+              className="mt-3 w-full border-b-2 border-[hsl(var(--surface-container-highest))] bg-transparent px-3 py-3 text-base outline-none focus:border-primary rounded-md transition"
               onChange={(event) => setTitle(event.target.value)}
               value={title}
             />
@@ -302,7 +302,7 @@ function CustomVisualizerForm() {
                       Math.min(current + 1, traceSteps.length - 1)
                     )
                   }
-                  size="sm"
+                  size="default"
                   variant="secondary"
                 >
                   Run Step <StepForward className="h-4 w-4" />
