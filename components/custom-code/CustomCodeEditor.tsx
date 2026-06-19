@@ -1,11 +1,15 @@
 'use client'
 
+import type React from 'react'
+import { useEffect, useRef } from 'react'
 import { Columns3, TerminalSquare } from 'lucide-react'
 import { getLanguageLabel, type CustomCodeLanguageId } from '@/lib/customCode'
 
 interface CustomCodeEditorProps {
   activeLine?: number
   code: string
+  complexitySummary?: React.ReactNode
+  headerActions?: React.ReactNode
   language: CustomCodeLanguageId
   onChange: (code: string) => void
 }
@@ -13,11 +17,21 @@ interface CustomCodeEditorProps {
 export function CustomCodeEditor({
   activeLine,
   code,
+  complexitySummary,
+  headerActions,
   language,
   onChange
 }: CustomCodeEditorProps) {
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
   const lineCount = Math.max(code.split('\n').length, 12)
   const lineNumbers = Array.from({ length: lineCount }, (_, index) => index + 1)
+
+  useEffect(() => {
+    if (!textareaRef.current || !activeLine) return
+
+    const lineHeight = 28
+    textareaRef.current.scrollTop = Math.max((activeLine - 4) * lineHeight, 0)
+  }, [activeLine])
 
   return (
     <section className="glass-panel overflow-hidden rounded-lg">
@@ -37,6 +51,8 @@ export function CustomCodeEditor({
           <Columns3 aria-hidden="true" className="h-4 w-4" />
           {lineCount} lines
         </div>
+        {complexitySummary}
+        {headerActions}
       </div>
 
       <div className="grid min-h-[420px] grid-cols-[2.75rem_minmax(0,1fr)] sm:min-h-[560px] sm:grid-cols-[3.5rem_minmax(0,1fr)]">
@@ -62,6 +78,7 @@ export function CustomCodeEditor({
           className="min-h-[420px] w-full resize-y border-0 bg-transparent p-4 font-mono text-sm leading-7 outline-none sm:min-h-[560px] sm:p-5"
           onChange={(event) => onChange(event.target.value)}
           placeholder="Write or paste code to analyze time and space complexity."
+          ref={textareaRef}
           spellCheck={false}
           value={code}
         />

@@ -61,6 +61,7 @@
 }
 
 html {
+  color-scheme: light dark;
   overflow-x: hidden;
 }
 
@@ -173,6 +174,18 @@ input:not([type='range']):not([type='file']):not([type='checkbox']):not([type='r
   padding-left: 0.5rem;
 }
 
+.visualizer-code-content pre {
+  margin: 0 !important;
+  white-space: pre-wrap !important;
+  overflow-wrap: anywhere;
+  background: transparent !important;
+}
+
+.visualizer-code-content code {
+  display: block;
+  min-width: 0;
+}
+
 .dot-grid {
   background-image: radial-gradient(hsl(var(--muted-foreground) / 0.18) 1px, transparent 1px);
   background-size: 22px 22px;
@@ -280,6 +293,10 @@ input:not([type='range']):not([type='file']):not([type='checkbox']):not([type='r
 }
 
 @media (max-width: 767px) {
+  body {
+    padding-bottom: 7.5rem;
+  }
+
   body::before {
     background-size: 32px 32px;
   }
@@ -297,6 +314,22 @@ input:not([type='range']):not([type='file']):not([type='checkbox']):not([type='r
   .responsive-grid,
   .visualizer-grid {
     gap: 1rem;
+  }
+
+  .playback-panel {
+    position: fixed;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    z-index: 60;
+    max-height: 8.5rem;
+    overflow: auto;
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(22px) saturate(145%);
+  }
+
+  .playback-panel > div:first-child {
+    justify-content: center;
   }
 }
 

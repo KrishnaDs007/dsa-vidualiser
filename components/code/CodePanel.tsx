@@ -36,14 +36,15 @@ export function CodePanel({
       line.classList.toggle('line-active', index === (codeLine ?? -1) - 1)
     })
     lines[(codeLine ?? 1) - 1]?.scrollIntoView({
-      block: 'nearest',
+      block: 'center',
+      inline: 'nearest',
       behavior: 'smooth'
     })
   }, [codeLine, visibleCode])
 
   return (
     <div className="visualizer-code glass-panel flex max-h-[520px] min-h-[300px] flex-col rounded-lg text-xs sm:max-h-[620px] sm:min-h-[360px] sm:text-sm 2xl:max-h-[720px]">
-      <div className="flex flex-wrap items-center gap-3 border-b border-[hsl(var(--glass-border))] p-3">
+      <div className="flex flex-wrap items-center gap-3 border-b border-[hsl(var(--glass-border))] p-4">
         <label className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
           Sample
         </label>
@@ -70,9 +71,9 @@ export function CodePanel({
           </Link>
         )}
       </div>
-      <div className="flex-1 overflow-auto">
+      <div className="flex-1 overflow-auto px-1 py-2 sm:px-2">
         <div
-          className="min-w-max p-3 sm:p-4"
+          className="visualizer-code-content p-4 sm:p-5"
           dangerouslySetInnerHTML={{ __html: visibleCode }}
           ref={ref}
         />

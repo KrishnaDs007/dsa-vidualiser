@@ -82,7 +82,7 @@ export function GreedyView({ highlightedCodeByAlgo, initialAlgo }: GreedyViewPro
 
       <section className="visualizer-grid">
         <aside className="visualizer-controls glass-panel flex flex-col gap-4 rounded-lg p-3 sm:p-4">
-          <div className="flex flex-col gap-4 rounded-lg border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] p-4">
+          <div className="playback-panel flex flex-col gap-4 rounded-lg border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] p-4">
             <div className="flex flex-wrap items-center gap-2">
               <Button aria-label={isPlaying ? 'Pause' : 'Play'} onClick={() => setIsPlaying((current) => !current)} size="icon">
                 {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}

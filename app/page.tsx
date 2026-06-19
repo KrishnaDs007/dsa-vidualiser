@@ -81,7 +81,7 @@ export default function HomePage() {
                 <span className="rounded-md bg-primary px-4 py-1 font-mono text-xs font-bold uppercase tracking-[0.18em] text-primary-foreground">
                   Legacy Favorite
                 </span>
-                <span className="rounded-sm bg-red-100 px-3 py-1 font-mono text-xs text-red-700">
+                <span className="rounded-sm bg-red-500/12 px-3 py-1 font-mono text-xs text-red-600">
                   O(n^2)
                 </span>
               </div>
@@ -137,7 +137,7 @@ function AlgorithmCard({
           <span className="rounded-sm bg-emerald-200 px-3 py-1 text-emerald-900">
             {algorithm.time}
           </span>
-          <span className="rounded-sm bg-violet-100 px-3 py-1 text-primary">
+          <span className="rounded-sm bg-[hsl(var(--tertiary)/0.14)] px-3 py-1 text-primary">
             {algorithm.memory}
           </span>
         </div>

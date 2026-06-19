@@ -277,6 +277,46 @@ function CustomVisualizerForm() {
           <CustomCodeEditor
             activeLine={activeTrace?.lineNumber}
             code={code}
+            complexitySummary={
+              <div className="flex flex-wrap items-center gap-2 rounded-md bg-[hsl(var(--glass))] px-3 py-2 text-xs font-bold">
+                <span className="text-primary">Time {result.time}</span>
+                <span className="text-muted-foreground">/</span>
+                <span className="text-primary">Space {result.space}</span>
+              </div>
+            }
+            headerActions={
+              <div className="flex flex-wrap items-center gap-2">
+                <Button
+                  aria-label="Previous code step"
+                  disabled={traceIndex === 0}
+                  onClick={() => setTraceIndex((current) => Math.max(current - 1, 0))}
+                  size="icon"
+                  variant="outline"
+                >
+                  <StepBack className="h-4 w-4" />
+                </Button>
+                <Button
+                  disabled={traceIndex >= traceSteps.length - 1}
+                  onClick={() =>
+                    setTraceIndex((current) =>
+                      Math.min(current + 1, traceSteps.length - 1)
+                    )
+                  }
+                  size="sm"
+                  variant="secondary"
+                >
+                  Run Step <StepForward className="h-4 w-4" />
+                </Button>
+                <Button
+                  aria-label="Reset code trace"
+                  onClick={() => setTraceIndex(0)}
+                  size="icon"
+                  variant="outline"
+                >
+                  <RotateCcw className="h-4 w-4" />
+                </Button>
+              </div>
+            }
             language={language}
             onChange={setCode}
           />
@@ -297,36 +337,6 @@ function CustomVisualizerForm() {
             </div>
           </div>
           <div className="glass-panel rounded-lg p-5">
-            <div className="flex flex-wrap items-center gap-2">
-              <Button
-                aria-label="Previous code step"
-                disabled={traceIndex === 0}
-                onClick={() => setTraceIndex((current) => Math.max(current - 1, 0))}
-                size="icon"
-                variant="outline"
-              >
-                <StepBack className="h-4 w-4" />
-              </Button>
-              <Button
-                onClick={() =>
-                  setTraceIndex((current) =>
-                    Math.min(current + 1, traceSteps.length - 1)
-                  )
-                }
-                disabled={traceIndex >= traceSteps.length - 1}
-                variant="secondary"
-              >
-                Run Step <StepForward className="h-4 w-4" />
-              </Button>
-              <Button
-                aria-label="Reset code trace"
-                onClick={() => setTraceIndex(0)}
-                size="icon"
-                variant="outline"
-              >
-                <RotateCcw className="h-4 w-4" />
-              </Button>
-            </div>
             <div className="mt-4 rounded-md border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass))] p-4">
               <p className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
                 Line {activeTrace?.lineNumber ?? 1}

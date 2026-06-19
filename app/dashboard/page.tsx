@@ -145,7 +145,7 @@ export default function DashboardPage() {
         <div className="mt-5 grid gap-5 md:grid-cols-2">
           {pinned.map((item) => (
             <Link
-              className="group bg-[hsl(var(--surface-container-low))] p-6 transition hover:bg-white"
+              className="group bg-[hsl(var(--surface-container-low))] p-6 transition hover:bg-[hsl(var(--glass-strong))]"
               href={item.href}
               key={item.title}
             >
@@ -201,7 +201,7 @@ export default function DashboardPage() {
                 </p>
                 <h3 className="mt-4 text-xl font-black">{item.title}</h3>
                 {item.code && (
-                  <pre className="mt-4 max-h-28 overflow-hidden rounded-md bg-white p-4 text-xs leading-5 text-foreground/70">
+                  <pre className="mt-4 max-h-28 overflow-hidden rounded-md bg-[hsl(var(--glass-strong))] p-4 text-xs leading-5 text-foreground/70">
                     {item.code}
                   </pre>
                 )}

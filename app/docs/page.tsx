@@ -70,7 +70,7 @@ export default function DocsPage() {
                   {category.description}
                 </p>
               </div>
-              <span className="shrink-0 rounded-md bg-white px-3 py-1 font-mono text-xs font-bold text-primary">
+              <span className="shrink-0 rounded-md bg-[hsl(var(--glass-strong))] px-3 py-1 font-mono text-xs font-bold text-primary">
                 {category.topics.length} topics
               </span>
             </div>
@@ -78,7 +78,7 @@ export default function DocsPage() {
             <div className="mt-5 grid gap-3">
               {category.topics.map((topic) => (
                 <div
-                  className="rounded-md bg-white px-4 py-3"
+                  className="rounded-md bg-[hsl(var(--glass-strong))] px-4 py-3"
                   key={`${category.id}-${topic.name}`}
                 >
                   <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -108,7 +108,7 @@ export default function DocsPage() {
 
 function Metric({ label, value }: { label: string; value: number }) {
   return (
-    <div className="bg-white p-4">
+    <div className="bg-[hsl(var(--glass-strong))] p-4">
       <p className="font-mono text-3xl font-black text-primary">{value}</p>
       <p className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
         {label}

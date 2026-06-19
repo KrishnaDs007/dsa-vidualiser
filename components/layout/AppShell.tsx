@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import type React from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import {
   BarChart3,
   BookOpen,
@@ -56,6 +56,7 @@ const sideNav = [
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const user = useAuthStore((state) => state.user)
   const flash = useAuthStore((state) => state.flash)
   const hydrate = useAuthStore((state) => state.hydrate)
@@ -73,6 +74,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     return () => window.clearTimeout(id)
   }, [flash, setFlash])
 
+  useEffect(() => {
+    setIsMenuOpen(false)
+  }, [pathname])
+
   return (
     <div className="min-h-screen text-foreground">
       <a className="skip-link" href="#main-content">
@@ -82,6 +87,17 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <Link className="mr-auto text-xl font-black tracking-tight text-foreground sm:text-2xl lg:mr-4" href="/">
           AlgoPrecision
         </Link>
+
+        <Button
+          aria-expanded={isMenuOpen}
+          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          className="lg:hidden"
+          onClick={() => setIsMenuOpen((current) => !current)}
+          size="icon"
+          variant="secondary"
+        >
+          {isMenuOpen ? <Plus className="h-5 w-5 rotate-45" /> : <Layers3 className="h-5 w-5" />}
+        </Button>
 
         <nav aria-label="Primary navigation" className="hidden items-center gap-8 md:flex">
           {primaryNav.map((item) => {
@@ -136,8 +152,23 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           ))}
       </header>
 
+      {isMenuOpen && (
+        <button
+          aria-label="Close menu overlay"
+          className="fixed inset-0 z-40 bg-black/35 backdrop-blur-sm lg:hidden"
+          onClick={() => setIsMenuOpen(false)}
+          type="button"
+        />
+      )}
+
       <div className="grid min-h-[calc(100vh-80px)] lg:grid-cols-[minmax(260px,320px)_minmax(0,1fr)] 2xl:grid-cols-[minmax(300px,360px)_minmax(0,1fr)]">
-        <aside aria-label="Algorithm navigation" className="sticky top-[5.5rem] z-30 px-3 py-4 lg:static lg:min-h-[calc(100vh-80px)] lg:px-8 lg:py-10">
+        <aside
+          aria-label="Algorithm navigation"
+          className={cn(
+            'fixed bottom-3 left-3 right-3 top-24 z-50 hidden overflow-hidden rounded-lg lg:static lg:block lg:min-h-[calc(100vh-80px)] lg:overflow-visible lg:px-8 lg:py-10',
+            isMenuOpen && 'block'
+          )}
+        >
           <div className="mb-7 hidden items-center gap-4 lg:flex">
             <div className="grid h-12 w-12 place-items-center rounded-lg border border-[hsl(var(--glass-border))] bg-[hsl(var(--glass-strong))] text-primary shadow-sm backdrop-blur-xl">
               <GitBranch className="h-6 w-6" />
@@ -154,7 +185,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </Link>
           </Button>
 
-          <nav aria-label="Algorithm categories" className="glass-panel flex gap-2 overflow-x-auto rounded-lg p-2 lg:flex-col lg:overflow-visible">
+          <nav aria-label="Algorithm categories" className="glass-panel flex h-full flex-col gap-2 overflow-y-auto rounded-lg p-2 lg:h-auto lg:overflow-visible">
             {user && (
               <SideLink href="/dashboard" icon={LayoutDashboard} label="Dashboard" pathname={pathname} />
             )}
@@ -184,9 +215,40 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </div>
           )}
           {children}
+          <Footer />
         </div>
       </div>
     </div>
+  )
+}
+
+function Footer() {
+  return (
+    <footer className="mt-16 border-t border-[hsl(var(--glass-border))] pt-8 text-sm text-foreground/70">
+      <div className="glass-panel flex flex-col gap-4 rounded-lg p-5 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-primary">
+            DSA Visualizer
+          </p>
+          <p className="mt-2 font-semibold text-foreground">
+            Built by Krishna Devashish
+          </p>
+          <p className="mt-1">
+            Interactive DSA visualizer for algorithms, custom code complexity,
+            and step-by-step learning.
+          </p>
+        </div>
+        <div className="flex flex-col gap-2 sm:items-end">
+          <Link
+            className="font-bold text-primary hover:underline"
+            href="https://dsa-vidualiser.vercel.app/"
+          >
+            dsa-vidualiser.vercel.app
+          </Link>
+          <p>All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
   )
 }
 
