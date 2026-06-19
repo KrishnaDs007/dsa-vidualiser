@@ -133,9 +133,9 @@ export const DSA_CATALOG: DsaCategory[] = [
       { name: 'Fibonacci', status: 'ready', patterns: ['Memoization', 'Tabulation'] },
       { name: 'Climbing Stairs', status: 'ready', patterns: ['1D DP'] },
       { name: 'Coin Change', status: 'ready', patterns: ['Unbounded knapsack'] },
-      { name: '0/1 Knapsack', status: 'planned', patterns: ['2D DP'] },
-      { name: 'Longest Common Subsequence', status: 'planned', patterns: ['2D DP'] },
-      { name: 'Longest Increasing Subsequence', status: 'planned', patterns: ['DP with binary search'] }
+      { name: '0/1 Knapsack', status: 'ready', patterns: ['2D DP'] },
+      { name: 'Longest Common Subsequence', status: 'ready', patterns: ['2D DP'] },
+      { name: 'Longest Increasing Subsequence', status: 'ready', patterns: ['DP with binary search'] }
     ]
   },
   {

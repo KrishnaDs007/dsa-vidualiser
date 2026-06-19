@@ -30,6 +30,24 @@ describe('dynamic programming engine', () => {
     expect(finalFrame?.result).toBe('2')
   })
 
+  it('computes 0/1 knapsack best value', () => {
+    const finalFrame = framesFor(DP_ALGORITHMS.knapsack, 8).at(-1)
+
+    expect(finalFrame?.result).toBe('12')
+  })
+
+  it('computes longest common subsequence length', () => {
+    const finalFrame = framesFor(DP_ALGORITHMS.lcs, 4).at(-1)
+
+    expect(finalFrame?.result).toBe('3')
+  })
+
+  it('computes longest increasing subsequence length', () => {
+    const finalFrame = framesFor(DP_ALGORITHMS.lis, 8).at(-1)
+
+    expect(finalFrame?.result).toBe('4')
+  })
+
   it.each(Object.values(DP_ALGORITHMS))(
     '$label emits valid visualizer frames',
     (algorithm) => {

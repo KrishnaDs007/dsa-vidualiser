@@ -24,8 +24,8 @@ custom code visualization workspace.
   Common Ancestor, and Trie Insert/Search.
 - Graph visualizer with BFS, DFS, Dijkstra, Topological Sort, Union Find, and
   Minimum Spanning Tree.
-- Dynamic Programming visualizer with Fibonacci, Climbing Stairs, and Coin
-  Change state tables.
+- Dynamic Programming visualizer with Fibonacci, Climbing Stairs, Coin Change,
+  0/1 Knapsack, LCS, and LIS state tables.
 - Step controls, speed control, custom array input, animated bars, and synced
   pseudocode highlighting.
 - Visualizer code panels include a language dropdown for TypeScript,
@@ -51,8 +51,7 @@ custom code visualization workspace.
    are complete; Kadane Algorithm and Matrix Traversal are next.
 7. Trees foundation: complete for the current algorithm set.
 8. Graphs foundation: complete for the current algorithm set.
-9. Dynamic Programming foundation: Fibonacci, Climbing Stairs, and Coin Change
-   are complete; 0/1 Knapsack, LCS, and LIS are next.
+9. Dynamic Programming foundation: complete for the current algorithm set.
 10. Custom code visualization: language selector, persisted source code,
    step-by-step tracing, and per-step time/space complexity updates.
 11. Backend sync: deferred until the local-first profile and visualizer flows are

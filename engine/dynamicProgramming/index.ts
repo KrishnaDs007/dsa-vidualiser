@@ -1,4 +1,9 @@
 import type { DpCell, DpStep } from '@/engine/types'
+import {
+  knapsack01Dp,
+  longestCommonSubsequenceDp,
+  longestIncreasingSubsequenceDp
+} from '@/engine/dynamicProgramming/dpPatterns'
 
 export function* fibonacciDp(size: number): Generator<DpStep> {
   const n = normalizeSize(size, 10)
@@ -135,6 +140,27 @@ export const DP_ALGORITHMS = {
     complexity: 'O(amount * coins)',
     defaultSize: 11,
     run: coinChangeDp
+  },
+  knapsack: {
+    id: 'knapsack',
+    label: '0/1 Knapsack',
+    complexity: 'O(items * capacity)',
+    defaultSize: 8,
+    run: knapsack01Dp
+  },
+  lcs: {
+    id: 'lcs',
+    label: 'Longest Common Subsequence',
+    complexity: 'O(n * m)',
+    defaultSize: 4,
+    run: longestCommonSubsequenceDp
+  },
+  lis: {
+    id: 'lis',
+    label: 'Longest Increasing Subsequence',
+    complexity: 'O(n log n)',
+    defaultSize: 8,
+    run: longestIncreasingSubsequenceDp
   }
 } as const
 
@@ -172,6 +198,42 @@ export const DP_PSEUDOCODE: Record<DpAlgorithmId, string> = {
     }
   }
   return dp[amount]
+}`,
+  knapsack: `function knapsack(items: Item[], capacity: number) {
+  const dp = createTable(items.length + 1, capacity + 1)
+  for (let item = 1; item <= items.length; item++) {
+    for (let cap = 0; cap <= capacity; cap++) {
+      dp[item][cap] = dp[item - 1][cap]
+      if (items[item - 1].weight <= cap) {
+        dp[item][cap] = Math.max(dp[item][cap], items[item - 1].value + dp[item - 1][cap - items[item - 1].weight])
+      }
+    }
+  }
+  return dp[items.length][capacity]
+}`,
+  lcs: `function lcs(a: string, b: string) {
+  const dp = createTable(a.length + 1, b.length + 1)
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      if (a[i - 1] === b[j - 1]) dp[i][j] = dp[i - 1][j - 1] + 1
+      else dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1])
+    }
+  }
+  return dp[a.length][b.length]
+}`,
+  lis: `function lengthOfLIS(values: number[]) {
+  const tails = []
+  for (const value of values) {
+    let left = 0
+    let right = tails.length
+    while (left < right) {
+      const mid = Math.floor((left + right) / 2)
+      if (tails[mid] < value) left = mid + 1
+      else right = mid
+    }
+    tails[left] = value
+  }
+  return tails.length
 }`
 }
 
