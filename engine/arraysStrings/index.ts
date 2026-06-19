@@ -1,3 +1,5 @@
+import { kadaneMaxSubarray } from '@/engine/arraysStrings/kadane'
+import { matrixTraversal } from '@/engine/arraysStrings/matrixTraversal'
 import { prefixRangeSum } from '@/engine/arraysStrings/prefixSum'
 import { slidingWindowMaxSum } from '@/engine/arraysStrings/slidingWindow'
 import { twoPointerTwoSum } from '@/engine/arraysStrings/twoPointers'
@@ -20,6 +22,18 @@ export const ARRAY_STRING_ALGORITHMS = {
     label: 'Prefix Sum Range Query',
     complexity: 'O(n) build + O(1) query / O(n) space',
     run: prefixRangeSum
+  },
+  kadane: {
+    id: 'kadane',
+    label: 'Kadane Algorithm',
+    complexity: 'O(n) time / O(1) space',
+    run: kadaneMaxSubarray
+  },
+  matrixTraversal: {
+    id: 'matrixTraversal',
+    label: 'Matrix Traversal',
+    complexity: 'O(rows * cols) time / O(1) space',
+    run: matrixTraversal
   }
 } as const
 
@@ -65,5 +79,23 @@ export const ARRAY_STRING_PSEUDOCODE: Record<ArrayStringAlgorithmId, string> = {
     prefix[index + 1] = prefix[index] + values[index]
   }
   return prefix[right + 1] - prefix[left]
+}`,
+  kadane: `function maxSubarray(values: number[]) {
+  let current = values[0]
+  let best = values[0]
+  for (let index = 1; index < values.length; index++) {
+    current = Math.max(values[index], current + values[index])
+    best = Math.max(best, current)
+  }
+  return best
+}`,
+  matrixTraversal: `function rowWiseTraversal(matrix: number[][]) {
+  let total = 0
+  for (let row = 0; row < matrix.length; row++) {
+    for (let col = 0; col < matrix[row].length; col++) {
+      total += matrix[row][col]
+    }
+  }
+  return total
 }`
 }

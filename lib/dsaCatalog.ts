@@ -147,8 +147,8 @@ export const DSA_CATALOG: DsaCategory[] = [
       { name: 'Two Pointers', status: 'ready', patterns: ['Opposite ends', 'Same direction'] },
       { name: 'Sliding Window', status: 'ready', patterns: ['Window expansion'] },
       { name: 'Prefix Sum', status: 'ready', patterns: ['Range query'] },
-      { name: 'Kadane Algorithm', status: 'planned', patterns: ['Running optimum'] },
-      { name: 'Matrix Traversal', status: 'planned', patterns: ['Grid movement'] }
+      { name: 'Kadane Algorithm', status: 'ready', patterns: ['Running optimum'] },
+      { name: 'Matrix Traversal', status: 'ready', patterns: ['Grid movement'] }
     ]
   },
   {

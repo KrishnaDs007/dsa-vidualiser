@@ -167,7 +167,12 @@ export interface LinkedListStep {
 }
 
 export interface ArrayStringStep {
-  mode: 'twoPointers' | 'slidingWindow' | 'prefixSum'
+  mode:
+    | 'twoPointers'
+    | 'slidingWindow'
+    | 'prefixSum'
+    | 'kadane'
+    | 'matrixTraversal'
   array: number[]
   derivedArray?: number[]
   target: number

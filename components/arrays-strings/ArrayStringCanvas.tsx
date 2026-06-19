@@ -13,8 +13,19 @@ export function ArrayStringCanvas({ frame }: ArrayStringCanvasProps) {
       ? 'window size'
       : frame.mode === 'prefixSum'
         ? 'query end'
-        : 'target'
-  const sumLabel = frame.mode === 'prefixSum' ? 'range sum' : 'sum'
+        : frame.mode === 'kadane'
+          ? 'best sum'
+          : frame.mode === 'matrixTraversal'
+            ? 'cells'
+            : 'target'
+  const sumLabel =
+    frame.mode === 'prefixSum'
+      ? 'range sum'
+      : frame.mode === 'kadane'
+        ? 'running sum'
+        : frame.mode === 'matrixTraversal'
+          ? 'running total'
+          : 'sum'
 
   return (
     <div className="glass-panel dot-grid min-h-[360px] rounded-lg p-5">
@@ -91,6 +102,7 @@ export function ArrayStringCanvas({ frame }: ArrayStringCanvasProps) {
 }
 
 function getPointerLabel(index: number, frame: ArrayStringStep) {
+  if (frame.mode === 'matrixTraversal' && frame.leftIndex === index) return 'C'
   if (frame.leftIndex === index && frame.rightIndex === index) return 'L/R'
   if (frame.leftIndex === index) return 'L'
   if (frame.rightIndex === index) return 'R'

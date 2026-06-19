@@ -57,19 +57,31 @@ export function ArraysStringsView({
       ? 'Window size'
       : algorithm === 'prefixSum'
         ? 'Query start'
-        : 'Target'
+        : algorithm === 'matrixTraversal'
+          ? 'Cells to use'
+          : algorithm === 'kadane'
+            ? 'Best sum'
+            : 'Target'
   const heading =
     algorithm === 'slidingWindow'
       ? 'Sliding Window'
       : algorithm === 'prefixSum'
         ? 'Prefix Sum'
-        : 'Two Pointers'
+        : algorithm === 'kadane'
+          ? 'Kadane Algorithm'
+          : algorithm === 'matrixTraversal'
+            ? 'Matrix Traversal'
+            : 'Two Pointers'
   const description =
     algorithm === 'slidingWindow'
       ? 'Slide a fixed-size window across the array while updating the running sum in constant time.'
       : algorithm === 'prefixSum'
         ? 'Build a prefix array once, then answer a selected range sum by subtracting two prefix totals.'
-      : 'Move left and right pointers inward on a sorted array to find a pair sum with linear time and constant auxiliary space.'
+        : algorithm === 'kadane'
+          ? 'Track the best subarray ending at each index and keep the maximum subarray seen so far.'
+          : algorithm === 'matrixTraversal'
+            ? 'Walk a matrix row by row, visiting every cell exactly once while maintaining a running total.'
+            : 'Move left and right pointers inward on a sorted array to find a pair sum with linear time and constant auxiliary space.'
 
   useEffect(() => {
     setStep(0)
@@ -107,6 +119,14 @@ export function ArraysStringsView({
     if (next === 'prefixSum') {
       setRangeStart(1)
       setTarget(Math.min(4, Math.max(values.length - 1, 0)))
+      return
+    }
+    if (next === 'kadane') {
+      setTarget(0)
+      return
+    }
+    if (next === 'matrixTraversal') {
+      setTarget(9)
       return
     }
     setTarget(10)
@@ -255,14 +275,22 @@ export function ArraysStringsView({
                 </label>
               </>
             )}
-            <input
-              className="border-b-2 border-[hsl(var(--surface-container-highest))] bg-transparent px-0 py-2 text-sm outline-none transition focus:border-primary"
-              max={algorithm === 'prefixSum' ? Math.max(values.length - 1, 0) : undefined}
-              min={algorithm === 'prefixSum' ? 0 : undefined}
-              onChange={(event) => setTarget(Number(event.target.value))}
-              type="number"
-              value={target}
-            />
+            {algorithm === 'kadane' || algorithm === 'matrixTraversal' ? (
+              <p className="rounded-md bg-[hsl(var(--surface-container-highest))]/45 px-3 py-2 text-sm font-semibold text-foreground/75">
+                {algorithm === 'kadane'
+                  ? 'Calculated while stepping through the array.'
+                  : 'Uses the first 9 values as a 3 x 3 matrix.'}
+              </p>
+            ) : (
+              <input
+                className="border-b-2 border-[hsl(var(--surface-container-highest))] bg-transparent px-0 py-2 text-sm outline-none transition focus:border-primary"
+                max={algorithm === 'prefixSum' ? Math.max(values.length - 1, 0) : undefined}
+                min={algorithm === 'prefixSum' ? 0 : undefined}
+                onChange={(event) => setTarget(Number(event.target.value))}
+                type="number"
+                value={target}
+              />
+            )}
             <Button onClick={applyValues} type="button" variant="secondary">
               Apply Values
             </Button>

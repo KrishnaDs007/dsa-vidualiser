@@ -19,7 +19,7 @@ custom code visualization workspace.
 - Linked List visualizer with Reverse, Middle, Cycle Detection, Merge Two
   Sorted Lists, and Remove Nth Node From End.
 - Arrays and Strings visualizer with Two Pointers pair-sum, Sliding Window
-  max-sum, and Prefix Sum range-query tracing.
+  max-sum, Prefix Sum range-query, Kadane, and Matrix Traversal tracing.
 - Tree visualizer with BST Insert/Search, DFS traversals, Level Order, Lowest
   Common Ancestor, and Trie Insert/Search.
 - Graph visualizer with BFS, DFS, Dijkstra, Topological Sort, Union Find, and
@@ -47,8 +47,7 @@ custom code visualization workspace.
 3. Hashing foundation: complete for the current algorithm set.
 4. Stacks and queues foundation: complete for the current algorithm set.
 5. Linked Lists foundation: complete for the current algorithm set.
-6. Arrays and Strings foundation: Two Pointers, Sliding Window, and Prefix Sum
-   are complete; Kadane Algorithm and Matrix Traversal are next.
+6. Arrays and Strings foundation: complete for the current algorithm set.
 7. Trees foundation: complete for the current algorithm set.
 8. Graphs foundation: complete for the current algorithm set.
 9. Dynamic Programming foundation: complete for the current algorithm set.

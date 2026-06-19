@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest'
+import { kadaneMaxSubarray } from '@/engine/arraysStrings/kadane'
+import { matrixTraversal } from '@/engine/arraysStrings/matrixTraversal'
 import { prefixRangeSum } from '@/engine/arraysStrings/prefixSum'
 import { slidingWindowMaxSum } from '@/engine/arraysStrings/slidingWindow'
 import { twoPointerTwoSum } from '@/engine/arraysStrings/twoPointers'
@@ -41,5 +43,27 @@ describe('arrays and strings engine', () => {
     expect(finalFrame?.currentSum).toBe(4)
     expect(finalFrame?.foundIndexes).toEqual([1, 2, 3])
     expect(finalFrame?.spaceComplexity).toBe('O(n)')
+  })
+
+  it('tracks the maximum subarray with Kadane Algorithm', () => {
+    const frames = Array.from(kadaneMaxSubarray([4, -1, 2, -7, 5, 2, -1, 3]))
+    const finalFrame = frames.at(-1)
+
+    expect(finalFrame?.mode).toBe('kadane')
+    expect(finalFrame?.target).toBe(9)
+    expect(finalFrame?.currentSum).toBe(9)
+    expect(finalFrame?.foundIndexes).toEqual([4, 5, 6, 7])
+    expect(finalFrame?.spaceComplexity).toBe('O(1)')
+  })
+
+  it('visits every matrix cell row by row', () => {
+    const frames = Array.from(matrixTraversal([1, 2, 3, 4, 5, 6, 7, 8, 9]))
+    const finalFrame = frames.at(-1)
+
+    expect(finalFrame?.mode).toBe('matrixTraversal')
+    expect(finalFrame?.target).toBe(9)
+    expect(finalFrame?.currentSum).toBe(45)
+    expect(finalFrame?.foundIndexes).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8])
+    expect(finalFrame?.timeComplexity).toBe('O(9)')
   })
 })
