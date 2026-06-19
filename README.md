@@ -22,7 +22,8 @@ custom code visualization workspace.
   max-sum, and Prefix Sum range-query tracing.
 - Tree visualizer with BST Insert/Search, DFS traversals, Level Order, Lowest
   Common Ancestor, and Trie Insert/Search.
-- Graph visualizer with BFS, DFS, and Dijkstra on a weighted directed graph.
+- Graph visualizer with BFS, DFS, Dijkstra, Topological Sort, Union Find, and
+  Minimum Spanning Tree.
 - Dynamic Programming visualizer with Fibonacci, Climbing Stairs, and Coin
   Change state tables.
 - Step controls, speed control, custom array input, animated bars, and synced
@@ -49,8 +50,7 @@ custom code visualization workspace.
 6. Arrays and Strings foundation: Two Pointers, Sliding Window, and Prefix Sum
    are complete; Kadane Algorithm and Matrix Traversal are next.
 7. Trees foundation: complete for the current algorithm set.
-8. Graphs foundation: BFS, DFS, and Dijkstra are complete; topological sort,
-   union find, and MST are next.
+8. Graphs foundation: complete for the current algorithm set.
 9. Dynamic Programming foundation: Fibonacci, Climbing Stairs, and Coin Change
    are complete; 0/1 Knapsack, LCS, and LIS are next.
 10. Custom code visualization: language selector, persisted source code,

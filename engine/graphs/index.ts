@@ -1,4 +1,9 @@
 import type { GraphEdge, GraphNode, GraphStep } from '@/engine/types'
+import {
+  minimumSpanningTree,
+  topologicalSort,
+  unionFind
+} from '@/engine/graphs/graphPatterns'
 
 export interface GraphDefinition {
   nodes: GraphNode[]
@@ -134,6 +139,24 @@ export const GRAPH_ALGORITHMS = {
     label: 'Dijkstra',
     complexity: 'O((V + E) log V)',
     run: dijkstra
+  },
+  topological: {
+    id: 'topological',
+    label: 'Topological Sort',
+    complexity: 'O(V + E)',
+    run: topologicalSort
+  },
+  unionFind: {
+    id: 'unionFind',
+    label: 'Union Find',
+    complexity: 'Almost O(1) per operation',
+    run: unionFind
+  },
+  mst: {
+    id: 'mst',
+    label: 'Minimum Spanning Tree',
+    complexity: 'O(E log E)',
+    run: minimumSpanningTree
   }
 } as const
 
@@ -174,6 +197,40 @@ export const GRAPH_PSEUDOCODE: Record<GraphAlgorithmId, string> = {
     }
   }
   return distances
+}`,
+  topological: `function topologicalSort(graph: Graph) {
+  const indegree = countIncomingEdges(graph)
+  const queue = nodesWithZeroIndegree(indegree)
+  const order = []
+  while (queue.length > 0) {
+    const node = queue.shift()
+    order.push(node)
+    for (const neighbor of graph.neighbors(node)) {
+      indegree[neighbor]--
+      if (indegree[neighbor] === 0) queue.push(neighbor)
+    }
+  }
+  return order
+}`,
+  unionFind: `function unionFind(edges: Edge[]) {
+  const parent = makeSet()
+  for (const edge of edges) {
+    if (find(edge.u) !== find(edge.v)) {
+      union(edge.u, edge.v)
+    }
+  }
+}`,
+  mst: `function kruskal(graph: Graph) {
+  const edges = graph.edges.sort((a, b) => a.weight - b.weight)
+  const parent = makeSet()
+  const mst = []
+  for (const edge of edges) {
+    if (find(edge.u) !== find(edge.v)) {
+      union(edge.u, edge.v)
+      mst.push(edge)
+    }
+  }
+  return mst
 }`
 }
 

@@ -38,6 +38,28 @@ describe('graph engine', () => {
     })
   })
 
+  it('topological sort emits every node in dependency order', () => {
+    const finalFrame = framesFor(GRAPH_ALGORITHMS.topological).at(-1)
+
+    expect(finalFrame?.visitedNodeIds).toEqual(['a', 'b', 'c', 'd', 'e', 'f'])
+    expect(finalFrame?.note).toContain('Topological order')
+  })
+
+  it('union find connects graph components without invalid node references', () => {
+    const finalFrame = framesFor(GRAPH_ALGORITHMS.unionFind).at(-1)
+
+    expect(finalFrame?.settledNodeIds.sort()).toEqual(['a', 'b', 'c', 'd', 'e', 'f'])
+    expect(finalFrame?.note).toContain('complete')
+  })
+
+  it('minimum spanning tree accepts low weight edges', () => {
+    const finalFrame = framesFor(GRAPH_ALGORITHMS.mst).at(-1)
+
+    expect(finalFrame?.edges).toHaveLength(5)
+    expect(finalFrame?.distances.total).toBe(11)
+    expect(finalFrame?.note).toContain('MST complete')
+  })
+
   it.each(Object.values(GRAPH_ALGORITHMS))(
     '$label emits valid visualizer frames',
     (algorithm) => {

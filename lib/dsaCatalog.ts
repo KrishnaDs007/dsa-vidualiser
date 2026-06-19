@@ -119,9 +119,9 @@ export const DSA_CATALOG: DsaCategory[] = [
       { name: 'BFS', status: 'ready', patterns: ['Queue', 'Visited set'] },
       { name: 'DFS', status: 'ready', patterns: ['Recursion', 'Stack'] },
       { name: 'Dijkstra', status: 'ready', patterns: ['Priority queue'] },
-      { name: 'Topological Sort', status: 'planned', patterns: ['DAG ordering'] },
-      { name: 'Union Find', status: 'planned', patterns: ['Disjoint set'] },
-      { name: 'Minimum Spanning Tree', status: 'planned', patterns: ['Kruskal', 'Prim'] }
+      { name: 'Topological Sort', status: 'ready', patterns: ['DAG ordering'] },
+      { name: 'Union Find', status: 'ready', patterns: ['Disjoint set'] },
+      { name: 'Minimum Spanning Tree', status: 'ready', patterns: ['Kruskal', 'Prim'] }
     ]
   },
   {
