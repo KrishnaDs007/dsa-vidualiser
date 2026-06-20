@@ -218,66 +218,116 @@ function Footer() {
   const productLinks = [
     { label: 'Explore', href: '/' },
     { label: 'Docs', href: '/docs' },
-    { label: 'Sorting', href: '/sorting' },
-    { label: 'Graphs', href: '/graphs' },
-    { label: 'Dynamic Programming', href: '/dynamic-programming' },
-    { label: 'Custom Visualizer', href: '/custom-visualizer' }
+    { label: 'Sorting visualizer', href: '/sorting' },
+    { label: 'Graph visualizer', href: '/graphs' },
+    { label: 'Dynamic programming', href: '/dynamic-programming' },
+    { label: 'Custom code visualizer', href: '/custom-visualizer' }
   ]
 
   const profileLinks = [
     { label: 'Portfolio', href: 'https://krishnasportfolio-rho.vercel.app/' },
-    { label: 'Email', href: 'mailto:krishnadevashish17@gmail.com' },
-    { label: 'Live Project', href: 'https://dsa-vidualiser.vercel.app/' }
+    { label: 'Email Krishna', href: 'mailto:krishnadevashish17@gmail.com' },
+    { label: 'Live project', href: 'https://dsa-vidualiser.vercel.app/' }
+  ]
+
+  const socialLinks = [
+    { label: 'Portfolio', href: 'https://krishnasportfolio-rho.vercel.app/' },
+    { label: 'Mail', href: 'mailto:krishnadevashish17@gmail.com' },
+    { label: 'Live', href: 'https://dsa-vidualiser.vercel.app/' }
   ]
 
   return (
-    <footer className="mt-6 w-full bg-[#07111f] text-slate-100 shadow-[0_-24px_70px_rgba(0,0,0,0.18)]">
-      <div className="mx-auto grid max-w-[132rem] gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(220px,0.7fr)_minmax(220px,0.7fr)_auto] lg:px-10">
-        <div className="max-w-2xl">
-          <p className="font-mono text-xs font-black uppercase tracking-[0.22em] text-cyan-300">
-            DSA Visualizer
+    <footer className="mt-6 w-full overflow-hidden bg-[#111111] text-white shadow-[0_-24px_70px_rgba(0,0,0,0.18)]">
+      {/* <div className="bg-[#f7f7f2] text-[#111111]">
+        <div className="mx-auto grid max-w-[132rem] gap-8 px-5 py-10 sm:px-8 md:grid-cols-[0.45fr_1fr_auto] md:items-center lg:px-12 lg:py-16">
+          <p className="max-w-28 font-mono text-xs font-black uppercase leading-tight tracking-[0.12em]">
+            Seen enough? -&gt;
           </p>
-          <h2 className="mt-3 text-2xl font-black tracking-tight text-white">
-            Learn algorithms by watching every decision move.
-          </h2>
-          <p className="mt-3 text-sm leading-6 text-slate-300">
-            A standalone visual learning workspace for sorting, searching,
-            trees, graphs, dynamic programming, backtracking, greedy methods,
-            and custom code complexity. Built to make abstract DSA steps feel
-            visible, testable, and easier to revisit.
+
+          <div>
+            <p className="text-[clamp(3rem,10vw,7.5rem)] font-black leading-none tracking-tight">
+              Contact us
+            </p>
+            <div className="mt-3 h-1 w-full max-w-sm bg-[#e7ff00]" />
+          </div>
+
+          <Link
+            aria-label="Open portfolio"
+            className="grid h-20 w-20 place-items-center rounded-full bg-[#e7ff00] text-3xl font-black text-[#111111] transition hover:scale-105 hover:bg-[#d7ef00] sm:h-24 sm:w-24"
+            href="https://krishnasportfolio-rho.vercel.app/"
+            rel="noreferrer"
+            target="_blank"
+          >
+            -&gt;
+          </Link>
+        </div>
+      </div> */}
+
+      <div className="mx-auto grid max-w-[132rem] gap-8 px-5 py-10 sm:px-8 lg:grid-cols-[1.05fr_0.9fr_0.9fr_1fr] lg:px-12 lg:py-14">
+        <div>
+          <p className="text-4xl font-black leading-[0.95] tracking-tight sm:text-5xl">
+            Visual DSA
+            <br />
+            for impatient
+            <br />
+            learners
           </p>
-          <div className="mt-5 flex flex-wrap gap-2">
-            <span className="rounded-md bg-cyan-300 px-3 py-1.5 text-xs font-black uppercase tracking-[0.16em] text-slate-950">
-              Product: AlgoPrecision
+          <div className="mt-6 flex flex-wrap gap-2">
+            <span className="rounded-full bg-[#e7ff00] px-3 py-1.5 text-xs font-black uppercase tracking-[0.14em] text-[#111111]">
+              AlgoPrecision
             </span>
-            <span className="rounded-md bg-amber-300 px-3 py-1.5 text-xs font-black uppercase tracking-[0.16em] text-slate-950">
-              Creator: Krishna Devashish
+            <span className="rounded-full border border-white/18 px-3 py-1.5 text-xs font-black uppercase tracking-[0.14em] text-white">
+              Krishna Devashish
             </span>
           </div>
         </div>
 
-        <FooterLinkGroup title="Menu" links={productLinks} />
-        <FooterLinkGroup title="Profile & Links" links={profileLinks} />
+        <FooterLinkGroup title="Product" links={productLinks} />
+        <FooterLinkGroup title="Profile" links={profileLinks} />
 
-        <div className="flex flex-col gap-4 lg:items-end">
+        <div className="flex flex-col gap-7">
+          <div>
+            <p className="font-mono text-xs font-black uppercase tracking-[0.18em] text-white">
+              Want to learn faster?
+            </p>
+            <p className="mt-3 text-sm font-semibold leading-6 text-white/70">
+              Step through algorithms, compare complexity, read docs, and test
+              your own code from one standalone workspace.
+            </p>
+            <Link
+              className="mt-4 inline-flex text-sm font-black uppercase tracking-[0.08em] underline decoration-[#e7ff00] underline-offset-4 transition hover:text-[#e7ff00]"
+              href="/docs"
+            >
+              Read the docs -&gt;
+            </Link>
+          </div>
+
+          <div>
+            <p className="font-mono text-xs font-black uppercase tracking-[0.18em] text-white">
+              Follow / contact
+            </p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              {socialLinks.map((item) => (
+                <FooterSocialLink
+                  href={item.href}
+                  key={item.href}
+                  label={item.label}
+                />
+              ))}
+            </div>
+          </div>
+
           <button
-            className="inline-flex h-11 items-center justify-center rounded-md bg-white px-4 text-sm font-black text-slate-950 shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-200"
+            className="inline-flex h-11 items-center justify-center rounded-full border border-white/18 px-5 text-sm font-black uppercase tracking-[0.08em] text-white transition hover:border-[#e7ff00] hover:text-[#e7ff00]"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             type="button"
           >
             Back to top
           </button>
-          <div className="rounded-lg border border-white/10 bg-white/5 p-4 text-sm leading-6 text-slate-300">
-            <p className="font-bold text-white">Connect</p>
-            <p className="mt-1">
-              Portfolio and contact links are wired now. Add GitHub, LinkedIn,
-              or X links here when those public profile URLs are ready.
-            </p>
-          </div>
         </div>
       </div>
 
-      <div className="border-t border-white/10 px-4 py-4 text-xs text-slate-400 sm:px-6 lg:px-10">
+      <div className="border-t border-white/10 px-5 py-4 text-xs text-white/55 sm:px-8 lg:px-12">
         <div className="mx-auto flex max-w-[132rem] flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <p>
             Copyright {new Date().getFullYear()} Krishna Devashish. All rights
@@ -299,16 +349,16 @@ function FooterLinkGroup({
 }) {
   return (
     <nav aria-label={title}>
-      <p className="font-mono text-xs font-black uppercase tracking-[0.18em] text-cyan-300">
+      <p className="font-mono text-xs font-black uppercase tracking-[0.18em] text-white">
         {title}
       </p>
-      <div className="mt-4 grid gap-2">
+      <div className="mt-5 grid gap-3">
         {links.map((item) => {
           const isExternal = item.href.startsWith('http')
 
           return (
             <Link
-              className="group inline-flex items-center justify-between gap-3 rounded-md border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-slate-200 transition hover:border-cyan-300/60 hover:bg-cyan-300/12 hover:text-white"
+              className="group inline-flex items-center justify-between gap-3 text-sm font-bold text-white/72 underline decoration-white/18 underline-offset-4 transition hover:text-[#e7ff00] hover:decoration-[#e7ff00]"
               href={item.href}
               key={item.href}
               rel={isExternal ? 'noreferrer' : undefined}
@@ -323,6 +373,22 @@ function FooterLinkGroup({
         })}
       </div>
     </nav>
+  )
+}
+
+function FooterSocialLink({ href, label }: { href: string; label: string }) {
+  const isExternal = href.startsWith('http')
+
+  return (
+    <Link
+      aria-label={label}
+      className="grid h-11 min-w-11 place-items-center rounded-full border border-white/18 px-4 text-xs font-black uppercase tracking-[0.08em] text-white transition hover:border-[#e7ff00] hover:bg-[#e7ff00] hover:text-[#111111]"
+      href={href}
+      rel={isExternal ? 'noreferrer' : undefined}
+      target={isExternal ? '_blank' : undefined}
+    >
+      {label}
+    </Link>
   )
 }
 

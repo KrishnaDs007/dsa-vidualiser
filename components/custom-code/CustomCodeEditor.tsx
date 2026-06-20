@@ -34,7 +34,7 @@ export function CustomCodeEditor({
   }, [activeLine])
 
   return (
-    <section className="glass-panel overflow-hidden rounded-lg">
+    <section className="custom-code-editor glass-panel overflow-hidden rounded-lg">
       <div className="grid gap-3 border-b border-[hsl(var(--glass-border))] px-3 py-3 sm:px-4 lg:flex lg:flex-wrap lg:items-center lg:justify-between">
         <div className="flex min-w-0 items-center gap-3">
           <span className="grid h-10 w-10 place-items-center rounded-md bg-[hsl(var(--primary)/0.12)] text-primary">
