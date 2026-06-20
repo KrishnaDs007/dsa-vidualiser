@@ -55,7 +55,7 @@ export default function DocsPage() {
 
       <DocsBrowser docs={VISUALIZER_DOCS} />
 
-      <section className="mt-10 responsive-grid">
+      {/* <section className="mt-10 responsive-grid">
         {DSA_CATALOG.map((category) => (
           <article
             className="bg-[hsl(var(--surface-container-low))] p-6"
@@ -101,7 +101,7 @@ export default function DocsPage() {
             </div>
           </article>
         ))}
-      </section>
+      </section> */}
     </main>
   )
 }

@@ -277,7 +277,7 @@ input:not([type='range']):not([type='file']):not([type='checkbox']):not([type='r
 
 .visualizer-code select,
 .custom-code-editor textarea {
-  color: hsl(222 47% 11%) !important;
+  /* color: hsl(222 47% 11%) !important; */
 }
 
 .visualizer-code select option {

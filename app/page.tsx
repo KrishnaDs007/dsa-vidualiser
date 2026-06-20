@@ -70,7 +70,7 @@ export default function HomePage() {
       </div>
 
       <section className="responsive-grid">
-        {algorithms.slice(0, 3).map((algorithm) => (
+        {algorithms.slice(0, 4).map((algorithm) => (
           <AlgorithmCard algorithm={algorithm} key={algorithm.title} />
         ))}
 
@@ -111,7 +111,7 @@ export default function HomePage() {
           </div>
         </article>
 
-        <AlgorithmCard algorithm={algorithms[3]} />
+        {/* <AlgorithmCard algorithm={algorithms[3]} /> */}
       </section>
     </main>
   )
