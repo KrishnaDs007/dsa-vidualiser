@@ -35,11 +35,20 @@ export function CodePanel({
     lines.forEach((line, index) => {
       line.classList.toggle('line-active', index === (codeLine ?? -1) - 1)
     })
-    lines[(codeLine ?? 1) - 1]?.scrollIntoView({
-      block: 'nearest',
-      inline: 'nearest',
-      behavior: 'smooth'
+
+    window.requestAnimationFrame(() => {
+      document.querySelector<HTMLElement>('.visualizer-canvas')?.scrollIntoView({
+        block: 'nearest',
+        inline: 'nearest',
+        behavior: 'smooth'
+      })
     })
+
+    // lines[(codeLine ?? 1) - 1]?.scrollIntoView({
+    //   block: 'nearest',
+    //   inline: 'nearest',
+    //   behavior: 'smooth'
+    // })
   }, [codeLine, visibleCode])
 
   return (
