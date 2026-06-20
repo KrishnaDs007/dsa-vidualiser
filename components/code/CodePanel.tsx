@@ -36,7 +36,7 @@ export function CodePanel({
       line.classList.toggle('line-active', index === (codeLine ?? -1) - 1)
     })
     lines[(codeLine ?? 1) - 1]?.scrollIntoView({
-      block: 'center',
+      block: 'nearest',
       inline: 'nearest',
       behavior: 'smooth'
     })
