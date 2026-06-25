@@ -43,12 +43,6 @@ export function CodePanel({
         behavior: 'smooth'
       })
     })
-
-    // lines[(codeLine ?? 1) - 1]?.scrollIntoView({
-    //   block: 'nearest',
-    //   inline: 'nearest',
-    //   behavior: 'smooth'
-    // })
   }, [codeLine, visibleCode])
 
   return (
@@ -58,6 +52,7 @@ export function CodePanel({
           Sample
         </label>
         <select
+          aria-label="Code sample language"
           className="h-9 w-full min-w-0 rounded-md px-3 text-sm outline-none transition focus:ring-2 focus:ring-primary/20 sm:w-auto sm:min-w-44"
           onChange={(event) =>
             setLanguage(event.target.value as keyof HighlightedCodeSamples)

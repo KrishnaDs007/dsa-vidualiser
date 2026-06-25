@@ -275,11 +275,6 @@ input:not([type='range']):not([type='file']):not([type='checkbox']):not([type='r
   color: hsl(222 47% 11%);
 }
 
-.visualizer-code select,
-.custom-code-editor textarea {
-  /* color: hsl(222 47% 11%) !important; */
-}
-
 .visualizer-code select option {
   background: hsl(0 0% 100%);
   color: hsl(222 47% 11%);

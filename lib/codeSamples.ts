@@ -34,7 +34,7 @@ async function highlightCodeSamples(code: string): Promise<HighlightedCodeSample
   return Object.fromEntries(entries) as HighlightedCodeSamples
 }
 
-function buildCodeSamples(code: string): Record<CodeSampleLanguageId, string> {
+export function buildCodeSamples(code: string): Record<CodeSampleLanguageId, string> {
   const javascript = toJavaScript(code)
 
   return {

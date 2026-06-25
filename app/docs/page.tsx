@@ -55,10 +55,10 @@ export default function DocsPage() {
 
       <DocsBrowser docs={VISUALIZER_DOCS} />
 
-      {/* <section className="mt-10 responsive-grid">
+      <section className="mt-10 responsive-grid">
         {DSA_CATALOG.map((category) => (
           <article
-            className="bg-[hsl(var(--surface-container-low))] p-6"
+            className="glass-panel rounded-lg p-5"
             key={category.id}
           >
             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
@@ -76,7 +76,7 @@ export default function DocsPage() {
             </div>
 
             <div className="mt-5 grid gap-3">
-              {category.topics.map((topic) => (
+              {category.topics.slice(0, 4).map((topic) => (
                 <div
                   className="rounded-md bg-[hsl(var(--glass-strong))] px-4 py-3"
                   key={`${category.id}-${topic.name}`}
@@ -99,16 +99,21 @@ export default function DocsPage() {
                 </div>
               ))}
             </div>
+            {category.topics.length > 4 && (
+              <p className="mt-4 text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">
+                + {category.topics.length - 4} more in this category
+              </p>
+            )}
           </article>
         ))}
-      </section> */}
+      </section>
     </main>
   )
 }
 
 function Metric({ label, value }: { label: string; value: number }) {
   return (
-    <div className="bg-[hsl(var(--glass-strong))] p-4">
+    <div className="rounded-lg bg-[hsl(var(--glass-strong))] p-4">
       <p className="font-mono text-3xl font-black text-primary">{value}</p>
       <p className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground">
         {label}
